@@ -24,13 +24,12 @@
             padding: 0;
             overflow-x: hidden;
             background: linear-gradient(rgba(2, 5, 10, 0.85), rgba(2, 5, 10, 0.85)), 
-                        url('https://images.alphacoders.com/132/1328639.png'); /* 4K Game Wallpaper */
+                        url('https://images.alphacoders.com/132/1328639.png');
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
         }
 
-        /* Nav Bar for Authenticity */
         nav {
             background: rgba(0,0,0,0.7);
             padding: 15px 5%;
@@ -94,7 +93,6 @@
         }
         .input-ui:focus { box-shadow: 0 0 15px var(--primary); }
 
-        /* Real Rewards Grid */
         .grid-rewards {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -119,6 +117,7 @@
             transform: translateY(-5px);
         }
 
+        /* Fixed Image Fixes */
         .reward-card img { 
             width: 70px; 
             margin-bottom: 10px; 
@@ -126,9 +125,9 @@
             animation: float 3s ease-in-out infinite;
         }
 
-        /* Fixed Glow for specific items */
-        .vp-img { filter: drop-shadow(0 0 15px var(--gold)) !important; }
-        .omni-img { filter: hue-rotate(280deg) drop-shadow(0 0 15px var(--accent)) !important; }
+        /* Specific glow for VP and Omni */
+        .vp-img { filter: drop-shadow(0 0 15px var(--gold)) brightness(1.2) !important; }
+        .omni-img { filter: hue-rotate(280deg) drop-shadow(0 0 15px var(--accent)) brightness(1.3) !important; }
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
@@ -156,7 +155,6 @@
 
         .btn-action:hover { transform: scale(1.03); box-shadow: 0 15px 35px rgba(0, 242, 255, 0.6); }
 
-        /* Featured Characters Section */
         .characters-showcase {
             margin-top: 40px;
             display: flex;
@@ -179,9 +177,6 @@
         .char-item img { width: 100%; border-radius: 10px; }
         .char-item p { font-size: 0.7rem; font-weight: bold; margin-top: 5px; color: var(--gold); }
 
-        /* Content Locker Styling */
-        #ui-locker { padding: 20px 0; }
-
         .locker-box {
             background: rgba(0, 242, 255, 0.05);
             padding: 30px;
@@ -203,7 +198,6 @@
 
         .hidden { display: none; }
 
-        /* Sync Animations */
         .loader {
             width: 60px; height: 60px; border: 4px solid #111; border-top: 4px solid var(--primary);
             border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;
@@ -359,7 +353,6 @@
         }, 120);
     }
 
-    // Dynamic Live Feed
     const trainers = ['X_Slayer_USA', 'PokeGod_26', 'Sarah_Elite', 'Daniel_Pro', 'Mega_Ash', 'Volt_King'];
     setInterval(() => {
         const t = trainers[Math.floor(Math.random()*trainers.length)];
