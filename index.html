@@ -3,298 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokémon Champions 2026 - Official Distribution</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Pokémon Champions | Master the Battle</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;500;800&display=swap');
-
-        :root {
-            --primary: #00f2ff;
-            --accent: #ff007a;
-            --gold: #ffcc00;
-            --glass-bg: rgba(7, 11, 22, 0.96);
-            --neon-glow: 0 0 20px rgba(0, 242, 255, 0.5);
-        }
-
-        body {
-            background: #02050a;
-            color: #fff;
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            /* Background stable men Wikimedia */
-            background: linear-gradient(rgba(2, 5, 10, 0.9), rgba(2, 5, 10, 0.9)), 
-                        url('https://upload.wikimedia.org/wikipedia/commons/3/3e/Tokyo_Skyline_at_Night_Blue_Hour.jpg');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
-        }
-
-        nav {
-            background: rgba(0,0,0,0.85);
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--primary);
-            backdrop-filter: blur(15px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo-nav { width: 120px; filter: drop-shadow(0 0 5px var(--primary)); }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 50px 20px;
-        }
-
-        .main-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(25px);
-            border: 1px solid rgba(0, 242, 255, 0.2);
-            border-radius: 35px;
-            width: 100%;
-            max-width: 480px;
-            padding: 45px 30px;
-            box-shadow: 0 30px 70px rgba(0,0,0,0.9), var(--neon-glow);
-            position: relative;
-            text-align: center;
-            box-sizing: border-box;
-        }
-
-        .badge-live {
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            font-size: 0.65rem;
-            padding: 6px 14px;
-            border-radius: 50px;
-            font-weight: 900;
-            text-transform: uppercase;
-            position: absolute;
-            top: 25px;
-            right: 25px;
-            box-shadow: 0 0 15px var(--accent);
-            letter-spacing: 1px;
-        }
-
-        h2, h3 { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
-
-        .input-box {
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid var(--primary);
-            border-radius: 15px;
-            padding: 20px;
-            width: 100%;
-            color: #fff;
-            font-size: 1rem;
-            margin-bottom: 18px;
-            box-sizing: border-box;
-            outline: none;
-            transition: 0.3s;
-        }
-        .input-box:focus { box-shadow: 0 0 15px var(--primary); }
-
-        .grid-rewards {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin: 25px 0;
-        }
-
-        .reward-item {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 20px;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .reward-item.active {
-            border-color: var(--primary);
-            background: rgba(0, 242, 255, 0.1);
-            transform: translateY(-5px);
-        }
-
-        .reward-item img { 
-            width: 50px; 
-            height: 50px; 
-            margin-bottom: 12px;
-            object-fit: contain;
-            filter: drop-shadow(0 0 8px rgba(255,255,255,0.2));
-        }
-
-        .reward-item span { font-weight: 900; font-size: 1.1rem; display: block; }
-        .reward-item small { color: var(--primary); font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
-
-        .btn-main {
-            background: linear-gradient(90deg, var(--primary), #0072ff);
-            color: #000;
-            width: 100%;
-            padding: 22px;
-            border: none;
-            border-radius: 18px;
-            font-weight: 900;
-            font-size: 1.2rem;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-family: 'Orbitron', sans-serif;
-            box-shadow: 0 10px 25px rgba(0, 242, 255, 0.3);
-            transition: 0.3s;
-        }
-
-        .btn-main:hover { transform: scale(1.02); box-shadow: 0 15px 35px rgba(0, 242, 255, 0.5); }
-
-        .loader-container { padding: 40px 0; }
-        .loader {
-            width: 60px; height: 60px; border: 5px solid #111; border-top: 5px solid var(--primary);
-            border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;
-        }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-
-        .hidden { display: none; }
-
-        .feed {
-            margin-top: 30px;
-            padding: 15px;
-            background: rgba(0,0,0,0.6);
-            border-radius: 50px;
-            font-size: 0.8rem;
-            color: var(--primary);
-            border: 1px solid rgba(0,242,255,0.1);
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #020408; color: #fff; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .neon-blue { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+        .neon-red { box-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
+        .hero-gradient { background: radial-gradient(circle at center, rgba(37, 99, 235, 0.15) 0%, rgba(2, 4, 8, 1) 70%); }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
     </style>
 </head>
-<body>
+<body class="overflow-x-hidden">
 
-<nav>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" class="logo-nav">
-    <div style="text-align: right; font-size: 0.7rem;">
-        <span style="color: #2ecc71;">● SYNC ACTIVE</span><br>
-        <span style="color: #666;">2026 EDITION</span>
-    </div>
-</nav>
-
-<div class="container">
-    <div class="main-card">
-        <div class="badge-live">Live Sync</div>
-
-        <div id="step1">
-            <h2 style="margin-top: 45px; color: var(--primary);">Trainer Login</h2>
-            <p style="color: #888; font-size: 0.85rem; margin-bottom: 30px;">New Mobile Release - Global Sync</p>
-            <input type="text" class="input-box" id="username" placeholder="Trainer Username...">
-            <select class="input-box">
-                <option>Android / iOS</option>
-                <option>Nintendo Switch</option>
-            </select>
-            <button class="btn-main" onclick="nextStep(1, 2)">Connect Player</button>
-        </div>
-
-        <div id="step2" class="hidden">
-            <h3 style="margin-bottom: 20px; font-size: 0.95rem;">Select Your Assets</h3>
-            <div class="grid-rewards">
-                <div class="reward-item active" onclick="selectReward(this, '50,000 VP')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg">
-                    <span>50,000</span>
-                    <small>Victory Points</small>
-                </div>
-                <div class="reward-item" onclick="selectReward(this, '10,000 Gems')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Diamond_icon_flat.svg">
-                    <span>10,000</span>
-                    <small>Premium Gems</small>
-                </div>
-                <div class="reward-item" onclick="selectReward(this, 'Season Pass')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/Ticket_font_awesome_blue.svg" style="filter: hue-rotate(140deg);">
-                    <span>S-12</span>
-                    <small>Elite Pass</small>
-                </div>
-                <div class="reward-item" onclick="selectReward(this, 'Omni Stone')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Five_pointed_star.svg" style="filter: drop-shadow(0 0 5px #ffcc00);">
-                    <span>OMNI</span>
-                    <small>Legacy Stone</small>
-                </div>
+    <nav class="fixed w-full z-50 glass px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center neon-blue">
+                <div class="w-3 h-3 bg-white rounded-full"></div>
             </div>
-            <button class="btn-main" onclick="startSync()">Sync Data</button>
+            <span class="font-black tracking-tighter text-xl uppercase">Pokémon <span class="text-blue-500">Champions</span></span>
         </div>
+        <div class="hidden md:flex gap-8 text-xs font-bold tracking-widest uppercase text-gray-400">
+            <a href="#" class="hover:text-white transition">Battle Pass</a>
+            <a href="#" class="hover:text-white transition">Ranked</a>
+            <a href="#" class="hover:text-white transition">Pokémon</a>
+            <a href="#" class="hover:text-white transition">News</a>
+        </div>
+        <button class="bg-white text-black px-6 py-2 rounded-full text-xs font-black hover:bg-blue-500 hover:text-white transition">PLAY NOW</button>
+    </nav>
 
-        <div id="step-sync" class="hidden loader-container">
-            <div class="loader"></div>
-            <h4 id="status" style="color: var(--primary); font-family: 'Orbitron';">Initialising...</h4>
-            <div style="width: 100%; background: #111; height: 8px; border-radius: 10px; overflow: hidden; margin-top: 25px;">
-                <div id="bar" style="width: 0%; height: 100%; background: var(--primary); transition: 0.3s; box-shadow: 0 0 10px var(--primary);"></div>
+    <header class="relative h-screen flex items-center justify-center text-center px-4 hero-gradient">
+        <div class="absolute inset-0 z-0 opacity-40">
+            <img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=2070" class="w-full h-full object-cover" alt="Background">
+        </div>
+        
+        <div class="relative z-10 max-w-5xl">
+            <h1 class="text-6xl md:text-9xl font-black italic tracking-tighter uppercase leading-none">
+                Master the <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-400 to-red-500">Ultimate Battle</span>
+            </h1>
+            <p class="mt-6 text-gray-400 tracking-[0.3em] uppercase text-sm font-light">The Global Competitive Standard Has Arrived</p>
+            <div class="mt-12 flex flex-col md:flex-row gap-6 justify-center">
+                <button class="px-12 py-5 bg-red-600 font-black text-lg rounded-sm skew-x-[-12deg] hover:bg-red-500 transition neon-red">
+                    <span class="inline-block skew-x-[12deg]">BATTLE NOW</span>
+                </button>
+                <button class="px-12 py-5 glass font-black text-lg rounded-sm skew-x-[-12deg] hover:bg-white/10 transition">
+                    <span class="inline-block skew-x-[12deg]">VIEW TRAILER</span>
+                </button>
             </div>
         </div>
+    </header>
 
-        <div id="step-verify" class="hidden">
-            <h3 style="color: var(--accent);">Action Needed</h3>
-            <p style="font-size: 0.85rem; color: #ccc;">Finalizing sync for <b id="final-res" style="color: var(--primary);">...</b></p>
-            <div style="background: rgba(0, 242, 255, 0.04); padding: 30px; border: 2px dashed var(--primary); border-radius: 20px; margin: 25px 0;">
-                <i class="fas fa-user-check" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 15px;"></i>
-                <p style="font-weight: 800; font-size: 0.9rem;">Human Verification Required</p>
-                <button class="btn-main" style="margin-top: 15px; background: var(--accent); color: #fff;" onclick="window.location.href='YOUR_CPA_LINK_HERE'">Verify Now</button>
+    <section class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="mb-16">
+            <h2 class="text-3xl font-black italic uppercase border-l-4 border-blue-600 pl-4">Season Rewards</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="glass p-8 rounded-xl group hover:border-blue-500/50 transition">
+                <i data-lucide="zap" class="text-yellow-400 mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Victory Points</h3>
+                <p class="text-gray-500 text-sm">Climb the ladder and earn VP to unlock exclusive Master Tier skins.</p>
             </div>
-            <div style="font-size: 0.7rem; color: var(--gold); font-weight: 900;"><i class="fas fa-lock"></i> AES-256 ENCRYPTION</div>
+            <div class="glass p-8 rounded-xl group hover:border-red-500/50 transition">
+                <i data-lucide="trophy" class="text-blue-400 mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Grand Slam</h3>
+                <p class="text-gray-500 text-sm">Top 500 players globally receive physical invite-only medals.</p>
+            </div>
+            <div class="glass p-8 rounded-xl">
+                <i data-lucide="gift" class="text-purple-400 mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Mystery Gifts</h3>
+                <p class="text-gray-500 text-sm">Scan the weekly QR code for limited-edition Tera Shards.</p>
+            </div>
+            <div class="glass p-8 rounded-xl">
+                <i data-lucide="shield-check" class="text-green-400 mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Battle Pass</h3>
+                <p class="text-gray-500 text-sm">100 tiers of content including Legendary trainer outfits.</p>
+            </div>
         </div>
+    </section>
 
-        <div class="feed">
-            <i class="fas fa-bolt"></i> <span id="live-text">Waiting for connection...</span>
+    <section class="py-24 bg-[#05070a] border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+            <div class="order-2 md:order-1">
+                <div class="relative">
+                    <div class="absolute -inset-4 bg-blue-600/20 blur-3xl"></div>
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=1000" class="relative rounded-2xl border border-white/10 shadow-2xl" alt="Gameplay">
+                </div>
+            </div>
+            <div class="order-1 md:order-2">
+                <h2 class="text-5xl font-black italic uppercase leading-tight mb-8">Real-Time <br><span class="text-blue-500">4K Arena Combat</span></h2>
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 glass rounded-lg flex items-center justify-center shrink-0"><i data-lucide="cpu"></i></div>
+                        <div>
+                            <h4 class="font-bold uppercase tracking-wide">Next-Gen Engine</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed">Built on the Volt-Engine for zero-latency turn transitions and stunning 120FPS battles.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 glass rounded-lg flex items-center justify-center shrink-0"><i data-lucide="users"></i></div>
+                        <div>
+                            <h4 class="font-bold uppercase tracking-wide">Cross-Platform Sync</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed">Start your battle on Mobile, finish it on your PC or Console with full account parity.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+    </section>
 
-<script>
-    let selectedPack = "50,000 VP";
+    <section class="py-32 relative flex justify-center text-center">
+        <div class="max-w-3xl px-6">
+            <h2 class="text-4xl md:text-6xl font-black italic uppercase mb-12">The League Starts In</h2>
+            <div class="flex justify-center gap-8 mb-16">
+                <div>
+                    <span class="block text-5xl font-black text-blue-500">03</span>
+                    <span class="text-xs uppercase tracking-widest text-gray-500">Days</span>
+                </div>
+                <div class="text-5xl font-black text-gray-700">:</div>
+                <div>
+                    <span class="block text-5xl font-black text-blue-500">14</span>
+                    <span class="text-xs uppercase tracking-widest text-gray-500">Hours</span>
+                </div>
+                <div class="text-5xl font-black text-gray-700">:</div>
+                <div>
+                    <span class="block text-5xl font-black text-blue-500">42</span>
+                    <span class="text-xs uppercase tracking-widest text-gray-500">Mins</span>
+                </div>
+            </div>
+            <button class="w-full md:w-auto px-16 py-6 bg-white text-black font-black text-2xl uppercase rounded-full hover:bg-blue-600 hover:text-white transition-all scale-105 hover:scale-110">
+                JOIN THE CHAMPIONS LEAGUE
+            </button>
+        </div>
+    </section>
 
-    function nextStep(current, next) {
-        if (current === 1 && document.getElementById('username').value.length < 3) {
-            alert('Please enter a valid Trainer Name');
-            return;
-        }
-        document.getElementById('step' + current).classList.add('hidden');
-        document.getElementById('step' + next).classList.remove('hidden');
-    }
+    <footer class="py-12 border-t border-white/5 text-center text-gray-600 text-[10px] uppercase tracking-widest px-6">
+        <p>© 2026 Pokémon Champions. TM, ® Nintendo / Creatures Inc. / GAME FREAK inc.</p>
+        <div class="flex justify-center gap-6 mt-4">
+            <a href="#" class="hover:text-white">Privacy Policy</a>
+            <a href="#" class="hover:text-white">Terms of Use</a>
+            <a href="#" class="hover:text-white">Support</a>
+        </div>
+    </footer>
 
-    function selectReward(el, name) {
-        document.querySelectorAll('.reward-item').forEach(item => item.classList.remove('active'));
-        el.classList.add('active');
-        selectedPack = name;
-    }
-
-    function startSync() {
-        document.getElementById('step2').classList.add('hidden');
-        document.getElementById('step-sync').classList.remove('hidden');
-        document.getElementById('final-res').innerText = selectedPack;
-
-        let progress = 0;
-        const steps = ['Authenticating...', 'Linking UID...', 'Injecting Assets...', 'Finalizing...'];
-        const interval = setInterval(() => {
-            progress += 5;
-            document.getElementById('bar').style.width = progress + '%';
-            document.getElementById('status').innerText = steps[Math.floor(progress/26)] || 'Ready!';
-            
-            if(progress >= 100) {
-                clearInterval(interval);
-                setTimeout(() => {
-                    document.getElementById('step-sync').classList.add('hidden');
-                    document.getElementById('step-verify').classList.remove('hidden');
-                }, 600);
-            }
-        }, 120);
-    }
-
-    const trainers = ['Ash_2026', 'PokeMaster_US', 'Daniel_Jkk', 'Elite_Sara', 'Volt_Trainer'];
-    setInterval(() => {
-        const t = trainers[Math.floor(Math.random()*trainers.length)];
-        document.getElementById('live-text').innerText = `Trainer ${t} just synced their rewards!`;
-    }, 4500);
-</script>
-
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
 </body>
 </html>
