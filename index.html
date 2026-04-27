@@ -3,263 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokémon Champions 2026 - Resource Sync v4.2</title>
+    <title>Pokémon Champions Official Portal | 2026 Rewards</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
             --primary: #00f2ff;
             --accent: #ff007a;
-            --gold: #ffcc00;
-            --glass-bg: rgba(10, 15, 30, 0.85);
-            --neon-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
+            --dark-bg: #030712;
+            --glass: rgba(255, 255, 255, 0.05);
         }
 
         body {
-            background: #02050a;
+            background: var(--dark-bg);
             color: #fff;
-            font-family: 'Inter', 'Segoe UI', sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow: hidden;
-            /* Background image m-stylia bhal l-game */
-            background: linear-gradient(rgba(2, 5, 10, 0.8), rgba(2, 5, 10, 0.8)), 
-                        url('https://images.alphacoders.com/132/1328639.png');
+            overflow-x: hidden;
+            background-image: url('https://images.alphacoders.com/132/1328639.png');
             background-size: cover;
+            background-attachment: fixed;
             background-position: center;
         }
 
-        .main-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
-            width: 90%;
-            max-width: 480px;
-            padding: 40px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.8), var(--neon-shadow);
-            position: relative;
-            text-align: center;
+        /* Navbar */
+        nav {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--primary);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        .header-ui { margin-bottom: 30px; }
-
-        .logo-box img {
-            width: 220px;
-            filter: drop-shadow(0 0 10px var(--primary));
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px var(--primary)); }
-            50% { transform: scale(1.05); filter: drop-shadow(0 0 20px var(--primary)); }
-        }
-
-        .badge-pro {
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            font-size: 0.7rem;
-            padding: 5px 12px;
-            border-radius: 50px;
-            font-weight: 800;
+        .nav-links span {
+            margin: 0 15px;
+            font-size: 0.9rem;
             text-transform: uppercase;
-            position: absolute;
-            top: 20px;
-            right: 20px;
+            letter-spacing: 1px;
+            color: #ccc;
+            cursor: pointer;
         }
 
-        /* Elements Selection */
-        .input-ui {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--primary);
-            border-radius: 12px;
-            padding: 15px;
-            width: 100%;
-            color: #fff;
-            font-size: 1rem;
-            margin-bottom: 15px;
-            box-sizing: border-box;
-            outline: none;
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(to bottom, rgba(3,7,18,0.3), var(--dark-bg));
         }
 
-        .grid-rewards {
+        .hero h1 {
+            font-size: 3.5rem;
+            margin: 0;
+            text-shadow: 0 0 20px var(--primary);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: -50px auto 50px;
+            padding: 20px;
+        }
+
+        /* Rewards Grid */
+        .rewards-section {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin: 20px 0;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
         }
 
         .reward-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 20px;
-            cursor: pointer;
-            transition: 0.3s;
-            position: relative;
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: 0.4s;
+            backdrop-filter: blur(10px);
         }
 
-        .reward-card:hover, .reward-card.active {
+        .reward-card:hover {
             border-color: var(--primary);
-            background: rgba(0, 242, 255, 0.1);
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
         }
 
-        .reward-card img { width: 50px; margin-bottom: 10px; }
+        .reward-card i { font-size: 3rem; color: var(--primary); margin-bottom: 15px; }
+        
+        .reward-card h3 { font-size: 1.5rem; margin: 10px 0; }
+        .reward-card p { color: #aaa; font-size: 0.9rem; }
 
-        .reward-card span { display: block; font-weight: bold; font-size: 1.1rem; }
-        .reward-card small { color: var(--primary); font-size: 0.8rem; }
-
-        .btn-action {
-            background: var(--primary);
-            color: #000;
-            width: 100%;
-            padding: 18px;
+        .claim-btn {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
             border: none;
-            border-radius: 15px;
-            font-weight: 800;
-            font-size: 1.1rem;
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
             cursor: pointer;
-            text-transform: uppercase;
-            box-shadow: 0 5px 15px rgba(0, 242, 255, 0.4);
-            transition: 0.3s;
+            margin-top: 15px;
+            width: 100%;
         }
 
-        .btn-action:hover { transform: scale(1.02); box-shadow: 0 8px 25px rgba(0, 242, 255, 0.6); }
-
-        /* Sync Animation */
-        .syncing-ui { display: none; padding: 40px 0; }
-        .loader {
-            border: 4px solid rgba(255,255,255,0.1);
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
+        /* Generator Popup (Simplified) */
+        #generator-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* Notification Feed */
-        .activity-feed {
-            margin-top: 25px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+        .modal-content {
+            background: #0f172a;
+            padding: 40px;
+            border-radius: 30px;
+            width: 90%;
+            max-width: 500px;
+            border: 2px solid var(--primary);
+            text-align: center;
+        }
+
+        /* Trusted Badges */
+        .trust-badges {
+            margin-top: 80px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            opacity: 0.6;
+            filter: grayscale(1);
+        }
+
+        .trust-badges img { height: 40px; }
+
+        footer {
+            text-align: center;
+            padding: 40px;
             font-size: 0.8rem;
-            color: #aaa;
+            color: #555;
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
 
-        .hidden { display: none; }
+        .live-feed {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 242, 255, 0.15);
+            padding: 10px 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            backdrop-filter: blur(5px);
+            font-size: 0.8rem;
+        }
     </style>
 </head>
 <body>
 
-<div class="main-card">
-    <div class="badge-pro">Server Online</div>
-    
-    <div class="header-ui">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" class="logo-box" alt="Pokemon Logo">
-        <p style="color: #aaa; font-size: 0.9rem;">2026 Global Sync Tool v4.2</p>
+<nav>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" height="40">
+    <div class="nav-links">
+        <span>GAMES</span>
+        <span>NEWS</span>
+        <span>COMMUNITY</span>
+        <span style="color: var(--primary);">REWARDS</span>
+    </div>
+</nav>
+
+<div class="hero">
+    <h1>CHAMPIONS REWARD CENTER</h1>
+    <p>Exclusive Digital Assets for Pokémon Champions v4.2 Global Edition</p>
+</div>
+
+<div class="main-container">
+    <div class="rewards-section">
+        <div class="reward-card">
+            <i class="fas fa-coins"></i>
+            <h3>99,999 VP</h3>
+            <p>Victory Points for stat upgrades and elite shop access.</p>
+            <button class="claim-btn" onclick="openGenerator('99,999 VP')">CLAIM NOW</button>
+        </div>
+
+        <div class="reward-card">
+            <i class="fas fa-gem"></i>
+            <h3>15,000 GEMS</h3>
+            <p>Premium currency for Omni-Ring evolutions and rare pulls.</p>
+            <button class="claim-btn" onclick="openGenerator('15,000 GEMS')">CLAIM NOW</button>
+        </div>
+
+        <div class="reward-card" style="border-color: var(--accent);">
+            <i class="fas fa-box-open" style="color: var(--accent);"></i>
+            <h3 style="color: var(--accent);">PREMIUM PASS</h3>
+            <p>Instant unlock of the Season 12 Champion Battle Pass.</p>
+            <button class="claim-btn" onclick="openGenerator('PREMIUM PASS')">CLAIM NOW</button>
+        </div>
+
+        <div class="reward-card">
+            <i class="fas fa-bolt"></i>
+            <h3>OMNI STONE</h3>
+            <p>Rare evolution item for Mega-Champion transformations.</p>
+            <button class="claim-btn" onclick="openGenerator('OMNI STONE')">CLAIM NOW</button>
+        </div>
     </div>
 
-    <div id="ui-step1">
-        <h3 style="margin-bottom: 20px;">Trainer Identification</h3>
-        <input type="text" class="input-ui" id="trainer-name" placeholder="Enter Trainer Name...">
-        <select class="input-ui" id="device">
-            <option value="ios">iOS / iPhone</option>
-            <option value="android">Android</option>
-            <option value="switch">Nintendo Switch</option>
-        </select>
-        <button class="btn-action" onclick="toStep2()">Secure Connect</button>
-    </div>
-
-    <div id="ui-step2" class="hidden">
-        <h3>Select Reward Pack</h3>
-        <div class="grid-rewards">
-            <div class="reward-card" onclick="selectReward(this)">
-                <img src="https://cdn-icons-png.flaticon.com/512/188/188987.png" alt="VP">
-                <span>50,000</span>
-                <small>Victory Points</small>
+    <div style="margin-top: 100px; text-align: center;">
+        <h2>HOW IT WORKS</h2>
+        <div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin-top: 40px;">
+            <div style="width: 250px; margin: 20px;">
+                <i class="fas fa-user-check" style="font-size: 2rem; color: var(--primary);"></i>
+                <h4>1. Identify</h4>
+                <p style="font-size: 0.8rem; color: #aaa;">Connect your Trainer ID via our secure encrypted gateway.</p>
             </div>
-            <div class="reward-card" onclick="selectReward(this)">
-                <img src="https://cdn-icons-png.flaticon.com/512/188/188990.png" alt="Gems">
-                <span>10,000</span>
-                <small>Champion Gems</small>
+            <div style="width: 250px; margin: 20px;">
+                <i class="fas fa-server" style="font-size: 2rem; color: var(--primary);"></i>
+                <h4>2. Sync</h4>
+                <p style="font-size: 0.8rem; color: #aaa;">Our servers communicate with the global database to verify eligibility.</p>
+            </div>
+            <div style="width: 250px; margin: 20px;">
+                <i class="fas fa-gift" style="font-size: 2rem; color: var(--primary);"></i>
+                <h4>3. Receive</h4>
+                <p style="font-size: 0.8rem; color: #aaa;">Complete a sponsored verification to release assets to your mail-box.</p>
             </div>
         </div>
-        <button class="btn-action" onclick="toStep3()">Generate Resources</button>
     </div>
 
-    <div id="ui-sync" class="syncing-ui">
-        <div class="loader"></div>
-        <h4 id="status-text">Connecting to Game Server...</h4>
-        <div style="width: 100%; background: #222; height: 10px; border-radius: 10px; overflow: hidden;">
-            <div id="progress-bar" style="width: 0%; height: 100%; background: var(--primary); transition: 0.3s;"></div>
-        </div>
-    </div>
-
-    <div id="ui-locker" class="hidden">
-        <h3 style="color: var(--accent);">Final Verification</h3>
-        <p style="font-size: 0.85rem; color: #ccc;">Your request for <span id="summary-res">Resources</span> is ready. Complete one task to prevent automation abuse.</p>
-        
-        <div id="ogads-locker-here" style="background: rgba(0, 242, 255, 0.05); padding: 30px; border: 2px dashed var(--primary); border-radius: 20px; margin: 20px 0;">
-            <i class="fas fa-shield-halved" style="font-size: 2rem; color: var(--primary); margin-bottom: 10px;"></i>
-            <p>Verification Pending...</p>
-            </div>
-        <div style="font-size: 0.75rem; color: var(--gold);"><i class="fas fa-lock"></i> SSL Secured Connection</div>
-    </div>
-
-    <div class="activity-feed">
-        <i class="fas fa-circle-notch fa-spin"></i> <span id="live-text">Trainer `Ghost_USA` syncing gems...</span>
+    <div class="trust-badges">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Norton_by_Symantec_Logo.svg">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/McAfee_logo.svg">
+        <img src="https://www.pngkit.com/png/full/231-2313645_ssl-secure-seal-png.png" style="filter: brightness(0) invert(1);">
     </div>
 </div>
 
+<div id="generator-modal">
+    <div class="modal-content" id="modal-step1">
+        <h2 id="selected-item">Claiming Resource</h2>
+        <input type="text" id="username" placeholder="Enter Trainer ID" style="width: 100%; padding: 15px; margin: 20px 0; background: #000; border: 1px solid var(--primary); color: #fff; border-radius: 10px;">
+        <button class="btn-action claim-btn" onclick="startSync()">SYNC NOW</button>
+    </div>
+    
+    <div class="modal-content" id="modal-locker" style="display: none;">
+        <h2 style="color: var(--accent);">VERIFICATION REQUIRED</h2>
+        <p>To finalize the delivery of <span id="res-final" style="color: var(--primary);"></span>, please complete one offer.</p>
+        <div style="background: rgba(0,242,255,0.1); padding: 20px; border-radius: 15px; margin: 20px 0; border: 1px dashed var(--primary);">
+            <p>Checking status...</p>
+        </div>
+    </div>
+</div>
+
+<div class="live-feed">
+    <i class="fas fa-user-circle"></i> <span id="feed-text">User `Trainer_Red` just claimed 15,000 Gems</span>
+</div>
+
+<footer>
+    <p>&copy; 2026 Pokémon Champions Global Portal. This is a promotional fan-driven event. Not affiliated with Nintendo/GameFreak.</p>
+    <p>Privacy Policy | Terms of Service | Contact Support</p>
+</footer>
+
 <script>
-    function toStep2() {
-        const name = document.getElementById('trainer-name').value;
-        if(name.length < 3) return alert('Enter valid Trainer Name');
-        document.getElementById('ui-step1').classList.add('hidden');
-        document.getElementById('ui-step2').classList.remove('hidden');
+    function openGenerator(item) {
+        document.getElementById('generator-modal').style.display = 'flex';
+        document.getElementById('selected-item').innerText = "Claiming " + item;
+        document.getElementById('res-final').innerText = item;
     }
 
-    function selectReward(el) {
-        document.querySelectorAll('.reward-card').forEach(r => r.classList.remove('active'));
-        el.classList.add('active');
-    }
-
-    function toStep3() {
-        document.getElementById('ui-step2').classList.add('hidden');
-        document.getElementById('ui-sync').style.display = 'block';
+    function startSync() {
+        const user = document.getElementById('username').value;
+        if(user.length < 3) return alert('Enter a valid ID');
         
-        let progress = 0;
-        const statusSteps = [
-            'Locating Trainer Database...',
-            'Injecting VP Packets...',
-            'Bypassing Anti-Cheat...',
-            'Encrypting Champion Gems...',
-            'Finalizing Sync...'
-        ];
+        document.getElementById('modal-step1').innerHTML = `
+            <i class="fas fa-circle-notch fa-spin" style="font-size: 3rem; color: var(--primary);"></i>
+            <p>Syncing with <b>Global Server 4</b>...</p>
+        `;
         
-        const interval = setInterval(() => {
-            progress += 5;
-            document.getElementById('progress-bar').style.width = progress + '%';
-            document.getElementById('status-text').innerText = statusSteps[Math.floor(progress/25)] || 'Ready!';
-            
-            if(progress >= 100) {
-                clearInterval(interval);
-                document.getElementById('ui-sync').style.display = 'none';
-                document.getElementById('ui-locker').classList.remove('hidden');
-            }
-        }, 150);
+        setTimeout(() => {
+            document.getElementById('modal-step1').style.display = 'none';
+            document.getElementById('modal-locker').style.display = 'block';
+        }, 3000);
     }
 
-    // Fake Live Feed Logic
-    const trainers = ['Max_Power', 'PokeKing26', 'Sarah_LA', 'Daniel_NY', 'Ultra_Ash'];
+    // Live Feed Simulation
+    const names = ['Volt_Runner', 'Ash_2026', 'Misty_Blue', 'Brock_NY', 'Professor_X'];
     setInterval(() => {
-        const t = trainers[Math.floor(Math.random()*trainers.length)];
-        document.getElementById('live-text').innerText = `Trainer \`${t}\` successfully verified!`;
-    }, 4500);
+        const n = names[Math.floor(Math.random()*names.length)];
+        document.getElementById('feed-text').innerText = `User \`${n}\` just completed verification!`;
+    }, 5000);
 </script>
 
 </body>
