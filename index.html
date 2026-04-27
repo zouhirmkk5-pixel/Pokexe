@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokémon Champions 2026 - Official Asset Distribution</title>
+    <title>Pokémon Champions 2026 - Official Sync</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;500;800&display=swap');
@@ -47,7 +47,6 @@
             box-shadow: 0 25px 80px rgba(0,0,0,0.8); position: relative; overflow: hidden;
         }
 
-        /* Step Indicator */
         .step-map { display: flex; justify-content: center; gap: 40px; margin-bottom: 30px; position: relative; }
         .step-map::before { content: ''; position: absolute; top: 15px; width: 60%; height: 2px; background: rgba(255,255,255,0.05); z-index: 1; }
         .step-point { width: 32px; height: 32px; background: #111; border: 2px solid #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 900; z-index: 2; color: #555; transition: 0.3s; }
@@ -56,6 +55,7 @@
         .back-btn {
             position: absolute; top: 20px; left: 20px; color: #555; cursor: pointer;
             font-size: 0.7rem; font-weight: 800; display: flex; align-items: center; gap: 5px; text-transform: uppercase;
+            transition: 0.3s; z-index: 10;
         }
         .back-btn:hover { color: var(--primary); }
 
@@ -75,7 +75,7 @@
         }
         .section-title::after { content: ''; flex: 1; height: 1px; background: rgba(0,242,255,0.1); }
 
-        .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; width: 100%; }
+        .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; width: 100%; }
 
         .reward-card {
             background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);
@@ -107,7 +107,6 @@
 
         .hidden { display: none; }
         
-        /* Stats Bar */
         .live-stats {
             display: flex; justify-content: space-around; width: 100%; max-width: 550px;
             margin-top: 25px; padding: 15px; background: rgba(255,255,255,0.02); border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);
@@ -116,13 +115,14 @@
         .stat-box div:first-child { font-weight: 900; font-size: 0.9rem; color: var(--primary); }
         .stat-box div:last-child { font-size: 0.55rem; color: #555; text-transform: uppercase; font-weight: 700; }
 
-        .security-footer { margin-top: 20px; display: flex; justify-content: center; gap: 15px; opacity: 0.4; }
-        .security-footer i { font-size: 1.2rem; }
+        .selected-preview { width: 100px; height: 100px; object-fit: contain; margin: 10px auto; display: block; filter: drop-shadow(0 0 15px var(--primary)); animation: float 2s infinite ease-in-out; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-        .loader { width: 40px; height: 40px; border: 3px solid #111; border-top: 3px solid var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 20px auto; }
+        .loader { width: 40px; height: 40px; border: 3px solid #111; border-top: 3px solid var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 15px auto; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
+        
         #progress-bar-container { width: 100%; background: #111; height: 6px; border-radius: 10px; overflow: hidden; margin: 20px 0; }
-        #progress-bar { height: 100%; background: var(--primary); width: 0%; transition: 0.3s; }
+        #progress-bar { height: 100%; background: var(--primary); width: 0%; transition: 0.3s; box-shadow: 0 0 10px var(--primary); }
     </style>
 </head>
 <body>
@@ -149,10 +149,7 @@
 
         <div id="ui-step1">
             <h2 style="font-family: 'Orbitron'; font-size: 1.4rem; margin-bottom: 5px;">Verify Trainer</h2>
-            <p style="font-size: 0.8rem; color: #666; margin-bottom: 25px;">Enter your global ID to check eligibility</p>
-            
             <input type="text" class="input-ui" id="trainer-id" placeholder="Username / ID...">
-            
             <div class="platform-grid">
                 <div class="platform-item active" onclick="selectPlatform(this)">
                     <i class="fab fa-android" style="color: #3DDC84;"></i>
@@ -163,108 +160,89 @@
                     <span>IOS / IPAD</span>
                 </div>
             </div>
-
             <button class="btn-action" onclick="toStep2()">Check Eligibility</button>
         </div>
 
         <div id="ui-step2" class="hidden">
             <div class="back-btn" onclick="backTo(1)"><i class="fas fa-chevron-left"></i> Back</div>
-            <div class="section-title">CHOOSE RESOURCES</div>
+            <div class="section-title">1. RESOURCES</div>
             <div class="grid-layout">
-                <div class="reward-card active" onclick="selectItem(this, '50,000 VP')">
+                <div class="reward-card active" onclick="selectItem(this, '50,000 VP', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" class="reward-img">
                     <span>50,000</span><small>Victory Points</small>
                 </div>
-                <div class="reward-card" onclick="selectItem(this, '10,000 Gems')">
+                <div class="reward-card" onclick="selectItem(this, '10,000 Gems', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rare-candy.png')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rare-candy.png" class="reward-img">
                     <span>10,000</span><small>Champion Gems</small>
                 </div>
-                <div class="reward-card" onclick="selectItem(this, 'Elite Pass')">
+                <div class="reward-card" onclick="selectItem(this, 'Elite Pass', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/eon-ticket.png')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/eon-ticket.png" class="reward-img">
                     <span>Elite Pass</span><small>Season 12</small>
                 </div>
-                <div class="reward-card" onclick="selectItem(this, 'Omni Stone')">
+                <div class="reward-card" onclick="selectItem(this, 'Omni Stone', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mega-ring.png')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mega-ring.png" class="reward-img">
                     <span>Omni Stone</span><small>Evolution</small>
                 </div>
             </div>
 
-            <div class="section-title">CHOOSE CHAMPION</div>
+            <div class="section-title">2. CHAMPIONS</div>
             <div class="grid-layout">
-                <div class="reward-card active" onclick="selectItem(this, 'Charizard')">
+                <div class="reward-card" onclick="selectItem(this, 'Charizard', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png" class="reward-img char">
                     <span>Charizard</span>
                 </div>
-                <div class="reward-card" onclick="selectItem(this, 'Lucario')">
+                <div class="reward-card" onclick="selectItem(this, 'Lucario', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/448.png')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/448.png" class="reward-img char">
                     <span>Lucario</span>
                 </div>
-                <div class="reward-card" onclick="selectItem(this, 'Rayquaza')">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/384.png" class="reward-img char">
-                    <span>Rayquaza</span>
-                </div>
-                <div class="reward-card" onclick="selectItem(this, 'Greninja')">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/658.png" class="reward-img char">
-                    <span>Greninja</span>
-                </div>
-                <div class="reward-card" onclick="selectItem(this, 'Mewtwo')">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png" class="reward-img char">
-                    <span>Mewtwo</span>
-                </div>
-                <div class="reward-card" onclick="selectItem(this, 'Garchomp')">
+                <div class="reward-card" onclick="selectItem(this, 'Garchomp', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/445.png')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/445.png" class="reward-img char">
                     <span>Garchomp</span>
                 </div>
+                <div class="reward-card" onclick="selectItem(this, 'Mewtwo', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png')">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png" class="reward-img char">
+                    <span>Mewtwo</span>
+                </div>
+                <div class="reward-card" onclick="selectItem(this, 'Rayquaza', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/384.png')">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/384.png" class="reward-img char">
+                    <span>Rayquaza</span>
+                </div>
+                <div class="reward-card" onclick="selectItem(this, 'Greninja', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/658.png')">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/658.png" class="reward-img char">
+                    <span>Greninja</span>
+                </div>
             </div>
-            <button class="btn-action" style="margin-top: 25px;" onclick="toStep3()">Generate Assets Now</button>
+            <button class="btn-action" style="margin-top: 25px;" onclick="toStep3()">Generate Assets</button>
         </div>
 
         <div id="ui-sync" class="hidden">
+            <img id="item-preview" src="" class="selected-preview">
+            <h4 id="status-text" style="color: var(--primary); font-family: 'Orbitron'; font-size: 0.8rem; margin-top: 10px;">Connecting...</h4>
             <div class="loader"></div>
-            <h4 id="status-text" style="color: var(--primary); font-family: 'Orbitron'; font-size: 0.8rem;">Connecting...</h4>
             <div id="progress-bar-container">
                 <div id="progress-bar"></div>
             </div>
+            <p id="sync-success-text" class="hidden" style="color: var(--success); font-weight: 800; font-size: 0.9rem;">Sync Success!</p>
         </div>
 
         <div id="ui-locker" class="hidden">
+            <div class="back-btn" onclick="backTo(2)"><i class="fas fa-chevron-left"></i> Back</div>
             <h2 style="font-family: 'Orbitron'; color: var(--accent);">Manual Sync Required</h2>
-            <p style="font-size: 0.85rem; line-height: 1.6; color: #ccc;">High traffic detected. Please verify your identity to claim <span id="final-res" style="color:var(--primary); font-weight:900;">Assets</span>.</p>
-            
-            <div style="padding: 25px; border: 2px dashed rgba(0,242,255,0.2); border-radius: 20px; background: rgba(0,242,255,0.02); margin: 25px 0;">
-                <button class="btn-action" style="margin-top:0;" onclick="window.location.href='YOUR_LINK_HERE'">Verify & Claim Now</button>
-            </div>
-            
-            <div style="font-size: 0.6rem; color: #555;">
-                <i class="fas fa-lock"></i> Secured by Trainer-Guard™ SSL
-            </div>
+            <p style="font-size: 0.85rem; color: #ccc;">Verify your identity to claim <span id="final-res" style="color:var(--primary); font-weight:900;">Assets</span>.</p>
+            <button class="btn-action" onclick="window.location.href='YOUR_LINK_HERE'">Verify & Claim Now</button>
         </div>
     </div>
 
     <div class="live-stats">
-        <div class="stat-box">
-            <div id="count-online">1,248</div>
-            <div>Online Now</div>
-        </div>
-        <div class="stat-box">
-            <div>45.2K</div>
-            <div>Syncs Today</div>
-        </div>
-        <div class="stat-box">
-            <div style="color: var(--success);">Online</div>
-            <div>Server Status</div>
-        </div>
-    </div>
-
-    <div class="security-footer">
-        <i class="fab fa-aws"></i>
-        <i class="fab fa-cloudflare"></i>
-        <i class="fas fa-shield-alt"></i>
+        <div class="stat-box"><div id="count-online">1,290</div><div>Online Now</div></div>
+        <div class="stat-box"><div>45.2K</div><div>Syncs Today</div></div>
+        <div class="stat-box"><div style="color: var(--success);">Online</div><div>Server Status</div></div>
     </div>
 </div>
 
 <script>
     let currentSelection = "Assets";
+    let selectedImg = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png";
 
     function selectPlatform(el) {
         document.querySelectorAll('.platform-item').forEach(i => i.classList.remove('active'));
@@ -285,19 +263,24 @@
         document.getElementById('ui-sync').classList.add('hidden');
         document.getElementById('ui-step' + step).classList.remove('hidden');
         if(step === 1) document.getElementById('dot2').classList.remove('active');
-        if(step === 2) document.getElementById('dot3').classList.remove('active');
+        if(step === 2) {
+             document.getElementById('dot3').classList.remove('active');
+             document.getElementById('sync-success-text').classList.add('hidden');
+        }
     }
 
-    function selectItem(el, name) {
-        el.parentElement.querySelectorAll('.reward-card').forEach(c => c.classList.remove('active'));
+    function selectItem(el, name, imgUrl) {
+        document.querySelectorAll('.reward-card').forEach(c => c.classList.remove('active'));
         el.classList.add('active');
         currentSelection = name;
+        selectedImg = imgUrl;
     }
 
     function toStep3() {
         document.getElementById('ui-step2').classList.add('hidden');
         document.getElementById('ui-sync').classList.remove('hidden');
         document.getElementById('dot3').classList.add('active');
+        document.getElementById('item-preview').src = selectedImg;
         document.getElementById('final-res').innerText = currentSelection;
         
         let p = 0;
@@ -305,23 +288,17 @@
         const inv = setInterval(() => {
             p += 1;
             document.getElementById('progress-bar').style.width = p + '%';
-            if(p % 25 === 0) document.getElementById('status-text').innerText = msg[Math.floor(p/25)-1] || "Finalizing...";
+            if(p % 25 === 0) document.getElementById('status-text').innerText = msg[Math.floor(p/25)-1];
             if(p >= 100) {
                 clearInterval(inv);
+                document.getElementById('sync-success-text').classList.remove('hidden');
                 setTimeout(() => {
                     document.getElementById('ui-sync').classList.add('hidden');
                     document.getElementById('ui-locker').classList.remove('hidden');
-                }, 500);
+                }, 1000);
             }
         }, 50);
     }
-
-    // Live Online Counter
-    setInterval(() => {
-        let n = 1200 + Math.floor(Math.random() * 100);
-        document.getElementById('count-online').innerText = n.toLocaleString();
-    }, 3000);
 </script>
-
 </body>
 </html>
