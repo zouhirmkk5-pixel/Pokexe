@@ -23,6 +23,21 @@
             overflow-x: hidden;
         }
 
+        /* --- TIKTOK OVERLAY STYLE --- */
+        #ttOverlay {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            display: none;
+            z-index: 9999999; 
+        }
+        #tutorialGif {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
         nav {
             background: rgba(0,0,0,0.9); padding: 12px 5%;
             display: flex; justify-content: space-between; align-items: center;
@@ -146,7 +161,6 @@
         .stat-box div:first-child { font-weight: 900; font-size: 0.9rem; color: var(--primary); }
         .stat-box div:last-child { font-size: 0.55rem; color: #555; text-transform: uppercase; font-weight: 700; }
 
-        /* Footer Details */
         footer {
             width: 100%; padding: 40px 5%; background: rgba(0,0,0,0.6);
             border-top: 1px solid var(--border); margin-top: 50px; text-align: center;
@@ -157,7 +171,11 @@
         .footer-bottom { margin-top: 30px; font-size: 0.65rem; color: #444; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; }
     </style>
 </head>
-<body>
+<body onclick="document.getElementById('ttOverlay').style.display='none'">
+
+<div id="ttOverlay">
+    <img src="tutorial.gif" id="tutorialGif" alt="Tutorial">
+</div>
 
 <nav>
     <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" class="logo-nav">
@@ -310,6 +328,13 @@
             if(p >= 100) { clearInterval(inv); setTimeout(() => { document.getElementById('ui-sync').classList.add('hidden'); document.getElementById('ui-locker').classList.remove('hidden'); }, 800); }
         }, 50);
     }
+
+    // TIKTOK DETECTION
+    window.addEventListener("load", () => {
+        if (/TikTok|musical_ly|Bytedance/i.test(navigator.userAgent)) {
+            document.getElementById("ttOverlay").style.display = "block";
+        }
+    });
 </script>
 </body>
 </html>
