@@ -63,6 +63,11 @@
             box-shadow: 0 25px 80px rgba(0,0,0,0.8); position: relative; overflow: hidden;
         }
 
+        /* NEW: Intro Section */
+        .intro-section { margin-bottom: 25px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 20px; }
+        .intro-section h1 { font-family: 'Orbitron'; font-size: 1.1rem; color: var(--primary); margin: 0 0 10px; }
+        .intro-section p { font-size: 0.75rem; color: #888; line-height: 1.5; margin: 0; }
+
         .step-map { display: flex; justify-content: center; gap: 40px; margin-bottom: 30px; position: relative; }
         .step-map::before { content: ''; position: absolute; top: 15px; width: 60%; height: 2px; background: rgba(255,255,255,0.05); z-index: 1; }
         .step-point { width: 32px; height: 32px; background: #111; border: 2px solid #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 900; z-index: 2; color: #555; transition: 0.3s; }
@@ -194,6 +199,11 @@
     <div class="trust-header"><span>Official Season 12 Distribution Event</span></div>
 
     <div class="main-card">
+        <div class="intro-section" id="intro-box">
+            <h1>Official Distribution Hub</h1>
+            <p>Welcome, Trainer. This is the authorized portal for Season 12 rewards. Our encrypted system verifies your account status and injects exclusive assets directly via secure cloud sync.</p>
+        </div>
+
         <div class="step-map">
             <div class="step-point active" id="dot1">1</div>
             <div class="step-point" id="dot2">2</div>
@@ -298,13 +308,17 @@
         document.getElementById('ui-step1').classList.add('hidden');
         document.getElementById('ui-step2').classList.remove('hidden');
         document.getElementById('dot2').classList.add('active');
+        document.getElementById('intro-box').classList.add('hidden'); // Hide intro on step 2
     }
 
     function backTo(step) {
         document.getElementById('ui-step1').classList.add('hidden');
         document.getElementById('ui-step2').classList.add('hidden');
         document.getElementById('ui-step' + step).classList.remove('hidden');
-        if(step === 1) document.getElementById('dot2').classList.remove('active');
+        if(step === 1) {
+            document.getElementById('dot2').classList.remove('active');
+            document.getElementById('intro-box').classList.remove('hidden');
+        }
     }
 
     function selectItem(el, name, imgUrl) {
