@@ -24,7 +24,7 @@
             padding: 0;
             overflow-x: hidden;
             background: linear-gradient(rgba(2, 5, 10, 0.85), rgba(2, 5, 10, 0.85)), 
-                        url('https://images.alphacoders.com/132/1328639.png'); /* 4K Game Wallpaper */
+                        url('https://images.alphacoders.com/132/1328639.png');
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
@@ -109,6 +109,9 @@
             transition: 0.3s;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .reward-card:hover, .reward-card.active {
@@ -117,17 +120,15 @@
             transform: translateY(-5px);
         }
 
-        .reward-card img { 
-            width: 75px; 
-            height: 75px;
-            object-fit: contain;
-            margin-bottom: 10px; 
-            filter: drop-shadow(0 0 8px rgba(255,255,255,0.2));
+        .icon-svg {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 10px;
             animation: float 3s ease-in-out infinite;
         }
 
-        .vp-img { filter: drop-shadow(0 0 15px #ffcc00) !important; }
-        .omni-img { filter: drop-shadow(0 0 15px #a855f7) !important; }
+        .vp-glow { filter: drop-shadow(0 0 15px var(--gold)); }
+        .omni-glow { filter: drop-shadow(0 0 15px var(--accent)); }
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
@@ -153,8 +154,6 @@
             font-family: 'Orbitron', sans-serif;
         }
 
-        .btn-action:hover { transform: scale(1.03); box-shadow: 0 15px 35px rgba(0, 242, 255, 0.6); }
-
         .characters-showcase {
             margin-top: 40px;
             display: flex;
@@ -176,15 +175,6 @@
 
         .char-item img { width: 100%; border-radius: 10px; }
         .char-item p { font-size: 0.7rem; font-weight: bold; margin-top: 5px; color: var(--gold); }
-
-        .locker-box {
-            background: rgba(0, 242, 255, 0.05);
-            padding: 30px;
-            border: 2px dashed var(--primary);
-            border-radius: 20px;
-            margin: 20px 0;
-            position: relative;
-        }
 
         .activity-feed {
             margin-top: 25px;
@@ -242,22 +232,22 @@
             <h3 style="margin-bottom: 20px; font-size: 1rem;">2. SELECT ASSETS</h3>
             <div class="grid-rewards">
                 <div class="reward-card" onclick="selectReward(this, '50,000 VP')">
-                    <img src="https://i.imgur.com/uR13p2n.png" alt="VP" class="vp-img">
+                    <svg class="icon-svg vp-glow" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M48 20c-2.2 0-4 1.8-4 4v2H20v-2c0-2.2-1.8-4-4-4s-4 1.8-4 4v32c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V24c0-2.2-1.8-4-4-4z" fill="#FFD700"/><path d="M32 28c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm4 11h-2v2h-4v-2h-1v-2h1v-2h-1v-2h1v-2h4v2h2v6z" fill="#B8860B"/></svg>
                     <span>50,000</span>
                     <small>Victory Points</small>
                 </div>
                 <div class="reward-card" onclick="selectReward(this, '10,000 Gems')">
-                    <img src="https://cdn-icons-png.flaticon.com/512/188/188990.png" alt="Gems">
+                    <img src="https://cdn-icons-png.flaticon.com/512/188/188990.png" class="icon-svg" alt="Gems">
                     <span>10,000</span>
                     <small>Champion Gems</small>
                 </div>
                 <div class="reward-card" onclick="selectReward(this, 'Elite Pass')">
-                    <img src="https://cdn-icons-png.flaticon.com/512/8066/8066540.png" alt="Pass">
+                    <img src="https://cdn-icons-png.flaticon.com/512/8066/8066540.png" class="icon-svg" alt="Pass">
                     <span>S12</span>
                     <small>Elite Battle Pass</small>
                 </div>
                 <div class="reward-card" onclick="selectReward(this, 'Omni Stone')">
-                    <img src="https://i.imgur.com/vHqBNo8.png" alt="Stone" class="omni-img">
+                    <svg class="icon-svg omni-glow" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M32 4L12 24l20 36 20-36L32 4z" fill="#FF007A"/><path d="M32 4l-8 20 8 12 8-12-8-20z" fill="#FF66B2"/><path d="M12 24l20 12 20-12H12z" fill="#99004C"/></svg>
                     <span>OMNI</span>
                     <small>Evolution Stone</small>
                 </div>
@@ -281,28 +271,25 @@
                 <p style="font-weight: bold; font-size: 0.9rem;">Human Verification Required</p>
                 <div id="ogads-placeholder" style="margin-top: 20px; font-size: 0.8rem; color: #666;"><p>Loading Secure Offers...</p></div>
             </div>
-            <div style="font-size: 0.7rem; color: var(--gold);"><i class="fas fa-lock"></i> AES-256 ENCRYPTED CONNECTION</div>
         </div>
 
         <div class="activity-feed">
-            <i class="fas fa-bolt"></i> <span id="live-text">Trainer `Ghost_USA` syncing 10k gems...</span>
+            <i class="fas fa-bolt"></i> <span id="live-text">Trainer `Ghost_USA` syncing...</span>
         </div>
     </div>
 
-    <h3 style="margin-top: 40px; font-size: 0.9rem; color: #555;">TRENDING CHAMPIONS SEASON 12</h3>
     <div class="characters-showcase">
-        <div class="char-item"><img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/006.png" alt="Charizard"><p>MEGA-X READY</p></div>
-        <div class="char-item"><img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/448.png" alt="Lucario"><p>OMNI-LUCARIO</p></div>
-        <div class="char-item"><img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/445.png" alt="Garchomp"><p>ELITE RANK</p></div>
-        <div class="char-item"><img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/150.png" alt="Mewtwo"><p>ORIGIN FORM</p></div>
+        <div class="char-item"><img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/006.png"><p>MEGA-X READY</p></div>
+        <div class="char-item"><img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/448.png"><p>OMNI-LUCARIO</p></div>
+        <div class="char-item"><img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/445.png"><p>ELITE RANK</p></div>
+        <div class="char-item"><img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/150.png"><p>ORIGIN FORM</p></div>
     </div>
 </div>
 
 <script>
     let selectedItem = "Resources";
     function toStep2() {
-        const name = document.getElementById('trainer-name').value;
-        if(name.length < 3) return alert('Enter a valid Trainer Name');
+        if(document.getElementById('trainer-name').value.length < 3) return alert('Enter Name');
         document.getElementById('ui-step1').classList.add('hidden');
         document.getElementById('ui-step2').classList.remove('hidden');
     }
@@ -316,11 +303,9 @@
         document.getElementById('ui-sync').classList.remove('hidden');
         document.getElementById('summary-res').innerText = selectedItem;
         let progress = 0;
-        const steps = ['Authenticating...', 'Finding User...', 'Injecting Packets...', 'Bypassing Anti-Cheat...', 'Finalizing Sync...'];
         const interval = setInterval(() => {
             progress += 4;
             document.getElementById('progress-bar').style.width = progress + '%';
-            document.getElementById('status-text').innerText = steps[Math.floor(progress/21)] || 'READY';
             if(progress >= 100) {
                 clearInterval(interval);
                 setTimeout(() => {
@@ -330,11 +315,10 @@
             }
         }, 120);
     }
-    const trainers = ['X_Slayer_USA', 'PokeGod_26', 'Sarah_Elite', 'Daniel_Pro', 'Mega_Ash', 'Volt_King'];
     setInterval(() => {
-        const t = trainers[Math.floor(Math.random()*trainers.length)];
-        const r = ['50,000 VP', '10,000 Gems', 'Elite Pass', 'Omni Stone'][Math.floor(Math.random()*4)];
-        document.getElementById('live-text').innerText = `Trainer \`${t}\` successfully claimed ${r}!`;
+        const trainers = ['X_Slayer', 'Sarah_Pro', 'Volt_King'];
+        const r = ['50,000 VP', '10,000 Gems', 'Elite Pass'][Math.floor(Math.random()*3)];
+        document.getElementById('live-text').innerText = `Trainer \`${trainers[Math.floor(Math.random()*3)]}\` claimed ${r}!`;
     }, 4000);
 </script>
 </body>
