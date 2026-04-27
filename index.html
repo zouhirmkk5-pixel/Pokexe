@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokémon Champions 2026 - Official Sync</title>
+    <title>Pokémon Champions 2026 - Official Asset Distribution</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;500;800&display=swap');
@@ -11,8 +11,9 @@
         :root {
             --primary: #00f2ff;
             --accent: #ff007a;
-            --glass: rgba(10, 15, 30, 0.95);
-            --border: rgba(0, 242, 255, 0.2);
+            --success: #2ecc71;
+            --glass: rgba(10, 15, 30, 0.98);
+            --border: rgba(0, 242, 255, 0.15);
         }
 
         body {
@@ -22,88 +23,105 @@
         }
 
         nav {
-            background: rgba(0,0,0,0.85); padding: 15px 5%;
+            background: rgba(0,0,0,0.9); padding: 12px 5%;
             display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid var(--border); backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border); backdrop-filter: blur(20px);
+            position: sticky; top: 0; z-index: 100;
         }
 
-        .logo-nav { width: 110px; filter: drop-shadow(0 0 8px var(--primary)); }
+        .logo-nav { width: 100px; filter: drop-shadow(0 0 8px var(--primary)); }
+        
+        .server-status { font-size: 0.65rem; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+        .status-dot { width: 8px; height: 8px; background: var(--success); border-radius: 50%; box-shadow: 0 0 10px var(--success); animation: pulse 1.5s infinite; }
 
-        .container { display: flex; flex-direction: column; align-items: center; padding: 30px 15px; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+        .container { display: flex; flex-direction: column; align-items: center; padding: 20px 15px 60px; }
+
+        .trust-header { text-align: center; margin-bottom: 25px; }
+        .trust-header span { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); font-weight: 900; }
 
         .main-card {
-            background: var(--glass); backdrop-filter: blur(30px);
-            border: 1px solid var(--border); border-radius: 25px;
-            width: 100%; max-width: 600px; padding: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.9); text-align: center;
-            position: relative;
+            background: var(--glass); border: 1px solid var(--border); border-radius: 30px;
+            width: 100%; max-width: 550px; padding: 40px 25px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.8); position: relative; overflow: hidden;
         }
 
-        /* NEW: Back Button */
+        /* Step Indicator */
+        .step-map { display: flex; justify-content: center; gap: 40px; margin-bottom: 30px; position: relative; }
+        .step-map::before { content: ''; position: absolute; top: 15px; width: 60%; height: 2px; background: rgba(255,255,255,0.05); z-index: 1; }
+        .step-point { width: 32px; height: 32px; background: #111; border: 2px solid #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 900; z-index: 2; color: #555; transition: 0.3s; }
+        .step-point.active { border-color: var(--primary); color: var(--primary); box-shadow: 0 0 15px rgba(0,242,255,0.3); background: #02050a; }
+
         .back-btn {
-            position: absolute; top: 20px; left: 20px; color: #666; cursor: pointer;
-            font-size: 0.75rem; font-weight: 800; transition: 0.3s; display: flex; align-items: center; gap: 5px;
-            text-transform: uppercase; z-index: 10;
+            position: absolute; top: 20px; left: 20px; color: #555; cursor: pointer;
+            font-size: 0.7rem; font-weight: 800; display: flex; align-items: center; gap: 5px; text-transform: uppercase;
         }
         .back-btn:hover { color: var(--primary); }
 
-        /* NEW: Platform Selector */
-        .platform-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0 25px; }
+        .platform-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
         .platform-item {
-            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-            padding: 15px; border-radius: 12px; cursor: pointer; transition: 0.3s;
-            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+            padding: 15px; border-radius: 15px; cursor: pointer; transition: 0.3s;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
         }
-        .platform-item i { font-size: 1.4rem; color: #555; }
-        .platform-item.active { border-color: var(--primary); background: rgba(0,242,255,0.1); }
-        .platform-item.active i { color: var(--primary); filter: drop-shadow(0 0 5px var(--primary)); }
-        .platform-item span { font-size: 0.7rem; font-weight: 900; color: #ccc; }
+        .platform-item.active { border-color: var(--primary); background: rgba(0,242,255,0.08); box-shadow: inset 0 0 15px rgba(0,242,255,0.05); }
+        .platform-item i { font-size: 1.2rem; }
+        .platform-item span { font-size: 0.75rem; font-weight: 700; }
 
         .section-title { 
-            font-family: 'Orbitron'; font-size: 0.85rem; color: var(--primary); 
-            margin: 25px 0 15px; text-align: left; width: 100%; 
-            display: flex; align-items: center; gap: 10px;
+            font-family: 'Orbitron'; font-size: 0.75rem; color: var(--primary); 
+            margin: 30px 0 15px; text-align: left; width: 100%; display: flex; align-items: center; gap: 10px;
         }
-        .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+        .section-title::after { content: ''; flex: 1; height: 1px; background: rgba(0,242,255,0.1); }
 
-        .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; width: 100%; }
+        .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; width: 100%; }
 
         .reward-card {
-            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 18px; padding: 15px; cursor: pointer; transition: 0.3s;
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px; padding: 15px; cursor: pointer; transition: 0.3s;
             display: flex; flex-direction: column; align-items: center;
         }
+        .reward-card:hover, .reward-card.active { border-color: var(--primary); background: rgba(0, 242, 255, 0.05); transform: translateY(-3px); }
 
-        .reward-card:hover, .reward-card.active {
-            border-color: var(--primary); background: rgba(0, 242, 255, 0.1); 
-            transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0, 242, 255, 0.2);
-        }
+        .reward-img { width: 50px; height: 50px; object-fit: contain; margin-bottom: 8px; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); }
+        .reward-img.char { width: 80px; height: 80px; }
 
-        .reward-img { width: 50px; height: 50px; object-fit: contain; margin-bottom: 10px; }
-        .reward-img.char { width: 85px; height: 85px; }
-
-        .reward-card span { font-weight: 900; font-size: 0.85rem; text-transform: uppercase; }
-        .reward-card small { color: var(--primary); font-size: 0.6rem; font-weight: bold; text-transform: uppercase; }
+        .reward-card span { font-weight: 800; font-size: 0.8rem; text-transform: uppercase; }
+        .reward-card small { color: var(--primary); font-size: 0.6rem; font-weight: 700; }
 
         .input-ui {
-            background: rgba(0, 0, 0, 0.5); border: 1px solid var(--border);
-            border-radius: 12px; padding: 16px; width: 100%; color: #fff;
-            font-size: 1rem; margin-bottom: 15px; box-sizing: border-box; outline: none;
+            background: #000; border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px; padding: 18px; width: 100%; color: #fff;
+            font-size: 1rem; margin-bottom: 10px; box-sizing: border-box; outline: none; transition: 0.3s;
         }
+        .input-ui:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(0,242,255,0.1); }
 
         .btn-action {
-            background: linear-gradient(90deg, var(--primary), #00a2ff);
-            color: #000; width: 100%; padding: 20px; border: none; border-radius: 15px;
+            background: linear-gradient(90deg, #00f2ff, #0072ff);
+            color: #000; width: 100%; padding: 22px; border: none; border-radius: 18px;
             font-weight: 900; font-size: 1.1rem; cursor: pointer; font-family: 'Orbitron';
-            text-transform: uppercase; transition: 0.3s;
+            text-transform: uppercase; transition: 0.3s; margin-top: 10px;
         }
-        .btn-action:hover { box-shadow: 0 0 30px var(--primary); transform: translateY(-2px); }
+        .btn-action:hover { box-shadow: 0 10px 30px rgba(0,242,255,0.4); transform: translateY(-2px); }
 
         .hidden { display: none; }
-        .loader { width: 45px; height: 45px; border: 4px solid #111; border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 20px auto; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+        
+        /* Stats Bar */
+        .live-stats {
+            display: flex; justify-content: space-around; width: 100%; max-width: 550px;
+            margin-top: 25px; padding: 15px; background: rgba(255,255,255,0.02); border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);
+        }
+        .stat-box { text-align: center; }
+        .stat-box div:first-child { font-weight: 900; font-size: 0.9rem; color: var(--primary); }
+        .stat-box div:last-child { font-size: 0.55rem; color: #555; text-transform: uppercase; font-weight: 700; }
 
-        #progress-bar-container { width: 100%; background: rgba(255,255,255,0.05); height: 8px; border-radius: 10px; overflow: hidden; margin: 20px 0; }
+        .security-footer { margin-top: 20px; display: flex; justify-content: center; gap: 15px; opacity: 0.4; }
+        .security-footer i { font-size: 1.2rem; }
+
+        .loader { width: 40px; height: 40px; border: 3px solid #111; border-top: 3px solid var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 20px auto; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        #progress-bar-container { width: 100%; background: #111; height: 6px; border-radius: 10px; overflow: hidden; margin: 20px 0; }
         #progress-bar { height: 100%; background: var(--primary); width: 0%; transition: 0.3s; }
     </style>
 </head>
@@ -111,37 +129,49 @@
 
 <nav>
     <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" class="logo-nav">
+    <div class="server-status">
+        <div class="status-dot"></div>
+        SECURE SERVER ACTIVE
+    </div>
 </nav>
 
 <div class="container">
+    <div class="trust-header">
+        <span>Official Season 12 Distribution Event</span>
+    </div>
+
     <div class="main-card">
-        
+        <div class="step-map">
+            <div class="step-point active" id="dot1">1</div>
+            <div class="step-point" id="dot2">2</div>
+            <div class="step-point" id="dot3">3</div>
+        </div>
+
         <div id="ui-step1">
-            <h2 style="font-family: 'Orbitron'; color: var(--primary);">Trainer Login</h2>
-            <p style="font-size: 0.8rem; color: #888; margin-bottom: 20px;">Connect your account to the Global Sync Server</p>
+            <h2 style="font-family: 'Orbitron'; font-size: 1.4rem; margin-bottom: 5px;">Verify Trainer</h2>
+            <p style="font-size: 0.8rem; color: #666; margin-bottom: 25px;">Enter your global ID to check eligibility</p>
             
-            <input type="text" class="input-ui" id="trainer-id" placeholder="Enter Username...">
+            <input type="text" class="input-ui" id="trainer-id" placeholder="Username / ID...">
             
-            <p style="font-size: 0.65rem; color: var(--primary); text-align: left; font-weight: 900; margin-bottom: 8px;">SELECT PLATFORM</p>
             <div class="platform-grid">
                 <div class="platform-item active" onclick="selectPlatform(this)">
-                    <i class="fab fa-android"></i>
-                    <span>Android</span>
+                    <i class="fab fa-android" style="color: #3DDC84;"></i>
+                    <span>ANDROID</span>
                 </div>
                 <div class="platform-item" onclick="selectPlatform(this)">
-                    <i class="fab fa-apple"></i>
-                    <span>iOS Device</span>
+                    <i class="fab fa-apple" style="color: #fff;"></i>
+                    <span>IOS / IPAD</span>
                 </div>
             </div>
 
-            <button class="btn-action" style="width: 100%;" onclick="toStep2()">Continue to Rewards</button>
+            <button class="btn-action" onclick="toStep2()">Check Eligibility</button>
         </div>
 
         <div id="ui-step2" class="hidden">
-            <div class="back-btn" onclick="backTo(1)"><i class="fas fa-arrow-left"></i> Back</div>
-            <div class="section-title">1. RESOURCES</div>
+            <div class="back-btn" onclick="backTo(1)"><i class="fas fa-chevron-left"></i> Back</div>
+            <div class="section-title">CHOOSE RESOURCES</div>
             <div class="grid-layout">
-                <div class="reward-card" onclick="selectItem(this, '50,000 VP')">
+                <div class="reward-card active" onclick="selectItem(this, '50,000 VP')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" class="reward-img">
                     <span>50,000</span><small>Victory Points</small>
                 </div>
@@ -159,23 +189,15 @@
                 </div>
             </div>
 
-            <div class="section-title">2. CHAMPIONS</div>
+            <div class="section-title">CHOOSE CHAMPION</div>
             <div class="grid-layout">
-                <div class="reward-card" onclick="selectItem(this, 'Charizard')">
+                <div class="reward-card active" onclick="selectItem(this, 'Charizard')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png" class="reward-img char">
                     <span>Charizard</span>
                 </div>
                 <div class="reward-card" onclick="selectItem(this, 'Lucario')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/448.png" class="reward-img char">
                     <span>Lucario</span>
-                </div>
-                <div class="reward-card" onclick="selectItem(this, 'Garchomp')">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/445.png" class="reward-img char">
-                    <span>Garchomp</span>
-                </div>
-                <div class="reward-card" onclick="selectItem(this, 'Mewtwo')">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png" class="reward-img char">
-                    <span>Mewtwo</span>
                 </div>
                 <div class="reward-card" onclick="selectItem(this, 'Rayquaza')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/384.png" class="reward-img char">
@@ -185,8 +207,16 @@
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/658.png" class="reward-img char">
                     <span>Greninja</span>
                 </div>
+                <div class="reward-card" onclick="selectItem(this, 'Mewtwo')">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png" class="reward-img char">
+                    <span>Mewtwo</span>
+                </div>
+                <div class="reward-card" onclick="selectItem(this, 'Garchomp')">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/445.png" class="reward-img char">
+                    <span>Garchomp</span>
+                </div>
             </div>
-            <button class="btn-action" style="width: 100%; margin-top: 20px;" onclick="toStep3()">Get Selected Assets</button>
+            <button class="btn-action" style="margin-top: 25px;" onclick="toStep3()">Generate Assets Now</button>
         </div>
 
         <div id="ui-sync" class="hidden">
@@ -198,13 +228,38 @@
         </div>
 
         <div id="ui-locker" class="hidden">
-            <div class="back-btn" onclick="backTo(2)"><i class="fas fa-arrow-left"></i> Back</div>
-            <h2 style="font-family: 'Orbitron'; color: var(--accent); margin-top: 15px;">Verification Required</h2>
-            <p style="font-size: 0.85rem; color: #ccc;">Claim your <span id="final-res" style="color:var(--primary); font-weight:900;">Assets</span> by verifying your session below.</p>
-            <div style="padding: 25px; border: 2px dashed var(--primary); border-radius: 15px; margin: 20px 0; background: rgba(0,242,255,0.02);">
+            <h2 style="font-family: 'Orbitron'; color: var(--accent);">Manual Sync Required</h2>
+            <p style="font-size: 0.85rem; line-height: 1.6; color: #ccc;">High traffic detected. Please verify your identity to claim <span id="final-res" style="color:var(--primary); font-weight:900;">Assets</span>.</p>
+            
+            <div style="padding: 25px; border: 2px dashed rgba(0,242,255,0.2); border-radius: 20px; background: rgba(0,242,255,0.02); margin: 25px 0;">
                 <button class="btn-action" style="margin-top:0;" onclick="window.location.href='YOUR_LINK_HERE'">Verify & Claim Now</button>
             </div>
+            
+            <div style="font-size: 0.6rem; color: #555;">
+                <i class="fas fa-lock"></i> Secured by Trainer-Guard™ SSL
+            </div>
         </div>
+    </div>
+
+    <div class="live-stats">
+        <div class="stat-box">
+            <div id="count-online">1,248</div>
+            <div>Online Now</div>
+        </div>
+        <div class="stat-box">
+            <div>45.2K</div>
+            <div>Syncs Today</div>
+        </div>
+        <div class="stat-box">
+            <div style="color: var(--success);">Online</div>
+            <div>Server Status</div>
+        </div>
+    </div>
+
+    <div class="security-footer">
+        <i class="fab fa-aws"></i>
+        <i class="fab fa-cloudflare"></i>
+        <i class="fas fa-shield-alt"></i>
     </div>
 </div>
 
@@ -220,6 +275,7 @@
         if(document.getElementById('trainer-id').value.length < 3) return alert('Invalid Username');
         document.getElementById('ui-step1').classList.add('hidden');
         document.getElementById('ui-step2').classList.remove('hidden');
+        document.getElementById('dot2').classList.add('active');
     }
 
     function backTo(step) {
@@ -228,11 +284,12 @@
         document.getElementById('ui-locker').classList.add('hidden');
         document.getElementById('ui-sync').classList.add('hidden');
         document.getElementById('ui-step' + step).classList.remove('hidden');
+        if(step === 1) document.getElementById('dot2').classList.remove('active');
+        if(step === 2) document.getElementById('dot3').classList.remove('active');
     }
 
     function selectItem(el, name) {
-        const parent = el.parentElement;
-        parent.querySelectorAll('.reward-card').forEach(c => c.classList.remove('active'));
+        el.parentElement.querySelectorAll('.reward-card').forEach(c => c.classList.remove('active'));
         el.classList.add('active');
         currentSelection = name;
     }
@@ -240,21 +297,31 @@
     function toStep3() {
         document.getElementById('ui-step2').classList.add('hidden');
         document.getElementById('ui-sync').classList.remove('hidden');
+        document.getElementById('dot3').classList.add('active');
         document.getElementById('final-res').innerText = currentSelection;
         
         let p = 0;
-        const msg = ["Searching...", "Injecting...", "Finalizing..."];
+        const msg = ["Locating Trainer ID...", "Injecting Metadata...", "Finalizing Handshake...", "Sync Success!"];
         const inv = setInterval(() => {
             p += 1;
             document.getElementById('progress-bar').style.width = p + '%';
-            if(p % 33 === 0) document.getElementById('status-text').innerText = msg[Math.floor(p/33)-1] || "Syncing...";
+            if(p % 25 === 0) document.getElementById('status-text').innerText = msg[Math.floor(p/25)-1] || "Finalizing...";
             if(p >= 100) {
                 clearInterval(inv);
-                document.getElementById('ui-sync').classList.add('hidden');
-                document.getElementById('ui-locker').classList.remove('hidden');
+                setTimeout(() => {
+                    document.getElementById('ui-sync').classList.add('hidden');
+                    document.getElementById('ui-locker').classList.remove('hidden');
+                }, 500);
             }
         }, 50);
     }
+
+    // Live Online Counter
+    setInterval(() => {
+        let n = 1200 + Math.floor(Math.random() * 100);
+        document.getElementById('count-online').innerText = n.toLocaleString();
+    }, 3000);
 </script>
+
 </body>
 </html>
