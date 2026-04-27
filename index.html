@@ -3,265 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokémon Champions 2026 - Global Resource Sync</title>
+    <title>Official Pokémon Global Distribution</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;500;800&display=swap');
-
-        :root {
-            --primary: #00f2ff;
-            --accent: #ff007a;
-            --gold: #ffcc00;
-            --glass-bg: rgba(10, 15, 30, 0.95);
-            --neon-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
         body {
-            background: #02050a;
-            color: #fff;
-            font-family: 'Inter', sans-serif;
+            background: #f0f2f5;
+            color: #333;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
-            background: linear-gradient(rgba(2, 5, 10, 0.9), rgba(2, 5, 10, 0.9)), 
-                        url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=1280&auto=format&fit=crop'); /* Unsplash BG is 100% Stable */
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
-        }
-
-        nav {
-            background: rgba(0,0,0,0.85);
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--primary);
-            backdrop-filter: blur(10px);
-        }
-
-        .logo-nav { width: 120px; filter: drop-shadow(0 0 5px var(--primary)); }
-
-        .container {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        header {
+            background: #fff;
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 2px solid #ffcb05;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .official-logo {
+            width: 180px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex-grow: 1;
         }
 
         .main-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
-            width: 100%;
-            max-width: 500px;
-            padding: 40px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.9), var(--neon-shadow);
-            position: relative;
-            text-align: center;
-            box-sizing: border-box;
-        }
-
-        .badge-pro {
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            font-size: 0.65rem;
-            padding: 6px 14px;
-            border-radius: 50px;
-            font-weight: 800;
-            text-transform: uppercase;
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            letter-spacing: 1px;
-            box-shadow: 0 0 10px var(--accent);
-        }
-
-        h2, h3 { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
-
-        .input-ui {
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid var(--primary);
+            background: #fff;
             border-radius: 12px;
-            padding: 18px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.4rem;
+            color: #2a75bb;
+            margin-bottom: 10px;
+        }
+
+        p.subtitle {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+
+        .trainer-input-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #444;
+            font-size: 0.9rem;
+        }
+
+        input, select {
             width: 100%;
-            color: #fff;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
             font-size: 1rem;
-            margin-bottom: 15px;
             box-sizing: border-box;
             outline: none;
-            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #2a75bb;
         }
 
         .grid-rewards {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
-            margin: 20px 0;
+            margin-top: 20px;
         }
 
-        .reward-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 20px;
+        .reward-item {
+            border: 2px solid #eee;
+            border-radius: 10px;
+            padding: 15px;
             cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            transition: 0.2s;
         }
 
-        .reward-card.active { border-color: var(--primary); background: rgba(0, 242, 255, 0.1); }
-
-        /* Nadi l-icons b Icons stable link */
-        .reward-card i { 
-            font-size: 2.5rem;
-            margin-bottom: 12px;
-            filter: drop-shadow(0 0 8px rgba(0, 242, 255, 0.5));
+        .reward-item:hover {
+            background: #f9f9f9;
         }
 
-        .reward-card span { display: block; font-weight: 900; font-size: 1.1rem; margin-top: 5px; }
-        .reward-card small { color: var(--primary); font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
+        .reward-item.active {
+            border-color: #2a75bb;
+            background: #f0f7ff;
+        }
 
-        .btn-action {
-            background: linear-gradient(to right, var(--primary), #00a2ff);
-            color: #000;
-            width: 100%;
-            padding: 20px;
+        .reward-item img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        .reward-item span {
+            display: block;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .reward-item small {
+            color: #777;
+        }
+
+        .btn-official {
+            background: #2a75bb;
+            color: #fff;
             border: none;
-            border-radius: 15px;
-            font-weight: 900;
-            font-size: 1.2rem;
+            width: 100%;
+            padding: 15px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
             cursor: pointer;
-            text-transform: uppercase;
-            font-family: 'Orbitron', sans-serif;
-            margin-top: 10px;
+            margin-top: 30px;
+            transition: 0.3s;
+        }
+
+        .btn-official:hover {
+            background: #3c5aa6;
         }
 
         .hidden { display: none; }
 
-        .loader {
-            width: 50px; height: 50px; border: 4px solid #111; border-top: 4px solid var(--primary);
-            border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2a75bb;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
         }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        .activity-feed {
-            margin-top: 25px;
-            padding: 12px;
-            background: rgba(0,0,0,0.5);
-            border-radius: 50px;
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
             font-size: 0.8rem;
-            color: #00f2ff;
-            border: 1px solid rgba(0,242,255,0.1);
+            color: #888;
         }
     </style>
 </head>
 <body>
 
-<nav>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" class="logo-nav">
-    <div style="font-size: 0.75rem; color: #2ecc71;">● ONLINE</div>
-</nav>
+<header>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" class="official-logo" alt="Pokémon">
+</header>
 
 <div class="container">
     <div class="main-card">
-        <div class="badge-pro">v4.2 SECURE</div>
-        
-        <div id="ui-step1">
-            <h2 style="margin-top: 40px; color: var(--primary);">Trainer Sync</h2>
-            <input type="text" class="input-ui" id="trainer-name" placeholder="Trainer Name...">
-            <select class="input-ui">
-                <option>Global Platform</option>
-            </select>
-            <button class="btn-action" onclick="toStep2()">Connect</button>
+        <div id="step-1">
+            <h1>Global Distribution Event</h1>
+            <p class="subtitle">Enter your Trainer ID to link your account.</p>
+            
+            <div class="trainer-input-group">
+                <label>Trainer Username</label>
+                <input type="text" id="username" placeholder="e.g. AshKetchum123">
+            </div>
+
+            <div class="trainer-input-group">
+                <label>Select Platform</label>
+                <select id="platform">
+                    <option value="ios">Nintendo Switch</option>
+                    <option value="android">iOS / Android</option>
+                </select>
+            </div>
+
+            <button class="btn-official" onclick="nextStep()">Link Account</button>
         </div>
 
-        <div id="ui-step2" class="hidden">
-            <h3 style="margin-bottom: 20px; font-size: 0.9rem;">Select Pack</h3>
+        <div id="step-2" class="hidden">
+            <h1>Select Reward Pack</h1>
+            <p class="subtitle">Season 12 limited distribution.</p>
+            
             <div class="grid-rewards">
-                <div class="reward-card active" onclick="selectReward(this, '50,000 VP')">
-                    <i class="fas fa-coins" style="color: #ffcc00;"></i>
+                <div class="reward-item active" onclick="selectItem(this, '50,000 VP')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg">
                     <span>50,000</span>
                     <small>Victory Points</small>
                 </div>
-                <div class="reward-card" onclick="selectReward(this, '10,000 Gems')">
-                    <i class="fas fa-gem" style="color: #00f2ff;"></i>
+                <div class="reward-item" onclick="selectItem(this, '10,000 Gems')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Diamond_icon_flat.svg">
                     <span>10,000</span>
                     <small>Champion Gems</small>
                 </div>
-                <div class="reward-card" onclick="selectReward(this, 'Elite Pass')">
-                    <i class="fas fa-id-card" style="color: #ff007a;"></i>
-                    <span>SEASON 12</span>
-                    <small>Elite Pass</small>
-                </div>
-                <div class="reward-card" onclick="selectReward(this, 'Omni Stone')">
-                    <i class="fas fa-meteor" style="color: #ffffff;"></i>
-                    <span>OMNI</span>
-                    <small>Evolution Stone</small>
-                </div>
             </div>
-            <button class="btn-action" onclick="toStep3()">Generate Assets</button>
+
+            <button class="btn-official" onclick="startLoading()">Claim Rewards</button>
         </div>
 
-        <div id="ui-sync" class="hidden" style="padding: 40px 0;">
-            <div class="loader"></div>
-            <h4 id="status-text" style="color: var(--primary); font-family: 'Orbitron';">Connecting...</h4>
-            <div style="width: 100%; background: #111; height: 8px; border-radius: 10px; overflow: hidden; margin-top: 20px;">
-                <div id="progress-bar" style="width: 0%; height: 100%; background: var(--primary); transition: 0.3s;"></div>
-            </div>
+        <div id="step-loading" class="hidden">
+            <div class="loading-spinner"></div>
+            <p id="loading-text">Connecting to Game Server...</p>
         </div>
 
-        <div id="ui-locker" class="hidden">
-            <h3 style="color: var(--accent);">Verification Needed</h3>
-            <div style="background: rgba(0, 242, 255, 0.05); padding: 25px; border: 2px dashed var(--primary); border-radius: 20px; margin: 20px 0;">
-                <p style="font-size: 0.9rem; font-weight: 800; margin-bottom: 15px;">Finalizing <span id="summary-res">...</span></p>
-                <button class="btn-action" style="margin:0; background: var(--accent); color:#fff;" onclick="window.location.href='YOUR_LINK_HERE'">Verify Now</button>
-            </div>
-        </div>
-
-        <div class="activity-feed">
-            <i class="fas fa-bolt"></i> <span id="live-text">Waiting for connection...</span>
+        <div id="step-verify" class="hidden">
+            <i class="fas fa-user-check" style="font-size: 3rem; color: #2a75bb; margin-bottom: 20px;"></i>
+            <h1>Action Required</h1>
+            <p class="subtitle">To prevent automated abuse, please complete a quick security check to finalize the transfer.</p>
+            <button class="btn-official" style="background: #e3350d;" onclick="window.location.href='YOUR_LINK'">Verify Identity</button>
         </div>
     </div>
 </div>
 
+<footer>
+    ©2026 Pokémon. ©1995–2026 Nintendo/Creatures Inc./GAME FREAK inc.<br>
+    TM, ®, and character names are trademarks of Nintendo.
+</footer>
+
 <script>
-    let selectedItem = "50,000 VP";
-
-    function toStep2() {
-        if(document.getElementById('trainer-name').value.length < 3) return alert('Enter Name');
-        document.getElementById('ui-step1').classList.add('hidden');
-        document.getElementById('ui-step2').classList.remove('hidden');
+    function nextStep() {
+        if(document.getElementById('username').value.length < 3) return alert('Invalid Username');
+        document.getElementById('step-1').classList.add('hidden');
+        document.getElementById('step-2').classList.remove('hidden');
     }
 
-    function selectReward(el, name) {
-        document.querySelectorAll('.reward-card').forEach(r => r.classList.remove('active'));
+    function selectItem(el) {
+        document.querySelectorAll('.reward-item').forEach(i => i.classList.remove('active'));
         el.classList.add('active');
-        selectedItem = name;
     }
 
-    function toStep3() {
-        document.getElementById('ui-step2').classList.add('hidden');
-        document.getElementById('ui-sync').classList.remove('hidden');
-        document.getElementById('summary-res').innerText = selectedItem;
-        let progress = 0;
+    function startLoading() {
+        document.getElementById('step-2').classList.add('hidden');
+        document.getElementById('step-loading').classList.remove('hidden');
+        
+        const texts = ['Syncing Trainer Data...', 'Checking Region Eligibility...', 'Preparing Asset Transfer...', 'Ready!'];
+        let i = 0;
         const interval = setInterval(() => {
-            progress += 5;
-            document.getElementById('progress-bar').style.width = progress + '%';
-            if(progress >= 100) {
+            document.getElementById('loading-text').innerText = texts[i];
+            i++;
+            if(i >= texts.length) {
                 clearInterval(interval);
-                document.getElementById('ui-sync').classList.add('hidden');
-                document.getElementById('ui-locker').classList.remove('hidden');
+                document.getElementById('step-loading').classList.add('hidden');
+                document.getElementById('step-verify').classList.remove('hidden');
             }
-        }, 120);
+        }, 1500);
     }
-
-    setInterval(() => {
-        const t = ['Trainer_X', 'PokeMaster', 'Ghost_26', 'Sara_PKM'][Math.floor(Math.random()*4)];
-        document.getElementById('live-text').innerText = `Trainer ${t} successfully synced!`;
-    }, 4000);
 </script>
 
 </body>
