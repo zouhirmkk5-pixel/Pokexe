@@ -2,156 +2,209 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokémon Champions | Master the Battle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Champion Battles | Claim Your Rewards</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #020408; color: #fff; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .neon-blue { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
-        .neon-red { box-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
-        .hero-gradient { background: radial-gradient(circle at center, rgba(37, 99, 235, 0.15) 0%, rgba(2, 4, 8, 1) 70%); }
-        .animate-float { animation: float 6s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        :root {
+            --primary-blue: #00d2ff;
+            --primary-red: #ff0055;
+            --dark-bg: #030712;
+        }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--dark-bg); 
+            color: white; 
+            -webkit-tap-highlight-color: transparent;
+        }
+        .font-gaming { font-family: 'Orbitron', sans-serif; }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+        }
+
+        .glow-blue { box-shadow: 0 0 20px rgba(0, 210, 255, 0.3); }
+        .glow-red { box-shadow: 0 0 20px rgba(255, 0, 85, 0.4); }
+        
+        .shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .cta-pulse {
+            animation: pulse-red 2s infinite;
+        }
+        @keyframes pulse-red {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 85, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 0, 85, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 85, 0); }
+        }
     </style>
 </head>
-<body class="overflow-x-hidden">
+<body class="antialiased">
 
-    <nav class="fixed w-full z-50 glass px-6 py-4 flex justify-between items-center">
+    <nav class="fixed top-0 w-full z-50 px-4 py-3 glass-card rounded-none border-t-0 border-x-0 flex justify-between items-center">
         <div class="flex items-center gap-2">
-            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center neon-blue">
-                <div class="w-3 h-3 bg-white rounded-full"></div>
-            </div>
-            <span class="font-black tracking-tighter text-xl uppercase">Pokémon <span class="text-blue-500">Champions</span></span>
+            <div class="w-2 h-2 bg-red-500 rounded-full animate-ping"></div>
+            <span class="font-gaming font-black text-sm tracking-tighter italic">CHAMPION <span class="text-blue-400">BATTLES</span></span>
         </div>
-        <div class="hidden md:flex gap-8 text-xs font-bold tracking-widest uppercase text-gray-400">
-            <a href="#" class="hover:text-white transition">Battle Pass</a>
-            <a href="#" class="hover:text-white transition">Ranked</a>
-            <a href="#" class="hover:text-white transition">Pokémon</a>
-            <a href="#" class="hover:text-white transition">News</a>
+        <div class="flex items-center gap-2 bg-black/40 px-3 py-1 rounded-full border border-white/10">
+            <i data-lucide="users" class="w-3 h-3 text-blue-400"></i>
+            <span class="text-[10px] font-bold uppercase tracking-tighter">14.2k Online</span>
         </div>
-        <button class="bg-white text-black px-6 py-2 rounded-full text-xs font-black hover:bg-blue-500 hover:text-white transition">PLAY NOW</button>
     </nav>
 
-    <header class="relative h-screen flex items-center justify-center text-center px-4 hero-gradient">
-        <div class="absolute inset-0 z-0 opacity-40">
-            <img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=2070" class="w-full h-full object-cover" alt="Background">
-        </div>
+    <section class="relative pt-24 pb-12 px-6 text-center overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-gradient-to-b from-blue-600/20 to-transparent -z-10 blur-3xl"></div>
         
-        <div class="relative z-10 max-w-5xl">
-            <h1 class="text-6xl md:text-9xl font-black italic tracking-tighter uppercase leading-none">
-                Master the <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-400 to-red-500">Ultimate Battle</span>
-            </h1>
-            <p class="mt-6 text-gray-400 tracking-[0.3em] uppercase text-sm font-light">The Global Competitive Standard Has Arrived</p>
-            <div class="mt-12 flex flex-col md:flex-row gap-6 justify-center">
-                <button class="px-12 py-5 bg-red-600 font-black text-lg rounded-sm skew-x-[-12deg] hover:bg-red-500 transition neon-red">
-                    <span class="inline-block skew-x-[12deg]">BATTLE NOW</span>
-                </button>
-                <button class="px-12 py-5 glass font-black text-lg rounded-sm skew-x-[-12deg] hover:bg-white/10 transition">
-                    <span class="inline-block skew-x-[12deg]">VIEW TRAILER</span>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <section class="py-24 px-6 max-w-7xl mx-auto">
-        <div class="mb-16">
-            <h2 class="text-3xl font-black italic uppercase border-l-4 border-blue-600 pl-4">Season Rewards</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div class="glass p-8 rounded-xl group hover:border-blue-500/50 transition">
-                <i data-lucide="zap" class="text-yellow-400 mb-4"></i>
-                <h3 class="text-xl font-bold mb-2">Victory Points</h3>
-                <p class="text-gray-500 text-sm">Climb the ladder and earn VP to unlock exclusive Master Tier skins.</p>
-            </div>
-            <div class="glass p-8 rounded-xl group hover:border-red-500/50 transition">
-                <i data-lucide="trophy" class="text-blue-400 mb-4"></i>
-                <h3 class="text-xl font-bold mb-2">Grand Slam</h3>
-                <p class="text-gray-500 text-sm">Top 500 players globally receive physical invite-only medals.</p>
-            </div>
-            <div class="glass p-8 rounded-xl">
-                <i data-lucide="gift" class="text-purple-400 mb-4"></i>
-                <h3 class="text-xl font-bold mb-2">Mystery Gifts</h3>
-                <p class="text-gray-500 text-sm">Scan the weekly QR code for limited-edition Tera Shards.</p>
-            </div>
-            <div class="glass p-8 rounded-xl">
-                <i data-lucide="shield-check" class="text-green-400 mb-4"></i>
-                <h3 class="text-xl font-bold mb-2">Battle Pass</h3>
-                <p class="text-gray-500 text-sm">100 tiers of content including Legendary trainer outfits.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-[#05070a] border-y border-white/5">
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-            <div class="order-2 md:order-1">
-                <div class="relative">
-                    <div class="absolute -inset-4 bg-blue-600/20 blur-3xl"></div>
-                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=1000" class="relative rounded-2xl border border-white/10 shadow-2xl" alt="Gameplay">
-                </div>
-            </div>
-            <div class="order-1 md:order-2">
-                <h2 class="text-5xl font-black italic uppercase leading-tight mb-8">Real-Time <br><span class="text-blue-500">4K Arena Combat</span></h2>
-                <div class="space-y-6">
-                    <div class="flex gap-4">
-                        <div class="w-12 h-12 glass rounded-lg flex items-center justify-center shrink-0"><i data-lucide="cpu"></i></div>
-                        <div>
-                            <h4 class="font-bold uppercase tracking-wide">Next-Gen Engine</h4>
-                            <p class="text-gray-400 text-sm leading-relaxed">Built on the Volt-Engine for zero-latency turn transitions and stunning 120FPS battles.</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-4">
-                        <div class="w-12 h-12 glass rounded-lg flex items-center justify-center shrink-0"><i data-lucide="users"></i></div>
-                        <div>
-                            <h4 class="font-bold uppercase tracking-wide">Cross-Platform Sync</h4>
-                            <p class="text-gray-400 text-sm leading-relaxed">Start your battle on Mobile, finish it on your PC or Console with full account parity.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-32 relative flex justify-center text-center">
-        <div class="max-w-3xl px-6">
-            <h2 class="text-4xl md:text-6xl font-black italic uppercase mb-12">The League Starts In</h2>
-            <div class="flex justify-center gap-8 mb-16">
-                <div>
-                    <span class="block text-5xl font-black text-blue-500">03</span>
-                    <span class="text-xs uppercase tracking-widest text-gray-500">Days</span>
-                </div>
-                <div class="text-5xl font-black text-gray-700">:</div>
-                <div>
-                    <span class="block text-5xl font-black text-blue-500">14</span>
-                    <span class="text-xs uppercase tracking-widest text-gray-500">Hours</span>
-                </div>
-                <div class="text-5xl font-black text-gray-700">:</div>
-                <div>
-                    <span class="block text-5xl font-black text-blue-500">42</span>
-                    <span class="text-xs uppercase tracking-widest text-gray-500">Mins</span>
-                </div>
-            </div>
-            <button class="w-full md:w-auto px-16 py-6 bg-white text-black font-black text-2xl uppercase rounded-full hover:bg-blue-600 hover:text-white transition-all scale-105 hover:scale-110">
-                JOIN THE CHAMPIONS LEAGUE
+        <h1 class="font-gaming text-4xl font-black italic uppercase leading-none tracking-tighter mb-4">
+            Enter the <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">Ultimate Arena</span>
+        </h1>
+        
+        <p class="text-gray-400 text-sm font-medium mb-8">Compete, rank up, and unlock <span class="text-white underline decoration-blue-500">exclusive rewards</span>.</p>
+        
+        <div class="relative inline-block w-full max-w-xs">
+            <button onclick="scrollToRewards()" class="shimmer cta-pulse w-full py-5 bg-gradient-to-r from-red-600 to-red-500 rounded-xl font-gaming font-black text-xl italic tracking-wide shadow-xl border-b-4 border-red-800 active:border-b-0 active:translate-y-1 transition-all">
+                START PLAYING NOW
             </button>
         </div>
+
+        <div class="mt-12 relative mx-auto max-w-[280px]">
+            <img src="https://via.placeholder.com/600x800/030712/FFFFFF?text=3D+Monster+Battle+Render" alt="Game Preview" class="rounded-2xl border border-white/10 glow-blue">
+            <div class="absolute -bottom-4 -right-4 bg-blue-600 p-3 rounded-lg glass-card font-gaming text-[10px]">RANK: MASTER</div>
+        </div>
     </section>
 
-    <footer class="py-12 border-t border-white/5 text-center text-gray-600 text-[10px] uppercase tracking-widest px-6">
-        <p>© 2026 Pokémon Champions. TM, ® Nintendo / Creatures Inc. / GAME FREAK inc.</p>
-        <div class="flex justify-center gap-6 mt-4">
-            <a href="#" class="hover:text-white">Privacy Policy</a>
-            <a href="#" class="hover:text-white">Terms of Use</a>
-            <a href="#" class="hover:text-white">Support</a>
+    <section id="rewards" class="py-12 px-4 bg-[#050914]">
+        <div class="text-center mb-8">
+            <h2 class="font-gaming text-xl font-bold italic text-blue-400 uppercase tracking-widest underline decoration-2 underline-offset-8">Available Rewards</h2>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+            <div class="glass-card p-4 text-center border-blue-500/30 glow-blue animate-pulse">
+                <div class="bg-blue-500/20 w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <i data-lucide="zap" class="text-blue-400"></i>
+                </div>
+                <div class="text-[10px] text-gray-400 font-bold uppercase">Victory Points</div>
+                <div class="text-sm font-black text-white">UNLIMITED</div>
+            </div>
+            <div class="glass-card p-4 text-center border-purple-500/30">
+                <div class="bg-purple-500/20 w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <i data-lucide="layers" class="text-purple-400"></i>
+                </div>
+                <div class="text-[10px] text-gray-400 font-bold uppercase">Battle Pass</div>
+                <div class="text-sm font-black text-white">SEASON 1</div>
+            </div>
+            <div class="glass-card p-4 text-center border-yellow-500/30 shimmer">
+                <div class="bg-yellow-500/20 w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <i data-lucide="package" class="text-yellow-400"></i>
+                </div>
+                <div class="text-[10px] text-gray-400 font-bold uppercase">Mystery Gift</div>
+                <div class="text-sm font-black text-white italic">LOCKED</div>
+            </div>
+            <div class="glass-card p-4 text-center border-red-500/30">
+                <div class="bg-red-500/20 w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <i data-lucide="trophy" class="text-red-400"></i>
+                </div>
+                <div class="text-[10px] text-gray-400 font-bold uppercase">Legendary Skins</div>
+                <div class="text-sm font-black text-white">FREE CLAIM</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-8 px-6 bg-gradient-to-r from-red-950/40 to-transparent border-y border-red-500/20">
+        <div class="flex flex-col items-center">
+            <span class="text-red-500 font-black tracking-widest text-[10px] uppercase mb-2">Offer Expires In:</span>
+            <div class="flex gap-4 font-gaming text-3xl font-black italic">
+                <div id="min">09</div>
+                <div class="text-red-500">:</div>
+                <div id="sec">54</div>
+            </div>
+            <p class="text-[10px] text-gray-500 mt-4 text-center uppercase tracking-tighter">Current rewards available for the next <span class="text-white">400 players</span> only.</p>
+        </div>
+    </section>
+
+    <section class="py-16 px-6 space-y-12">
+        <div class="flex items-center gap-6">
+            <div class="w-24 h-24 shrink-0 rounded-xl bg-blue-900/40 border border-blue-500/30 flex items-center justify-center">
+                <i data-lucide="swords" class="w-10 h-10 text-blue-400"></i>
+            </div>
+            <div>
+                <h3 class="font-gaming font-bold text-lg leading-none mb-2 text-blue-400">REAL-TIME PVP</h3>
+                <p class="text-xs text-gray-400 leading-tight">Zero-latency turn-based combat against global champions.</p>
+            </div>
+        </div>
+        
+        <div class="flex items-center gap-6 flex-row-reverse">
+            <div class="w-24 h-24 shrink-0 rounded-xl bg-red-900/40 border border-red-500/30 flex items-center justify-center">
+                <i data-lucide="globe" class="w-10 h-10 text-red-400"></i>
+            </div>
+            <div class="text-right">
+                <h3 class="font-gaming font-bold text-lg leading-none mb-2 text-red-400">GLOBAL RANKING</h3>
+                <p class="text-xs text-gray-400 leading-tight">Climb from Bronze to Champion and dominate the leaderboard.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-6 text-center glass-card m-4 border-2 border-blue-500/40 glow-blue">
+        <h2 class="font-gaming text-2xl font-black italic leading-tight mb-4">JOIN NOW & CLAIM<br>YOUR REWARDS</h2>
+        <p class="text-xs text-gray-400 mb-8 font-semibold">Join 48,209+ players currently in the League.</p>
+        
+        <button class="shimmer w-full py-6 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full font-gaming font-black text-xl italic shadow-[0_0_30px_rgba(37,99,235,0.5)] transform active:scale-95 transition-all">
+            UNLOCK EVERYTHING
+        </button>
+        
+        <div class="mt-6 flex justify-center gap-4 opacity-50 grayscale scale-75">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" class="h-10">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" class="h-10">
+        </div>
+    </section>
+
+    <footer class="py-12 px-6 text-center border-t border-white/5">
+        <p class="text-[9px] text-gray-600 uppercase tracking-[0.2em] mb-4">© 2026 Champion Battles Gaming Inc. <br> This is a promotional landing page. No monster was harmed.</p>
+        <div class="flex justify-center gap-4 text-[10px] text-gray-500 font-bold uppercase">
+            <span>Privacy</span>
+            <span>Terms</span>
+            <span>Support</span>
         </div>
     </footer>
 
     <script>
-        // Initialize Lucide icons
+        // Initialize Icons
         lucide.createIcons();
+
+        // Simple Countdown Logic
+        let m = 9;
+        let s = 59;
+        setInterval(() => {
+            if (s === 0) { m--; s = 59; }
+            else { s--; }
+            document.getElementById('min').innerText = m < 10 ? '0' + m : m;
+            document.getElementById('sec').innerText = s < 10 ? '0' + s : s;
+        }, 1000);
+
+        function scrollToRewards() {
+            document.getElementById('rewards').scrollIntoView({ behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
