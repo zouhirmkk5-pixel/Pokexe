@@ -3,263 +3,279 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Official Pokémon Global Distribution</title>
+    <title>Pokémon Champions 2026 - Official Distribution</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;500;800&display=swap');
+
+        :root {
+            --primary: #00f2ff;
+            --accent: #ff007a;
+            --gold: #ffcc00;
+            --glass-bg: rgba(13, 18, 33, 0.95);
+            --neon-glow: 0 0 15px rgba(0, 242, 255, 0.5);
+        }
 
         body {
-            background: #f0f2f5;
-            color: #333;
-            font-family: 'Roboto', sans-serif;
+            background: #02050a;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
+            background: radial-gradient(circle at top, #0a152b 0%, #02050a 100%);
+        }
+
+        /* Background Decor */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        nav {
+            padding: 20px 5%;
             display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 242, 255, 0.2);
+            backdrop-filter: blur(10px);
         }
 
-        header {
-            background: #fff;
-            padding: 20px 0;
-            text-align: center;
-            border-bottom: 2px solid #ffcb05;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .official-logo {
-            width: 180px;
-        }
+        .logo-nav { width: 130px; filter: drop-shadow(0 0 8px var(--primary)); }
 
         .container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 0 20px;
-            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 20px;
         }
 
         .main-card {
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            padding: 30px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(0, 242, 255, 0.15);
+            border-radius: 35px;
+            width: 100%;
+            max-width: 500px;
+            padding: 45px 30px;
+            box-shadow: 0 30px 70px rgba(0,0,0,1), inset 0 0 20px rgba(0, 242, 255, 0.05);
+            position: relative;
             text-align: center;
         }
 
-        h1 {
-            font-size: 1.4rem;
-            color: #2a75bb;
-            margin-bottom: 10px;
+        .badge-status {
+            background: rgba(255, 0, 122, 0.15);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            font-size: 0.6rem;
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-weight: 900;
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
-        p.subtitle {
-            color: #666;
-            font-size: 0.95rem;
-            margin-bottom: 30px;
-        }
+        h2 { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px; margin-top: 30px; }
+        p.subtitle { color: #888; font-size: 0.85rem; margin-bottom: 35px; }
 
-        .trainer-input-group {
-            margin-bottom: 25px;
-            text-align: left;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
-            color: #444;
-            font-size: 0.9rem;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 1rem;
-            box-sizing: border-box;
-            outline: none;
-        }
-
-        input:focus {
-            border-color: #2a75bb;
-        }
-
-        .grid-rewards {
+        .grid-resources {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 20px;
+            margin-bottom: 40px;
         }
 
-        .reward-item {
-            border: 2px solid #eee;
-            border-radius: 10px;
-            padding: 15px;
+        .resource-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 25px;
+            padding: 25px 15px;
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .reward-item:hover {
-            background: #f9f9f9;
+        .resource-box:hover, .resource-box.active {
+            border-color: var(--primary);
+            background: rgba(0, 242, 255, 0.08);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 242, 255, 0.2);
         }
 
-        .reward-item.active {
-            border-color: #2a75bb;
-            background: #f0f7ff;
+        /* Tsawr b links s7a7 u hqi9iyen */
+        .resource-box img {
+            width: 75px;
+            height: 75px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
         }
 
-        .reward-item img {
-            width: 50px;
-            height: 50px;
-            margin-bottom: 10px;
-        }
+        .resource-box span { display: block; font-weight: 900; font-size: 1.2rem; font-family: 'Orbitron'; }
+        .resource-box small { color: var(--primary); font-size: 0.75rem; text-transform: uppercase; font-weight: 800; }
 
-        .reward-item span {
-            display: block;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .reward-item small {
-            color: #777;
-        }
-
-        .btn-official {
-            background: #2a75bb;
+        .btn-generate {
+            background: linear-gradient(135deg, #00f2ff, #7000ff);
             color: #fff;
-            border: none;
             width: 100%;
-            padding: 15px;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            padding: 22px;
+            border: none;
+            border-radius: 20px;
+            font-weight: 900;
+            font-size: 1.3rem;
             cursor: pointer;
-            margin-top: 30px;
+            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+            box-shadow: 0 10px 30px rgba(112, 0, 255, 0.4);
             transition: 0.3s;
         }
 
-        .btn-official:hover {
-            background: #3c5aa6;
+        .btn-generate:hover { transform: scale(1.02); box-shadow: 0 15px 40px rgba(112, 0, 255, 0.6); }
+
+        .live-feed {
+            margin-top: 30px;
+            background: rgba(0,0,0,0.7);
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            border: 1px solid rgba(0, 242, 255, 0.1);
         }
 
         .hidden { display: none; }
 
-        .loading-spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #2a75bb;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
+        /* Step Animations */
+        .fade-in { animation: fadeIn 0.5s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            font-size: 0.8rem;
-            color: #888;
+        .loader {
+            width: 60px; height: 60px; border: 4px solid #111; border-top: 4px solid var(--primary);
+            border-radius: 50%; animation: spin 1s linear infinite; margin: 30px auto;
         }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-<header>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" class="official-logo" alt="Pokémon">
-</header>
+<nav>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" class="logo-nav">
+    <div style="font-size: 0.75rem; color: #2ecc71; font-weight: bold;">● SECURE SYNC</div>
+</nav>
 
 <div class="container">
     <div class="main-card">
-        <div id="step-1">
-            <h1>Global Distribution Event</h1>
-            <p class="subtitle">Enter your Trainer ID to link your account.</p>
-            
-            <div class="trainer-input-group">
-                <label>Trainer Username</label>
-                <input type="text" id="username" placeholder="e.g. AshKetchum123">
-            </div>
+        <div class="badge-status">v9.4.1 PROTECTED</div>
+        
+        <div id="step-selection" class="fade-in">
+            <h2>SELECT RESOURCES</h2>
+            <p class="subtitle">Select the distribution pack for your region.</p>
 
-            <div class="trainer-input-group">
-                <label>Select Platform</label>
-                <select id="platform">
-                    <option value="ios">Nintendo Switch</option>
-                    <option value="android">iOS / Android</option>
-                </select>
-            </div>
-
-            <button class="btn-official" onclick="nextStep()">Link Account</button>
-        </div>
-
-        <div id="step-2" class="hidden">
-            <h1>Select Reward Pack</h1>
-            <p class="subtitle">Season 12 limited distribution.</p>
-            
-            <div class="grid-rewards">
-                <div class="reward-item active" onclick="selectItem(this, '50,000 VP')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg">
+            <div class="grid-resources">
+                <div class="resource-box active" onclick="selectItem(this, '50,000 Victory Points')">
+                    <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png" style="display:none"> <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" style="transform: scale(2);">
                     <span>50,000</span>
                     <small>Victory Points</small>
                 </div>
-                <div class="reward-item" onclick="selectItem(this, '10,000 Gems')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Diamond_icon_flat.svg">
+
+                <div class="resource-box" onclick="selectItem(this, '10,000 Champion Gems')">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/max-revive.png" style="transform: scale(2);">
                     <span>10,000</span>
                     <small>Champion Gems</small>
                 </div>
+
+                <div class="resource-box" onclick="selectItem(this, 'S12 Battle Pass')">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/eon-ticket.png" style="transform: scale(2);">
+                    <span>S12</span>
+                    <small>Elite Battle Pass</small>
+                </div>
+
+                <div class="resource-box" onclick="selectItem(this, 'Omni Evolution Stone')">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sun-stone.png" style="transform: scale(2);">
+                    <span>OMNI</span>
+                    <small>Evolution Stone</small>
+                </div>
             </div>
 
-            <button class="btn-official" onclick="startLoading()">Claim Rewards</button>
+            <button class="btn-generate" onclick="startSync()">GENERATE PACK</button>
         </div>
 
-        <div id="step-loading" class="hidden">
-            <div class="loading-spinner"></div>
-            <p id="loading-text">Connecting to Game Server...</p>
+        <div id="step-sync" class="hidden fade-in">
+            <h2 style="color: var(--primary);">SYNCING ASSETS</h2>
+            <div class="loader"></div>
+            <p id="status-txt" style="color: #888;">Connecting to Global Server...</p>
+            <div style="width: 100%; height: 6px; background: #111; border-radius: 10px; margin-top: 20px; overflow: hidden;">
+                <div id="progress-bar" style="width: 0%; height: 100%; background: var(--primary); transition: 0.3s; box-shadow: 0 0 10px var(--primary);"></div>
+            </div>
         </div>
 
-        <div id="step-verify" class="hidden">
-            <i class="fas fa-user-check" style="font-size: 3rem; color: #2a75bb; margin-bottom: 20px;"></i>
-            <h1>Action Required</h1>
-            <p class="subtitle">To prevent automated abuse, please complete a quick security check to finalize the transfer.</p>
-            <button class="btn-official" style="background: #e3350d;" onclick="window.location.href='YOUR_LINK'">Verify Identity</button>
+        <div id="step-final" class="hidden fade-in">
+            <h2 style="color: var(--accent);">VERIFICATION</h2>
+            <p style="color: #ccc; font-size: 0.9rem;">To finalize the transfer of <br><b id="selected-res" style="color: var(--primary);">...</b><br> please complete one secure offer.</p>
+            
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 25px; border: 2px dashed var(--primary); margin: 30px 0;">
+                <i class="fas fa-shield-alt" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
+                <p style="font-weight: 800; font-size: 1rem;">Human Verification Required</p>
+                <button class="btn-generate" style="background: var(--accent); margin-top: 15px;" onclick="window.location.href='YOUR_LOCKER_LINK_HERE'">VERIFY NOW</button>
+            </div>
+        </div>
+
+        <div class="live-feed">
+            <i class="fas fa-bolt" style="margin-right: 10px;"></i>
+            <span id="feed-text">Trainer Sarah_Elite successfully synced Omni Stone!</span>
         </div>
     </div>
 </div>
 
-<footer>
-    ©2026 Pokémon. ©1995–2026 Nintendo/Creatures Inc./GAME FREAK inc.<br>
-    TM, ®, and character names are trademarks of Nintendo.
-</footer>
-
 <script>
-    function nextStep() {
-        if(document.getElementById('username').value.length < 3) return alert('Invalid Username');
-        document.getElementById('step-1').classList.add('hidden');
-        document.getElementById('step-2').classList.remove('hidden');
-    }
+    let currentSelection = "50,000 Victory Points";
 
-    function selectItem(el) {
-        document.querySelectorAll('.reward-item').forEach(i => i.classList.remove('active'));
+    function selectItem(el, name) {
+        document.querySelectorAll('.resource-box').forEach(b => b.classList.remove('active'));
         el.classList.add('active');
+        currentSelection = name;
     }
 
-    function startLoading() {
-        document.getElementById('step-2').classList.add('hidden');
-        document.getElementById('step-loading').classList.remove('hidden');
+    function startSync() {
+        document.getElementById('step-selection').classList.add('hidden');
+        document.getElementById('step-sync').classList.remove('hidden');
+        document.getElementById('selected-res').innerText = currentSelection;
+
+        let progress = 0;
+        let logs = ['Establishing Link...', 'Finding Trainer UID...', 'Injecting Resource Pack...', 'Bypassing Firewalls...', 'Finalizing Sync...'];
         
-        const texts = ['Syncing Trainer Data...', 'Checking Region Eligibility...', 'Preparing Asset Transfer...', 'Ready!'];
-        let i = 0;
-        const interval = setInterval(() => {
-            document.getElementById('loading-text').innerText = texts[i];
-            i++;
-            if(i >= texts.length) {
+        let interval = setInterval(() => {
+            progress += Math.floor(Math.random() * 5) + 2;
+            if(progress > 100) progress = 100;
+            
+            document.getElementById('progress-bar').style.width = progress + '%';
+            document.getElementById('status-txt').innerText = logs[Math.floor(progress/21)] || 'Ready!';
+
+            if(progress >= 100) {
                 clearInterval(interval);
-                document.getElementById('step-loading').classList.add('hidden');
-                document.getElementById('step-verify').classList.remove('hidden');
+                setTimeout(() => {
+                    document.getElementById('step-sync').classList.add('hidden');
+                    document.getElementById('step-final').classList.remove('hidden');
+                }, 800);
             }
-        }, 1500);
+        }, 150);
     }
+
+    // Live Feed Simulation
+    const users = ['Ghost_26', 'PokeMaster_USA', 'Elite_Trainer', 'Sara_PKM', 'Misty_Vibe'];
+    const items = ['Victory Points', 'Champion Gems', 'Elite Pass', 'Omni Stone'];
+    
+    setInterval(() => {
+        let u = users[Math.floor(Math.random()*users.length)];
+        let i = items[Math.floor(Math.random()*items.length)];
+        document.getElementById('feed-text').innerText = `Trainer ${u} successfully synced ${i}!`;
+    }, 5000);
 </script>
 
 </body>
