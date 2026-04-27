@@ -123,6 +123,16 @@
             width: 70px; 
             margin-bottom: 10px; 
             filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Fixed Glow for specific items */
+        .vp-img { filter: drop-shadow(0 0 15px var(--gold)) !important; }
+        .omni-img { filter: hue-rotate(280deg) drop-shadow(0 0 15px var(--accent)) !important; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
 
         .reward-card span { display: block; font-weight: 900; font-size: 1.2rem; color: #fff; }
@@ -238,7 +248,7 @@
             <h3 style="margin-bottom: 20px; font-size: 1rem;">2. SELECT ASSETS</h3>
             <div class="grid-rewards">
                 <div class="reward-card" onclick="selectReward(this, '50,000 VP')">
-                    <img src="https://vignette.wikia.nocookie.net/pokemon/images/c/c7/Pok%C3%A9_Dollar.png" alt="VP">
+                    <img src="https://vignette.wikia.nocookie.net/pokemon/images/c/c7/Pok%C3%A9_Dollar.png" alt="VP" class="vp-img">
                     <span>50,000</span>
                     <small>Victory Points</small>
                 </div>
@@ -253,7 +263,7 @@
                     <small>Elite Battle Pass</small>
                 </div>
                 <div class="reward-card" onclick="selectReward(this, 'Omni Stone')">
-                    <img src="https://archives.bulbagarden.net/media/upload/c/cf/Dream_Key_Stone_Sprite.png" alt="Stone">
+                    <img src="https://archives.bulbagarden.net/media/upload/c/cf/Dream_Key_Stone_Sprite.png" alt="Stone" class="omni-img">
                     <span>OMNI</span>
                     <small>Evolution Stone</small>
                 </div>
