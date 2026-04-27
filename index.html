@@ -23,7 +23,7 @@
             padding: 0;
             overflow-x: hidden;
             background: linear-gradient(rgba(2, 5, 10, 0.9), rgba(2, 5, 10, 0.9)), 
-                        url('https://upload.wikimedia.org/wikipedia/commons/b/b5/City_Night_Lights.jpg'); /* Real Night City BG */
+                        url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=2070&auto=format&fit=crop'); /* Professional Abstract BG */
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
@@ -87,9 +87,7 @@
             margin-bottom: 15px;
             box-sizing: border-box;
             outline: none;
-            transition: 0.3s;
         }
-        .input-ui:focus { box-shadow: 0 0 15px var(--primary); }
 
         .grid-rewards {
             display: grid;
@@ -102,7 +100,7 @@
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            padding: 18px 10px;
+            padding: 20px 10px;
             cursor: pointer;
             transition: 0.3s;
             display: flex;
@@ -110,27 +108,25 @@
             align-items: center;
         }
 
-        .reward-card:hover, .reward-card.active {
+        .reward-card.active {
             border-color: var(--primary);
             background: rgba(0, 242, 255, 0.1);
             transform: translateY(-5px);
         }
 
+        /* Iṣlaḥ l-images - Direct SVG icons */
         .reward-card img { 
-            width: 65px; 
-            height: 65px;
+            width: 70px; 
+            height: 70px;
             object-fit: contain;
             margin-bottom: 12px; 
-            filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
         }
-
-        .reward-card span { display: block; font-weight: 800; font-size: 0.8rem; color: #fff; line-height: 1.2; }
 
         .btn-action {
             background: linear-gradient(to right, var(--primary), #00a2ff);
             color: #000;
             width: 100%;
-            padding: 20px;
+            padding: 22px;
             border: none;
             border-radius: 15px;
             font-weight: 900;
@@ -138,7 +134,6 @@
             cursor: pointer;
             text-transform: uppercase;
             font-family: 'Orbitron', sans-serif;
-            box-shadow: 0 10px 20px rgba(0, 242, 255, 0.3);
         }
 
         .hidden { display: none; }
@@ -165,44 +160,42 @@
 <nav>
     <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" class="logo-nav">
     <div style="font-size: 0.7rem; text-align: right;">
-        <span style="color: #2ecc71;">● SYNC ACTIVE</span><br>
-        <span style="color: #aaa;">USA-SECURE-LINE</span>
+        <span style="color: #2ecc71;">● SYNC ACTIVE</span>
     </div>
 </nav>
 
 <div class="container">
     <div class="main-card">
-        <div class="badge-live">v4.2 PRO</div>
+        <div class="badge-live">v4.2 SECURED</div>
         
         <div id="ui-step1">
             <h2 style="margin-top: 40px; color: var(--primary);">Global Distribution</h2>
-            <p style="color:#aaa; font-size: 0.85rem; margin-bottom: 25px;">Enter Trainer Username to connect</p>
             <input type="text" class="input-ui" id="trainer-name" placeholder="Trainer Username...">
-            <select class="input-ui">
-                <option>Platform: iOS / Android</option>
-                <option>Platform: Nintendo Switch</option>
-            </select>
             <button class="btn-action" onclick="toStep2()">Secure Connection</button>
         </div>
 
         <div id="ui-step2" class="hidden">
-            <h3 style="margin-bottom: 20px; font-size: 0.9rem;">Choose Assets to Sync</h3>
+            <h3 style="margin-bottom: 20px; font-size: 0.9rem;">2. SELECT ASSETS</h3>
             <div class="grid-rewards">
-                <div class="reward-card active" onclick="selectReward(this, 'Champion Gems')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Diamond_icon_flat.svg">
-                    <span>Champion Gems</span>
+                <div class="reward-card active" onclick="selectReward(this, '50,000 VP')">
+                    <img src="https://www.svgrepo.com/show/271164/pokeball-pokemon.svg">
+                    <span style="display:block; font-weight:900;">50,000</span>
+                    <small style="color:var(--primary); font-size:0.7rem;">Victory Points</small>
                 </div>
-                <div class="reward-card" onclick="selectReward(this, 'Battle Coins')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Circle-icons-gold-coin.svg">
-                    <span>Battle Coins</span>
+                <div class="reward-card" onclick="selectReward(this, '10,000 Gems')">
+                    <img src="https://www.svgrepo.com/show/422280/diamond-gem-jewel.svg">
+                    <span style="display:block; font-weight:900;">10,000</span>
+                    <small style="color:var(--primary); font-size:0.7rem;">Champion Gems</small>
                 </div>
-                <div class="reward-card" onclick="selectReward(this, 'Elite Trainer Pack')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Briefcase_Flat_Icon.svg">
-                    <span>Elite Trainer Pack</span>
+                <div class="reward-card" onclick="selectReward(this, 'Elite Pass')">
+                    <img src="https://www.svgrepo.com/show/305545/ticket.svg" style="filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(162deg) brightness(118%) contrast(119%);">
+                    <span style="display:block; font-weight:900;">S12</span>
+                    <small style="color:var(--primary); font-size:0.7rem;">Elite Battle Pass</small>
                 </div>
-                <div class="reward-card" onclick="selectReward(this, 'Legendary Unlock')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg" style="filter: hue-rotate(280deg) brightness(1.3);">
-                    <span>Legendary Unlock</span>
+                <div class="reward-card" onclick="selectReward(this, 'Omni Stone')">
+                    <img src="https://www.svgrepo.com/show/440552/evolution-stone.svg">
+                    <span style="display:block; font-weight:900;">OMNI</span>
+                    <small style="color:var(--primary); font-size:0.7rem;">Evolution Stone</small>
                 </div>
             </div>
             <button class="btn-action" onclick="toStep3()">Initiate Generator</button>
@@ -218,11 +211,9 @@
 
         <div id="ui-locker" class="hidden">
             <h3 style="color: var(--accent);">Final Verification</h3>
-            <p style="font-size: 0.85rem; color: #ccc;">Your request for <span id="summary-res" style="color: var(--primary); font-weight:bold;">...</span> is ready. Complete one task to finalize.</p>
+            <p style="font-size: 0.85rem; color: #ccc;">Syncing: <span id="summary-res" style="color: var(--primary); font-weight:bold;">...</span></p>
             <div style="background: rgba(0, 242, 255, 0.05); padding: 25px; border: 2px dashed var(--primary); border-radius: 20px; margin: 20px 0;">
-                <i class="fas fa-user-shield" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 10px;"></i>
-                <p style="font-weight: 800; font-size: 0.9rem;">Human Verification Required</p>
-                <button class="btn-action" style="margin-top:15px; background: var(--accent); color:#fff;" onclick="window.location.href='YOUR_LINK_HERE'">Verify Now</button>
+                <button class="btn-action" onclick="window.location.href='YOUR_LINK_HERE'">Verify Now</button>
             </div>
         </div>
 
@@ -233,11 +224,10 @@
 </div>
 
 <script>
-    let selectedItem = "Champion Gems";
+    let selectedItem = "50,000 VP";
 
     function toStep2() {
-        const name = document.getElementById('trainer-name').value;
-        if(name.length < 3) return alert('Enter a valid Trainer Name');
+        if(document.getElementById('trainer-name').value.length < 3) return alert('Enter Trainer Name');
         document.getElementById('ui-step1').classList.add('hidden');
         document.getElementById('ui-step2').classList.remove('hidden');
     }
@@ -252,15 +242,10 @@
         document.getElementById('ui-step2').classList.add('hidden');
         document.getElementById('ui-sync').classList.remove('hidden');
         document.getElementById('summary-res').innerText = selectedItem;
-        
         let progress = 0;
-        const steps = ['Authenticating...', 'Finding UID...', 'Injecting Packets...', 'Bypassing Anti-Cheat...', 'Ready!'];
-        
         const interval = setInterval(() => {
-            progress += 4;
+            progress += 5;
             document.getElementById('progress-bar').style.width = progress + '%';
-            document.getElementById('status-text').innerText = steps[Math.floor(progress/21)] || 'SYNCING...';
-            
             if(progress >= 100) {
                 clearInterval(interval);
                 setTimeout(() => {
@@ -268,15 +253,14 @@
                     document.getElementById('ui-locker').classList.remove('hidden');
                 }, 500);
             }
-        }, 120);
+        }, 100);
     }
 
-    const trainers = ['Ash_K26', 'PokeGod_USA', 'Sara_Elite', 'Daniel_Pro', 'Volt_Hunter'];
     setInterval(() => {
+        const trainers = ['X_Slayer', 'PokeGod', 'Sara_PKM', 'Mega_Ash'];
         const t = trainers[Math.floor(Math.random()*trainers.length)];
-        const r = ['Champion Gems', 'Battle Coins', 'Elite Pack', 'Legendary Unlock'][Math.floor(Math.random()*4)];
-        document.getElementById('live-text').innerText = `Trainer \`${t}\` successfully synced ${r}!`;
-    }, 4500);
+        document.getElementById('live-text').innerText = `Trainer \`${t}\` successfully claimed reward!`;
+    }, 4000);
 </script>
 
 </body>
